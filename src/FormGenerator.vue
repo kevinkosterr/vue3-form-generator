@@ -1,5 +1,5 @@
 <script setup>
-import {ref, getCurrentInstance} from "vue";
+import { ref, getCurrentInstance } from "vue";
 import FormGroup from "./FormGroup.vue";
 
 const instance = getCurrentInstance()
@@ -7,31 +7,16 @@ const instance = getCurrentInstance()
 const props = defineProps({
   schema: Object,
   model: Object,
-  multiple: {
-    type: Boolean,
-    default: false,
-  },
-  isNewModel: {
-    type: Boolean,
-    default: false
-  },
-  tag: {
-    type: String,
-    default: 'fieldset',
-    validator: (value) => value.length > 0
-  },
-  options: {
-    type: Object,
-    default: {
-      validateAfterLoad: false,
-      validateAfterChanged: false,
-      fieldIdPrefix: "",
-      validateAsync: false,
-      validationErrorClass: "error",
-      validationSuccessClass: ""
-    }
-  }
 })
+
+/**
+ * Update form model key with its new value.
+ * @param {String} model model key to update.
+ * @param value value to set.
+ */
+const handleUpdateGeneratorModel = ({ model, value }) => {
+  props.model[model] = value
+}
 
 /** Data / Refs */
 const formGenerator = ref(instance?.proxy || null)
@@ -42,7 +27,8 @@ const formGenerator = ref(instance?.proxy || null)
   <div class="vue-form-generator" v-if="props.schema !== undefined">
     <fieldset v-if="props.schema.fields">
       <template v-for="field in props.schema.fields">
-        <form-group :form-generator="formGenerator" :field="field" :model="props.model" :options="props.options"/>
+        <form-group :form-generator="formGenerator" :field="field" :model="props.model"
+                    @update-generator-model="handleUpdateGeneratorModel"/>
       </template>
     </fieldset>
   </div>

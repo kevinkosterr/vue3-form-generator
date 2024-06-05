@@ -1,6 +1,6 @@
 <script setup>
-import { ref, computed } from 'vue'
-import { fieldText } from './fields/core'
+import {ref, computed} from 'vue'
+import { getFieldComponent } from '@/helpers'
 
 const props = defineProps({
   formGenerator: {
@@ -8,9 +8,6 @@ const props = defineProps({
     required: true
   },
   model: Object,
-  options: {
-    type: Object
-  },
   field: {
     type: Object,
     required: true
@@ -21,12 +18,13 @@ const props = defineProps({
   }
 })
 
+const emit = defineEmits(['update-generator-model'])
+
 /** Data / Refs */
 const child = ref(null)
 
-/** Methods */
-function getFieldComponent (fieldSchema) {
-  return {'text': fieldText}[fieldSchema.type]
+function onInput (value) {
+  emit('update-generator-model', { model: props.field.model, value })
 }
 
 /** Computed */
@@ -42,7 +40,7 @@ const fieldId = computed(() => {
     </label>
 
     <div class="field-wrap">
-      <component ref="child" :is="getFieldComponent(props.field)" :field="props.field"/>
+      <component ref="child" @on-input="onInput" :is="getFieldComponent(props.field)" :model="model" :field="props.field"/>
     </div>
   </div>
 </template>
