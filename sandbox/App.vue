@@ -1,5 +1,50 @@
-<script setup>
-import Form from "./components/Form.vue";
+<script>
+import FormGenerator from "@/FormGenerator.vue";
+
+export default {
+  name: 'App',
+  components: {FormGenerator},
+  data () {
+    return {
+      formData: null,
+      form: {
+        model: {
+          name: '',
+          surname: '',
+          terms: false,
+        },
+        schema: {
+          fields: [
+            {
+              name: 'name',
+              label: 'Name',
+              type: 'text',
+              model: 'name',
+              placeholder: "Write name...",
+              readonly: false,
+              required: true,
+            },
+            {
+              name: 'surname',
+              label: 'Surname',
+              type: 'text',
+              model: 'surname',
+              placeholder: "Write surname...",
+              readonly: false,
+              required: true,
+            },
+            {
+              name: 'terms',
+              label: 'Accept terms and conditions',
+              type: 'checkbox',
+              model: 'terms',
+            }
+          ]
+        }
+      }
+    }
+  }
+}
 </script>
 
 <template>
@@ -10,11 +55,10 @@ import Form from "./components/Form.vue";
     </div>
     <div class="card mt-4">
         <div class="card-side">
-          <h4 class="w-100 text-center fw-bold">Form</h4>
-          <Form/>
+          <FormGenerator :schema="form.schema" :model="form.model"/>
         </div>
         <div class="card-side">
-          <h4 class="w-100 text-center fw-bold">Data</h4>
+          <JsonViewer :value="form.model" copyable boxed sort theme="jv-dark"/>
         </div>
     </div>
   </div>
