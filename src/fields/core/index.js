@@ -1,5 +1,7 @@
-import fieldText from './fieldText.vue';
+import FieldText from './FieldText.vue';
+import FieldCheckBox from './FieldCheckbox.vue';
 
 export {
-  fieldText,
+  FieldText,
+  FieldCheckBox
 }
