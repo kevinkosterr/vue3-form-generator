@@ -16,5 +16,7 @@
     "vue": "^3.4.21",
     "vue3-json-viewer": "^2.2.2"
   },
-  "dependencies": {}
+  "dependencies": {
+    "zxcvbn": "^4.4.2"
+  }
 }

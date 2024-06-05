@@ -24,16 +24,18 @@ const formGenerator = ref(instance?.proxy || null)
 </script>
 
 <template>
-  <div class="vue-form-generator" v-if="props.schema !== undefined">
+  <form class="vue-form-generator" v-if="props.schema !== undefined">
     <fieldset v-if="props.schema.fields">
       <template v-for="field in props.schema.fields">
         <form-group :form-generator="formGenerator" :field="field" :model="props.model"
                     @update-generator-model="handleUpdateGeneratorModel"/>
       </template>
     </fieldset>
-  </div>
+  </form>
 </template>
 
 <style>
-
+.vue-form-generator input:not([type='checkbox']) {
+  width: 100%;
+}
 </style>
