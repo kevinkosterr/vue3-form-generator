@@ -1,2 +1,30 @@
 @import 'base.css';
 
+#main-title {
+    background: linear-gradient(135deg, #42d392, #45ae7a);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+#main-container {
+    margin-top: 1rem;
+    margin-bottom: 1rem;
+}
+
+.jv-container {
+    height: 100%;
+    overflow-y: auto;
+    border: none !important;
+    background-color: #373737;
+}
+
+.card {
+    min-height: 80vh;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    background-color: #2e2e2e;
+}
+
+.card-side {
+    margin: .6rem;
+}

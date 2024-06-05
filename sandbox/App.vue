@@ -19,27 +19,3 @@ import Form from "./components/Form.vue";
     </div>
   </div>
 </template>
-
-<style scoped>
-#main-title {
-  background: linear-gradient(135deg, #42d392, #647eff);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-}
-
-#main-container {
-  margin-top: 1rem;
-  margin-bottom: 1rem;
-}
-
-.card {
-  min-height: 80vh;
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  background-color: #2e2e2e;
-}
-
-.card-side {
-  margin: .6rem;
-}
-</style>
