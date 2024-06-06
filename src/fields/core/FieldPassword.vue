@@ -46,8 +46,10 @@ export default {
       return this.checkedPassword?.feedback
     },
     meterStyle () {
+      if (this.passwordStrength === 0 && this.model[this.field.model].length > 0) {
+        return "width:10%;background:red;"
+      }
       return {
-        0: 'width:0%;',
         1: 'width:25%;background:red;',
         2: 'width:50%;background:orange;',
         3: 'width:75%;background:green;',
@@ -60,7 +62,7 @@ export default {
 
 <style scoped>
 .password-strength-indicator {
-  transition: width 0.2s ease-in, background 0.2s ease-in;
+  transition: width 0.1s ease-in, background 0.3s ease-in;
   height: .5em;
   width: 100%;
   background: rgba(0, 0, 0, 0.1);
