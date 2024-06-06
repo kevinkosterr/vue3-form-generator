@@ -7,7 +7,7 @@
   >
     <option disabled value="">{{ field.placeholder ?? 'Select a ' + field.name}}</option>
     <option v-for="option in field.options" :value="option.value">
-      {{ option.label }}
+      {{ option.name }}
     </option>
   </select>
 </template>
