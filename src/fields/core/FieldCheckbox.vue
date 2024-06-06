@@ -1,5 +1,6 @@
 <template>
   <input type="checkbox"
+         :id="id"
          :name="field.name"
          :required="field.required"
          :value="model[field.model]"

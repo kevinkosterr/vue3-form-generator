@@ -1,5 +1,6 @@
 <template>
   <input type="text"
+         :id="id"
          :name="field.name"
          :required="field.required"
          :placeholder="field.placeholder"

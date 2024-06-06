@@ -3,5 +3,5 @@ import getFieldComponent from "./getFieldComponent.js";
 
 export {
   isFunction,
-  getFieldComponent
+  getFieldComponent,
 }

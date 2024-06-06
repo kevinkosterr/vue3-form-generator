@@ -40,7 +40,7 @@ const fieldId = computed(() => {
     </label>
 
     <div class="field-wrap">
-      <component ref="child" @on-input="onInput" :is="getFieldComponent(props.field)" :model="model" :field="props.field"/>
+      <component ref="child" @on-input="onInput" :is="getFieldComponent(props.field)" :id="fieldId" :model="model" :field="props.field"/>
     </div>
   </div>
 </template>

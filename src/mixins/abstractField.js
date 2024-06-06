@@ -4,6 +4,7 @@ export default {
 
   /** Prop definition */
   props: {
+    id: String,
     field: {
       type: Object,
       required: true

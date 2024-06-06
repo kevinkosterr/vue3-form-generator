@@ -1,6 +1,7 @@
 <template>
   <div class="wrapper">
     <input type="password"
+           :id="id"
            :name="field.name"
            :required="field.required"
            :placeholder="field.placeholder"
