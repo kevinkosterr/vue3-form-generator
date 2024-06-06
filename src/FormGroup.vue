@@ -1,5 +1,5 @@
 <script setup>
-import {ref, computed} from 'vue'
+import { ref, computed } from 'vue'
 import { getFieldComponent } from '@/helpers'
 
 const props = defineProps({

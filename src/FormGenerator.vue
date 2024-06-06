@@ -3,10 +3,15 @@ import { ref, getCurrentInstance } from "vue";
 import FormGroup from "./FormGroup.vue";
 
 const instance = getCurrentInstance()
+const emits = defineEmits(['submit'])
 
 const props = defineProps({
   schema: Object,
   model: Object,
+  enctype: {
+    type: String,
+    default: "application/x-www-form-urlencoded"
+  },
 })
 
 /**
@@ -24,7 +29,7 @@ const formGenerator = ref(instance?.proxy || null)
 </script>
 
 <template>
-  <form class="vue-form-generator" v-if="props.schema !== undefined">
+  <form class="vue-form-generator" v-if="props.schema !== undefined" @submit.prevent="emits('submit')" :enctype="enctype">
     <fieldset v-if="props.schema.fields">
       <template v-for="field in props.schema.fields">
         <form-group :form-generator="formGenerator" :field="field" :model="props.model"
@@ -35,7 +40,7 @@ const formGenerator = ref(instance?.proxy || null)
 </template>
 
 <style>
-.vue-form-generator input:not([type='checkbox']) {
+.vue-form-generator input:not([type='checkbox'],[type='submit']) {
   width: 100%;
 }
 </style>
