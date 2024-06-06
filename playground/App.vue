@@ -15,9 +15,9 @@ export default {
 
 <template>
   <div id="main-container" class="container">
-    <div class="title-wrapper d-flex justify-content-center flex-wrap">
-      <h1 id="main-title" class="text-center fw-bolder">Vue3 Form Generator Sandbox</h1>
-      <h5 class="w-100 text-center fw-bold">A playground to test out the form generator</h5>
+    <div class="title-wrapper d-flex justify-content-center flex-wrap mt-4">
+      <h1 id="main-title" class="text-center fw-bolder">Vue3 Form Generator</h1>
+      <p class="w-100 text-center text-uppercase" style="font-weight: 900">A form generator playground</p>
     </div>
     <div class="card mt-4">
         <div class="card-side">
