@@ -7,7 +7,7 @@
 }
 
 #main-container {
-    margin-top: 1rem;
+    margin-top: 1.5rem;
     margin-bottom: 1rem;
 }
 
@@ -16,6 +16,22 @@
     overflow-y: auto;
     border: none !important;
     background-color: #373737;
+}
+
+.jv-key {
+    color: #C77DBB;
+}
+
+.jv-item::before {
+    content: " "
+}
+
+.jv-string {
+    color: #6AAB73;
+}
+
+.jv-boolean {
+    color: #ff7300;
 }
 
 .card {

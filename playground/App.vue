@@ -24,7 +24,7 @@ export default {
           <FormGenerator :schema="form.schema" :model="form.model"/>
         </div>
         <div class="card-side">
-          <JsonViewer :value="form.model" copyable boxed sort theme="jv-dark"/>
+          <JsonViewer :value="form.model" copyable boxed preview-mode theme="jv-dark"/>
         </div>
     </div>
   </div>
