@@ -5,6 +5,7 @@ import FieldSelect from "./FieldSelect.vue"
 import FieldSubmit from "./FieldSubmit.vue"
 import FieldReset from './FieldReset.vue'
 import FieldRadio from './FieldRadio.vue'
+import FieldColor from './FieldColor.vue'
 
 export {
   FieldText,
@@ -13,5 +14,6 @@ export {
   FieldSelect,
   FieldSubmit,
   FieldReset,
-  FieldRadio
+  FieldRadio,
+  FieldColor
 }

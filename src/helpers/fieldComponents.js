@@ -1,4 +1,13 @@
-import {FieldText, FieldCheckBox, FieldPassword, FieldSelect, FieldSubmit, FieldReset, FieldRadio} from '@/fields/core'
+import {
+  FieldText,
+  FieldCheckBox,
+  FieldPassword,
+  FieldSelect,
+  FieldSubmit,
+  FieldReset,
+  FieldRadio,
+  FieldColor
+} from '@/fields/core'
 
 const fieldComponents = {
   'text': FieldText,
@@ -7,7 +16,8 @@ const fieldComponents = {
   'select': FieldSelect,
   'submit': FieldSubmit,
   'reset': FieldReset,
-  'radio': FieldRadio
+  'radio': FieldRadio,
+  'color': FieldColor,
 }
 
 function setFieldComponent (fieldType, component) {
