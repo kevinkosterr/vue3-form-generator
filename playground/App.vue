@@ -1,10 +1,8 @@
 <script>
-import FormGenerator from "@/FormGenerator.vue";
 import schema from './schema.js'
 
 export default {
   name: 'App',
-  components: {FormGenerator},
   data () {
     return {
         ...schema
@@ -21,7 +19,7 @@ export default {
     </div>
     <div class="card mt-4">
         <div class="card-side">
-          <FormGenerator :schema="form.schema" :model="form.model"/>
+          <VueFormGenerator :schema="form.schema" :model="form.model"/>
         </div>
         <div class="card-side">
           <JsonViewer :value="form.model" copyable boxed preview-mode theme="jv-dark"/>
