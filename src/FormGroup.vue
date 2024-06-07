@@ -1,6 +1,6 @@
 <script setup>
 import { ref, computed } from 'vue'
-import { getFieldComponent } from '@/helpers'
+import { getFieldComponent, hasLabel } from '@/helpers'
 
 const props = defineProps({
   formGenerator: {
@@ -31,16 +31,22 @@ function onInput (value) {
 const fieldId = computed(() => {
   return props.field.name
 })
+
+const shouldHaveLabel = computed(() => {
+  // checkbox will have their own label
+  return hasLabel(props.field) && props.field.type !== 'checkbox'
+})
 </script>
 
 <template>
   <div class="form-group">
-    <label :for="fieldId">
-      <span>{{field.label}}</span>
+    <label v-if="shouldHaveLabel" :for="fieldId">
+      <span> {{ props.field.label }}</span>
     </label>
 
     <div class="field-wrap">
-      <component ref="child" @on-input="onInput" :is="getFieldComponent(props.field)" :id="fieldId" :model="model" :field="props.field"/>
+      <component ref="child" @on-input="onInput" :is="getFieldComponent(props.field)" :id="fieldId" :model="model"
+                 :field="props.field"/>
     </div>
   </div>
 </template>

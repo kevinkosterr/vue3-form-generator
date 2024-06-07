@@ -8,6 +8,7 @@
          @change="onFieldValueChanged"
          :checked="model[field.model]"
   />
+  <label style="margin-left: .4em" :for="id" v-if="field.label"> {{ field.label }}</label>
 </template>
 
 <script>
