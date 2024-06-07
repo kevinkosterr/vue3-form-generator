@@ -3,6 +3,8 @@
       :id="id"
       :name="field.name"
       :value="model[field.model]"
+      :required="isRequired"
+      :disabled="isDisabled"
       @change="onFieldValueChanged"
   >
     <option disabled value="">{{ field.placeholder ?? 'Select a ' + field.name}}</option>
