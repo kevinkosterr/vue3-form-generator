@@ -3,6 +3,7 @@
     type="color"
     :id="id"
     :name="field.name"
+    @change="onFieldValueChanged"
   />
 </template>
 
