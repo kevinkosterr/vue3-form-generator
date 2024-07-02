@@ -1,6 +1,6 @@
 <script setup>
 import { ref, computed } from 'vue'
-import { getFieldComponent, hasLabel } from '@/helpers'
+import { getFieldComponentName, hasLabel } from '@/helpers'
 
 const props = defineProps({
   formGenerator: {
@@ -45,7 +45,7 @@ const shouldHaveLabel = computed(() => {
     </label>
 
     <div class="field-wrap">
-      <component ref="child" @on-input="onInput" :is="getFieldComponent(props.field)" :id="fieldId" :model="model"
+      <component ref="child" @on-input="onInput" :is="getFieldComponentName(props.field)" :id="fieldId" :model="model"
                  :field="props.field"/>
     </div>
   </div>

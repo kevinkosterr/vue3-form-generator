@@ -7,7 +7,7 @@ import FieldReset from './FieldReset.vue'
 import FieldRadio from './FieldRadio.vue'
 import FieldColor from './FieldColor.vue'
 
-export {
+const coreFields = [
   FieldText,
   FieldCheckBox,
   FieldPassword,
@@ -16,4 +16,12 @@ export {
   FieldReset,
   FieldRadio,
   FieldColor
+]
+
+export default {
+  install (app, options) {
+    for (const fieldComponent of coreFields) {
+      app.component(fieldComponent.name, fieldComponent)
+    }
+  }
 }
