@@ -36,7 +36,7 @@ export default {
 
     /**
      * Format a field's value.
-     * @param {EventTarget} target
+     * @param {HTMLInputElement} target
      * @returns {*}
      */
     formatFieldValue (target) {
