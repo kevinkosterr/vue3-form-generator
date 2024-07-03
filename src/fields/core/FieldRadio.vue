@@ -1,13 +1,15 @@
 <template>
   <template v-for="option in field.options">
-    <input
-        type="radio"
-        :id="getFieldId(option.name)"
-        :name="field.name"
-        :value="option.value"
-        @change="onFieldValueChanged"
-    />
-    <label :for="getFieldId(option.name)"> {{ option.name }} </label>
+      <div class="option-wrap">
+        <input
+            type="radio"
+            :id="getFieldId(option.name)"
+            :name="field.name"
+            :value="option.value"
+            @change="onFieldValueChanged"
+        />
+      <label :for="getFieldId(option.name)"> {{ option.name }} </label>
+      </div>
   </template>
 </template>
 
@@ -24,3 +26,13 @@ export default {
   }
 }
 </script>
+
+<style scoped>
+.option-wrap {
+  margin: .4rem;
+}
+
+label {
+  margin-left: .5rem;
+}
+</style>

@@ -53,7 +53,7 @@ const formGenerator = ref(instance?.proxy || null)
 </template>
 
 <style>
-.vue-form-generator input:not([type='checkbox'],[type='submit']) {
+.vue-form-generator input:not([type='checkbox'],[type='submit'],[type='radio']) {
   width: 100%;
 }
 </style>
