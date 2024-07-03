@@ -6,6 +6,19 @@ const instance = getCurrentInstance()
 const emits = defineEmits(['submit'])
 
 const props = defineProps({
+  id: {
+    type: String,
+    required: false,
+  },
+  classes: {
+    type: String,
+    required: false,
+  },
+  idPrefix: {
+    type: String,
+    required: false,
+    default: ''
+  },
   schema: Object,
   model: Object,
   enctype: {
@@ -29,7 +42,7 @@ const formGenerator = ref(instance?.proxy || null)
 </script>
 
 <template>
-  <form class="vue-form-generator" v-if="props.schema !== undefined" @submit.prevent="emits('submit')" :enctype="enctype">
+  <form :id="props.id" :class="`vue-form-generator ${props.classes}`" v-if="props.schema !== undefined" @submit.prevent="emits('submit')" :enctype="enctype">
     <fieldset v-if="props.schema.fields">
       <template v-for="field in props.schema.fields">
         <form-group :form-generator="formGenerator" :field="field" :model="props.model"

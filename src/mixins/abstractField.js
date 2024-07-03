@@ -7,6 +7,7 @@ export default {
   /** Prop definition */
   props: {
     id: String,
+    formGenerator: Object,
     field: {
       type: Object,
       required: true
@@ -14,6 +15,12 @@ export default {
     model: {
       type: Object,
       required: true,
+    }
+  },
+
+  beforeCreate () {
+    if (this.field.type === 'input' && this.field.inputType === undefined) {
+      throw new Error('Fields of type `input` must include an `inputType` attribute.')
     }
   },
 

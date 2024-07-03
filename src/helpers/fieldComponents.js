@@ -1,5 +1,6 @@
 function getFieldComponentName (field) {
-  return 'Field' + field.type.charAt(0).toUpperCase() + field.type.slice(1);
+  const fieldAttribute = field[field.inputType !== undefined ? 'inputType' : 'type']
+  return 'Field' + fieldAttribute.charAt(0).toUpperCase() + fieldAttribute.slice(1);
 }
 
 export {

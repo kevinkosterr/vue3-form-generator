@@ -29,12 +29,12 @@ function onInput (value) {
 
 /** Computed */
 const fieldId = computed(() => {
-  return props.field.name
+  return `${props.formGenerator.idPrefix ? props.formGenerator.idPrefix + "_" : ""}${props.field.name}`
 })
 
 const shouldHaveLabel = computed(() => {
   // checkbox will have their own label
-  return hasLabel(props.field) && props.field.type !== 'checkbox'
+  return hasLabel(props.field) && props.field.inputType !== 'checkbox'
 })
 </script>
 
