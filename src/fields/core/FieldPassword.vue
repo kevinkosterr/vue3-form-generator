@@ -30,7 +30,7 @@ import zxcvbn from 'zxcvbn'
 import { abstractField } from "@/mixins"
 
 export default {
-  name: 'FieldText',
+  name: 'FieldPassword',
   mixins: [abstractField],
   computed: {
     shouldCheckPassword () {
