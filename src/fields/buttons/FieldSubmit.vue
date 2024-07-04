@@ -1,13 +1,14 @@
 <template>
-  <input
+  <button
       type="submit"
       :disabled="isDisabled"
-      :value="field.buttonText || 'Submit'"
-  />
+  >
+    {{field.buttonText || 'Submit'}}
+  </button>
 </template>
 
 <script>
-import {abstractField} from "@/mixins";
+import { abstractField } from "@/mixins/index.js";
 
 export default {
   name: 'FieldSubmit',

@@ -1,11 +1,11 @@
 import FormGenerator from "@/FormGenerator.vue";
-import FieldsCore from "@/fields/core"
+import FormGeneratorFields from "@/fields"
 
 const VueFormGenerator = {
   install (app, options) {
     if (!options) options = {}
 
-    app.use(FieldsCore)
+    app.use(FormGeneratorFields)
     app.component('VueFormGenerator', FormGenerator)
   }
 }

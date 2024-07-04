@@ -1,12 +1,11 @@
 <template>
-  <input
-    type="reset"
-    :value="field.buttonText"
-  />
+  <button type="reset">
+    {{field.buttonText}}
+  </button>
 </template>
 
 <script>
-import { abstractField } from '@/mixins'
+import { abstractField } from '@/mixins/index.js'
 
 export default {
   name: 'FieldReset',
