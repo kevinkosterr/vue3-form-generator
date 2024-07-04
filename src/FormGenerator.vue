@@ -42,11 +42,21 @@ const formGenerator = ref(instance?.proxy || null)
 </script>
 
 <template>
-  <form :id="props.id" :class="`vue-form-generator ${props.classes}`" v-if="props.schema !== undefined" @submit.prevent="emits('submit')" :enctype="enctype">
+  <form :id="props.id" :class="`vue-form-generator ${props.classes}`" v-if="props.schema !== undefined"
+        @submit.prevent="emits('submit')" :enctype="enctype">
     <fieldset v-if="props.schema.fields">
       <template v-for="field in props.schema.fields">
         <form-group :form-generator="formGenerator" :field="field" :model="props.model"
                     @update-generator-model="handleUpdateGeneratorModel"/>
+      </template>
+      <template v-for="group in props.schema.groups">
+        <fieldset>
+          <legend v-if="group.legend">{{group.legend}}</legend>
+          <template v-for="field in group.fields">
+            <form-group :form-generator="formGenerator" :field="field" :model="props.model"
+                        @update-generator-model="handleUpdateGeneratorModel"/>
+          </template>
+        </fieldset>
       </template>
     </fieldset>
   </form>
