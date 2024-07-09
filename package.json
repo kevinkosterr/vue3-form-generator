@@ -8,6 +8,9 @@
     "build": "vite build",
     "preview": "vite preview"
   },
+  "dependencies": {
+    "zxcvbn": "^4.4.2"
+  },
   "devDependencies": {
     "@vitejs/plugin-vue": "^5.0.4",
     "clipboard": "^2.0.11",
@@ -15,8 +18,5 @@
     "vite": "^5.2.8",
     "vue": "^3.4.21",
     "vue3-json-viewer": "^2.2.2"
-  },
-  "dependencies": {
-    "zxcvbn": "^4.4.2"
   }
 }

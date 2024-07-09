@@ -10,6 +10,7 @@
          :min="field.min || undefined"
          :step="field.step || 1"
          @input="onFieldValueChanged"
+         @blur="onBlur"
   />
 </template>
 

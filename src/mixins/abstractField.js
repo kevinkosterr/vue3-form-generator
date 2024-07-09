@@ -1,8 +1,19 @@
-import { isFunction } from "@/helpers"
+import { isFunction, isString, toUniqueArray } from "@/helpers"
+import { getMessage } from "@/validators/messages.js";
+import validators from "@/validators";
+
+function getValidator (validator) {
+  if (isFunction(validator)) return validator
+  if (isString(validator)) {
+    if (validators[validator] === undefined) throw new Error('Invalid validator: ' + validator)
+    return validator[validator]
+  }
+  return null
+}
 
 export default {
 
-  emits: ['onInput'],
+  emits: ['onInput', 'validated'],
 
   /** Prop definition */
   props: {
@@ -18,6 +29,13 @@ export default {
     }
   },
 
+
+  data () {
+    return {
+      errors: []
+    }
+  },
+
   beforeCreate () {
     if (this.field.type === 'input' && this.field.inputType === undefined) {
       throw new Error('Fields of type `input` must include an `inputType` attribute.')
@@ -25,6 +43,56 @@ export default {
   },
 
   methods: {
+
+    /**
+     * Validate the current field against given validator(s).
+     *
+     * @returns {Array} array of errors.
+     */
+    validate () {
+      let results = [];
+
+      if (!this.isDisabled && this.field.validator && !this.isReadOnly) {
+        const validators = []
+
+        if (Array.isArray(this.field.validator)) {
+          /** Retrieve actual validators for every given validator in Array */
+          this.field.validator.forEach(validator => {
+              validators.push(getValidator(validator))
+          })
+        } else {
+          validators.push(getValidator(this.field.validator))
+        }
+
+        validators.forEach(validator => {
+          const isValid = validator(this.currentModelValue, this.field, this.model, this)
+          if (!isValid) results.push(getMessage(validator.name))
+        })
+
+      }
+
+      return this._handleValidationResults(results)
+    },
+
+    /**
+     * Handle all validation results.
+     *
+     * This removes all duplicate messages and emits the validated event.
+     *
+     * @param errors
+     * @returns {Array} array of errors
+     * @private
+     */
+    _handleValidationResults (errors) {
+      this.errors = toUniqueArray(errors)
+
+      if (isFunction(this.field.onValidated)) this.field.onValidated.call(this, this.model, results, this.field)
+      else if (this.field.onValidated !== undefined) throw new Error('onValidated property must be of type `function`, on ' + this.field.name)
+
+      this.$emit('validated', this.errors.length === 0, this.errors, this.field)
+      return this.errors
+    },
+
     /**
      * Handle the change of a field's value. You can bind this to any
      * native input element event.
@@ -36,9 +104,18 @@ export default {
      * @param {EventTarget} target target of the event.
      */
     onFieldValueChanged ({ target }) {
+      this.errors = []
+      /** Ensure the value has actually changed */
       this.$nextTick().then(() => {
         this.$emit('onInput', this.formatFieldValue(target))
       })
+    },
+
+    /**
+     * Handle the blur event from the input
+     */
+    onBlur () {
+      this.validate()
     },
 
     /**
@@ -66,6 +143,16 @@ export default {
   },
 
   computed: {
+
+    /**
+     * Compute the current value of this field by accessing the form's model object.
+     *
+     * @returns {*}
+     */
+    currentModelValue () {
+      return this.model[this.field.model]
+    },
+
     /**
      * Compute the disabled state of the field/input component. `this.field.disabled` must be set for this to work,
      * otherwise this will always return false.
@@ -90,7 +177,21 @@ export default {
      */
     isRequired () {
       return this.determineDynamicAttribute('required')
+    },
+
+    /**
+     * Compute the readonly state of the field/input component. `this.field.readonly` must be set for this to work,
+     * otherwise this will always return false.
+     *
+     * You can pass a method to the `required` property of a field to apply the readonly state conditionally.
+     * The method will be passed the entire model, the current field instance and the field component.
+     *
+     * @returns {boolean}
+     */
+    isReadOnly () {
+      return this.determineDynamicAttribute('readonly')
     }
+
 
   },
 

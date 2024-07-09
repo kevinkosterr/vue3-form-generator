@@ -8,6 +8,7 @@
            :placeholder="field.placeholder"
            :value="model[field.model]"
            @input="onFieldValueChanged"
+           @blur="onBlur"
     />
     <div class="password-strength-indicator" v-if="field.indicator" :style="meterStyle"></div>
     <small class="password-feedback" v-if="(field.suggestions || field.warning) && passwordFeedback">

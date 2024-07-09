@@ -8,6 +8,7 @@
          :autocomplete="field.autocomplete || 'off'"
          :value="model[field.model]"
          @input="onFieldValueChanged"
+         @blur="onBlur"
   />
 </template>
 
