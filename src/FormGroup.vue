@@ -66,7 +66,7 @@ const shouldHaveLabel = computed(() => {
   content: "*";
   font-size: .9em;
   color: red;
-  margin-left: .1rem;
+  margin-left: .2rem;
 }
 
 .errors {
