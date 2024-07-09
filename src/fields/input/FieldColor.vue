@@ -4,6 +4,7 @@
     :id="id"
     :name="field.name"
     @change="onFieldValueChanged"
+    :required="isRequired"
   />
 </template>
 

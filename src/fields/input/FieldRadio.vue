@@ -7,6 +7,7 @@
             :name="field.name"
             :value="option.value"
             @change="onFieldValueChanged"
+            :required="isRequired"
         />
       <label :for="getFieldId(option.name)"> {{ option.name }} </label>
       </div>
