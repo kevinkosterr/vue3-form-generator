@@ -1,5 +1,5 @@
 <template>
-  <button type="button">
+  <button type="button" @click.prevent="field.onClick">
     {{field.buttonText}}
   </button>
 </template>
