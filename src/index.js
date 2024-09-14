@@ -1,5 +1,6 @@
 import { setMessages } from "@/validators/messages.js";
 import { isObject } from "@/helpers";
+import { abstractField } from "@/mixins";
 
 import FormGenerator from "@/FormGenerator.vue";
 import FormGeneratorFields from "@/fields"
@@ -25,4 +26,7 @@ const VueFormGenerator = {
   validators
 }
 
-export default VueFormGenerator;
+export default VueFormGenerator
+export {
+  abstractField
+}
