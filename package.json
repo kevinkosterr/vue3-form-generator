@@ -3,11 +3,13 @@
   "version": "0.1.0",
   "private": true,
   "type": "module",
+  "main": "src/index.js",
   "scripts": {
     "dev": "vite",
     "build": "vite build",
     "preview": "vite preview"
   },
+  "files": ["src"],
   "dependencies": {
     "zxcvbn": "^4.4.2"
   },
