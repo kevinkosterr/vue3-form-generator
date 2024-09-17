@@ -16,6 +16,32 @@ export default {
   },
 
   /**
+   * Check if field value is the minimum provided length
+   *
+   * @param {any} value - The current value of the field.
+   * @param {Object} field - The field as specified in the form's schema.
+   * @param {Object} _model - The form model.
+   * @param {Component} _fieldComponent - Field's Vue Component.
+   * @returns {boolean} - Returns 'true' if the field is required and the value is not empty, otherwise false.
+   */
+  minLength (value, field, _model, _fieldComponent) {
+    return field.min && value.length >= field.min
+  },
+
+  /**
+   * Check if field value is the maximum provided length
+   *
+   * @param {any} value - The current value of the field.
+   * @param {Object} field - The field as specified in the form's schema.
+   * @param {Object} _model - The form model.
+   * @param {Component} _fieldComponent - Field's Vue Component.
+   * @returns {boolean} - Returns 'true' if the field is required and the value is not empty, otherwise false.
+   */
+  maxLength (value, field, _model, _fieldComponent) {
+    return field.max && value.length <= field.max
+  },
+
+  /**
    * Checks if the field's value is of type string.
    *
    * @param {any} value - The current value of the field.

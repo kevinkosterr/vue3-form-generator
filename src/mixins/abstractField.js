@@ -8,7 +8,7 @@ function getValidator (validator) {
     if (validators[validator] === undefined) throw new Error('Invalid validator: ' + validator)
     return validators[validator]
   }
-  return null
+  throw new Error('Couldn\'t get validator for: ' + validator)
 }
 
 export default {
@@ -53,7 +53,7 @@ export default {
       let results = []
 
       if (!this.isDisabled && this.field.validator && !this.isReadOnly) {
-        const fieldValidators = []
+        const fieldValidators = [ ...this.defaultValidators ]
 
         if (Array.isArray(this.field.validator)) {
           /** Retrieve actual validators for every given validator in Array */
@@ -62,11 +62,6 @@ export default {
           })
         } else {
           fieldValidators.push(getValidator(this.field.validator))
-        }
-
-        /** Always include 'required' validator, whenever the field is required */
-        if (this.isRequired && !fieldValidators.includes(validators.required)) {
-          fieldValidators.push(validators.required)
         }
 
         fieldValidators.forEach(validator => {
@@ -152,6 +147,28 @@ export default {
   },
 
   computed: {
+
+    /**
+     * Compute all validators that should be present by default.
+     *
+     * @returns {*[]}
+     */
+    defaultValidators () {
+      const fieldValidators = []
+
+      if (this.isRequired && !fieldValidators.includes(validators.required)) {
+        fieldValidators.push(validators.required)
+      }
+
+      if (this.field.min) {
+        fieldValidators.push(validators.minLength)
+      }
+
+      if (this.field.max) {
+        fieldValidators.push(validators.maxLength)
+      }
+      return fieldValidators
+    },
 
     /**
      * Compute the current value of this field by accessing the form's model object.
