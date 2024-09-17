@@ -6,7 +6,7 @@ function getValidator (validator) {
   if (isFunction(validator)) return validator
   if (isString(validator)) {
     if (validators[validator] === undefined) throw new Error('Invalid validator: ' + validator)
-    return validator[validator]
+    return validators[validator]
   }
   return null
 }
