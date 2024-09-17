@@ -53,18 +53,23 @@ export default {
       let results = []
 
       if (!this.isDisabled && this.field.validator && !this.isReadOnly) {
-        const validators = []
+        const fieldValidators = []
 
         if (Array.isArray(this.field.validator)) {
           /** Retrieve actual validators for every given validator in Array */
           this.field.validator.forEach(validator => {
-            validators.push(getValidator(validator))
+            fieldValidators.push(getValidator(validator))
           })
         } else {
-          validators.push(getValidator(this.field.validator))
+          fieldValidators.push(getValidator(this.field.validator))
         }
 
-        validators.forEach(validator => {
+        /** Always include 'required' validator, whenever the field is required */
+        if (this.isRequired && !fieldValidators.includes(validators.required)) {
+          fieldValidators.push(validators.required)
+        }
+
+        fieldValidators.forEach(validator => {
           const isValid = validator(this.currentModelValue, this.field, this.model, this)
           if (!isValid) results.push(getMessage(validator.name))
         })
