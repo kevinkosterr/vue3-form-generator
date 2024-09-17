@@ -11,11 +11,6 @@ const props = defineProps({
     required: false,
     default: ''
   },
-  classes: {
-    type: String,
-    default: '',
-    required: false
-  },
   idPrefix: {
     type: String,
     required: false,
@@ -63,7 +58,8 @@ const onSubmit = () => {
 
 <template>
   <form
-    v-if="props.schema !== undefined" :id="props.id ?? ''" :class="`vue-form-generator ${props.classes ?? ''}`"
+    v-if="props.schema !== undefined" :id="props.id ?? ''"
+    class="vue-form-generator"
     :enctype="enctype" @submit.prevent="onSubmit"
   >
     <fieldset v-if="props.schema.fields">
