@@ -88,8 +88,7 @@ export default {
 
       if (isFunction(this.field.onValidated)) {
         this.field.onValidated.call(this, this.model, results, this.field)
-      }
-      else if (this.field.onValidated !== undefined) {
+      } else if (this.field.onValidated !== undefined) {
         throw new Error('onValidated property must be of type `function`, on ' + this.field.name)
       }
 
@@ -147,6 +146,26 @@ export default {
   },
 
   computed: {
+
+    /**
+     * Compute the id for the current form field
+     * @returns {string}
+     */
+    formFieldId () {
+      /** From: vue-form-generator **/
+      return (this.field.inputName || this.field.label || this.field.model || '')
+        .toString()
+        .trim()
+        .toLowerCase()
+        // Spaces & underscores to dashes
+        .replace(/ |_/g, '-')
+        // Multiple dashes to one
+        .replace(/-{2,}/g, '-')
+        // Remove leading & trailing dashes
+        .replace(/^-+|-+$/g, '')
+        // Remove anything that isn't a (English/ASCII) letter, number or dash.
+        .replace(/([^a-zA-Z0-9-]+)/g, '')
+    },
 
     /**
      * Compute all validators that should be present by default.

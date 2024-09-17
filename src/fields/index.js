@@ -9,11 +9,12 @@ import FieldNumber from '@/fields/input/FieldNumber.vue'
 import FieldSubmit from '@/fields/buttons/FieldSubmit.vue'
 import FieldReset from '@/fields/buttons/FieldReset.vue'
 import FieldButton from '@/fields/buttons/FieldButton.vue'
+import FieldSwitch from '@/fields/input/FieldSwitch.vue'
 
 
 const fieldComponents = [
   FieldText, FieldCheckBox, FieldPassword, FieldSelect, FieldRadio, FieldColor, FieldNumber,
-  FieldSubmit, FieldReset, FieldButton
+  FieldSubmit, FieldReset, FieldButton, FieldSwitch
 ]
 
 export default {
