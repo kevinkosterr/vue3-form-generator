@@ -4,10 +4,10 @@ import { createApp } from 'vue'
 import App from './App.vue'
 
 import JsonViewer from 'vue3-json-viewer'
-import VueFormGenerator from "@/index.js";
-import "vue3-json-viewer/dist/index.css";
+import VueFormGenerator from '@/index.js'
+import 'vue3-json-viewer/dist/index.css'
 
-const app = createApp(App).use(JsonViewer);
+const app = createApp(App).use(JsonViewer)
 
-app.use(VueFormGenerator);
+app.use(VueFormGenerator)
 app.mount('#app')

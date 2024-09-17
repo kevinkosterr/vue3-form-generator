@@ -1,18 +1,18 @@
 <template>
   <input
-    type="color"
     :id="id"
+    type="color"
     :name="field.name"
-    @change="onFieldValueChanged"
     :required="isRequired"
-  />
+    @change="onFieldValueChanged"
+  >
 </template>
 
 <script>
-import {abstractField} from '@/mixins'
+import { abstractField } from '@/mixins'
 
 export default {
   name: 'FieldColor',
-  mixins: [abstractField]
+  mixins: [ abstractField ]
 }
 </script>

@@ -1,25 +1,26 @@
 <template>
-  <input type="checkbox"
-         :id="id"
-         :name="field.name"
-         :required="isRequired"
-         :disabled="isDisabled"
-         :value="model[field.model]"
-         @change="onFieldValueChanged"
-         :checked="model[field.model]"
-  />
-  <label style="margin-left: .4em" :for="id" v-if="field.label"> {{ field.label }}</label>
+  <input
+    :id="id"
+    type="checkbox"
+    :name="field.name"
+    :required="isRequired"
+    :disabled="isDisabled"
+    :value="model[field.model]"
+    :checked="model[field.model]"
+    @change="onFieldValueChanged"
+  >
+  <label v-if="field.label" style="margin-left: .4em" :for="id"> {{ field.label }}</label>
 </template>
 
 <script>
-import { abstractField } from "@/mixins"
+import { abstractField } from '@/mixins'
 
 export default {
   name: 'FieldCheckbox',
-  mixins: [abstractField],
+  mixins: [ abstractField ],
   methods: {
     formatFieldValue (target) {
-      return target.checked;
+      return target.checked
     }
   }
 }

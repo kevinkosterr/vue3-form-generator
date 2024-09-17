@@ -1,6 +1,6 @@
 <template>
   <button type="reset">
-    {{field.buttonText}}
+    {{ field.buttonText }}
   </button>
 </template>
 
@@ -9,6 +9,6 @@ import { abstractField } from '@/mixins/index.js'
 
 export default {
   name: 'FieldReset',
-  mixins: [ abstractField ],
+  mixins: [ abstractField ]
 }
 </script>

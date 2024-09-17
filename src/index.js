@@ -1,10 +1,10 @@
-import { setMessages } from "@/validators/messages.js";
-import { isObject } from "@/helpers";
-import { abstractField } from "@/mixins";
+import { setMessages } from '@/validators/messages.js'
+import { isObject } from '@/helpers'
+import { abstractField } from '@/mixins'
 
-import FormGenerator from "@/FormGenerator.vue";
-import FormGeneratorFields from "@/fields"
-import validators from "@/validators";
+import FormGenerator from '@/FormGenerator.vue'
+import FormGeneratorFields from '@/fields'
+import validators from '@/validators'
 
 const VueFormGenerator = {
   install (app, options) {

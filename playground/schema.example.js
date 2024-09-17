@@ -3,7 +3,7 @@ export default {
     model: {
       name: '',
       surname: '',
-      terms: false,
+      terms: false
     },
     schema: {
       fields: [
@@ -13,9 +13,9 @@ export default {
           type: 'input',
           inputType: 'text',
           model: 'name',
-          placeholder: "Write name...",
+          placeholder: 'Write name...',
           readonly: false,
-          required: true,
+          required: true
         },
         {
           name: 'surname',
@@ -23,16 +23,16 @@ export default {
           type: 'input',
           inputType: 'text',
           model: 'surname',
-          placeholder: "Write surname...",
+          placeholder: 'Write surname...',
           readonly: false,
-          required: true,
+          required: true
         },
         {
           name: 'terms',
           label: 'Accept terms and conditions',
           type: 'input',
           inputType: 'checkbox',
-          model: 'terms',
+          model: 'terms'
         }
       ]
     }

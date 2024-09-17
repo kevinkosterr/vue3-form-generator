@@ -1,37 +1,44 @@
 <script setup>
-import {ref, getCurrentInstance} from "vue";
-import FormGroup from "./FormGroup.vue";
+import { ref, getCurrentInstance } from 'vue'
+import FormGroup from './FormGroup.vue'
 
 const instance = getCurrentInstance()
-const emits = defineEmits(['submit'])
+const emits = defineEmits([ 'submit' ])
 
 const props = defineProps({
   id: {
     type: String,
     required: false,
+    default: ''
   },
   classes: {
     type: String,
-    required: false,
+    default: '',
+    required: false
   },
   idPrefix: {
     type: String,
     required: false,
     default: ''
   },
-  schema: Object,
-  model: Object,
+  schema: {
+    type: Object,
+    required: true
+  },
+  model: {
+    type: Object,
+    required: true
+  },
   enctype: {
     type: String,
-    default: "application/x-www-form-urlencoded"
-  },
+    default: 'application/x-www-form-urlencoded'
+  }
 })
 
 /** Data / Refs */
 const formGenerator = ref(instance?.proxy || null)
 const fieldElements = ref([])
 const formErrors = ref([])
-const defaultValues = ref({...props.model})
 
 /**
  * Update form model key with its new value.
@@ -39,10 +46,11 @@ const defaultValues = ref({...props.model})
  * @param {any} value value to set.
  */
 const updateGeneratorModel = ({ model, value }) => {
+  // eslint-disable-next-line vue/no-mutating-props
   props.model[model] = value
 }
 
-const onFieldValidated = ({isValid, fieldErrors, field}) => {
+const onFieldValidated = ({ _isValid, _fieldErrors, _field }) => {
 }
 
 /**
@@ -54,24 +62,35 @@ const onSubmit = () => {
 </script>
 
 <template>
-  <form :id="props.id ?? ''" :class="`vue-form-generator ${props.classes ?? ''}`" v-if="props.schema !== undefined"
-        @submit.prevent="onSubmit" :enctype="enctype">
+  <form
+    v-if="props.schema !== undefined" :id="props.id ?? ''" :class="`vue-form-generator ${props.classes ?? ''}`"
+    :enctype="enctype" @submit.prevent="onSubmit"
+  >
     <fieldset v-if="props.schema.fields">
-      <template v-for="field in props.schema.fields">
-        <form-group :ref="el => fieldElements.push(el)" :form-generator="formGenerator" :field="field" :model="props.model"
-                    @value-updated="updateGeneratorModel" @validated="onFieldValidated"/>
+      <template v-for="field in props.schema.fields" :key="field">
+        <form-group
+          :ref="el => fieldElements.push(el)" :form-generator="formGenerator" :field="field"
+          :model="props.model"
+          @value-updated="updateGeneratorModel" @validated="onFieldValidated"
+        />
       </template>
-      <template v-for="group in props.schema.groups">
+      <template v-for="group in props.schema.groups" :key="group">
         <fieldset>
-          <legend v-if="group.legend">{{group.legend}}</legend>
-          <template v-for="field in group.fields">
-            <form-group :ref="el => fieldElements.push(el)" :form-generator="formGenerator" :field="field" :model="props.model"
-                        @value-updated="updateGeneratorModel" @validated="onFieldValidated"/>
+          <legend v-if="group.legend">
+            {{ group.legend }}
+          </legend>
+          <template v-for="field in group.fields" :key="field">
+            <form-group
+              :ref="el => fieldElements.push(el)" :form-generator="formGenerator"
+              :field="field"
+              :model="props.model"
+              @value-updated="updateGeneratorModel" @validated="onFieldValidated"
+            />
           </template>
         </fieldset>
       </template>
     </fieldset>
-    {{formErrors}}
+    {{ formErrors }}
   </form>
 </template>
 

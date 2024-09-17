@@ -1,14 +1,14 @@
 <template>
   <button type="button" @click.prevent="field.onClick">
-    {{field.buttonText}}
+    {{ field.buttonText }}
   </button>
 </template>
 
 <script>
-import { abstractField } from "@/mixins/index.js";
+import { abstractField } from '@/mixins/index.js'
 
 export default {
   name: 'FieldButton',
-  mixins: [abstractField]
+  mixins: [ abstractField ]
 }
 </script>

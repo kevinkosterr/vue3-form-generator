@@ -9,18 +9,21 @@ const props = defineProps({
     type: Object,
     required: true
   },
-  model: Object,
+  model: {
+    type: Object,
+    required: true
+  },
   field: {
     type: Object,
     required: true
   },
   errors: {
     type: Array,
-    default: []
+    default: () => []
   }
 })
 
-const emit = defineEmits(['value-updated', 'validated'])
+const emit = defineEmits([ 'value-updated', 'validated' ])
 
 function onInput (value) {
   emit('value-updated', { model: props.field.model, value })
@@ -32,7 +35,7 @@ function onValidated (isValid, fieldErrors, field) {
 
 /** Computed */
 const fieldId = computed(() => {
-  return `${props.formGenerator.idPrefix ? props.formGenerator.idPrefix + "_" : ""}${props.field.name}`
+  return `${props.formGenerator.idPrefix ? props.formGenerator.idPrefix + '_' : ''}${props.field.name}`
 })
 
 const shouldHaveLabel = computed(() => {
@@ -48,16 +51,18 @@ const shouldHaveLabel = computed(() => {
     </label>
 
     <div class="field-wrap">
-      <component ref="fieldComponent" @on-input="onInput" @validated="onValidated" :is="getFieldComponentName(props.field)"
-                 :id="fieldId" :model="model" :field="props.field"/>
+      <component
+        :is="getFieldComponentName(props.field)" :id="fieldId" ref="fieldComponent"
+        :model="model"
+        :field="props.field" @on-input="onInput" @validated="onValidated"
+      />
     </div>
 
-    <div class="errors help-block" v-if="fieldComponent && fieldComponent.errors.length">
-      <template v-for="error in fieldComponent.errors">
-        <span class="error" v-html="error"/> <br/>
+    <div v-if="fieldComponent && fieldComponent.errors.length" class="errors help-block">
+      <template v-for="error in fieldComponent.errors" :key="error">
+        <span class="error">{{ error }}</span> <br>
       </template>
     </div>
-
   </div>
 </template>
 

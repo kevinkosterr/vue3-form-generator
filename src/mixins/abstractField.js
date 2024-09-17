@@ -1,6 +1,6 @@
-import { isFunction, isString, toUniqueArray } from "@/helpers"
-import { getMessage } from "@/validators/messages.js";
-import validators from "@/validators";
+import { isFunction, isString, toUniqueArray } from '@/helpers'
+import { getMessage } from '@/validators/messages.js'
+import validators from '@/validators'
 
 function getValidator (validator) {
   if (isFunction(validator)) return validator
@@ -13,7 +13,7 @@ function getValidator (validator) {
 
 export default {
 
-  emits: ['onInput', 'validated'],
+  emits: [ 'onInput', 'validated' ],
 
   /** Prop definition */
   props: {
@@ -25,7 +25,7 @@ export default {
     },
     model: {
       type: Object,
-      required: true,
+      required: true
     }
   },
 
@@ -50,7 +50,7 @@ export default {
      * @returns {Array} array of errors.
      */
     validate () {
-      let results = [];
+      let results = []
 
       if (!this.isDisabled && this.field.validator && !this.isReadOnly) {
         const validators = []
@@ -58,7 +58,7 @@ export default {
         if (Array.isArray(this.field.validator)) {
           /** Retrieve actual validators for every given validator in Array */
           this.field.validator.forEach(validator => {
-              validators.push(getValidator(validator))
+            validators.push(getValidator(validator))
           })
         } else {
           validators.push(getValidator(this.field.validator))
@@ -86,8 +86,12 @@ export default {
     _handleValidationResults (errors) {
       this.errors = toUniqueArray(errors)
 
-      if (isFunction(this.field.onValidated)) this.field.onValidated.call(this, this.model, results, this.field)
-      else if (this.field.onValidated !== undefined) throw new Error('onValidated property must be of type `function`, on ' + this.field.name)
+      if (isFunction(this.field.onValidated)) {
+        this.field.onValidated.call(this, this.model, results, this.field)
+      }
+      else if (this.field.onValidated !== undefined) {
+        throw new Error('onValidated property must be of type `function`, on ' + this.field.name)
+      }
 
       this.$emit('validated', this.errors.length === 0, this.errors, this.field)
       return this.errors
@@ -124,7 +128,7 @@ export default {
      * @returns {*}
      */
     formatFieldValue (target) {
-      return target.value;
+      return target.value
     },
 
     /**
@@ -193,6 +197,6 @@ export default {
     }
 
 
-  },
+  }
 
 }

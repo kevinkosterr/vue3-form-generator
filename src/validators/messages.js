@@ -1,5 +1,5 @@
 let messages = {
-  'required': 'Value is required'
+  required: 'Value is required'
 }
 
 function getMessage (validatorName) {
@@ -7,7 +7,7 @@ function getMessage (validatorName) {
 }
 
 function setMessages (_messages) {
-  messages = {...messages, ..._messages}
+  messages = { ...messages, ..._messages }
 }
 
 export {

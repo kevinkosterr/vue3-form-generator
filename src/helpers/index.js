@@ -4,7 +4,7 @@
  * @returns {boolean}
  */
 function isFunction(val) {
-  return typeof val === 'function';
+  return typeof val === 'function'
 }
 
 /**
@@ -13,7 +13,7 @@ function isFunction(val) {
  * @returns {boolean}
  */
 function isObject(val) {
-  return typeof val === 'object';
+  return typeof val === 'object'
 }
 
 /**
@@ -22,7 +22,7 @@ function isObject(val) {
  * @returns {boolean}
  */
 function isString (val) {
-  return typeof val === 'string';
+  return typeof val === 'string'
 }
 
 /**
@@ -31,7 +31,7 @@ function isString (val) {
  * @returns {Array}
  */
 function toUniqueArray (arr) {
-  if (!Array.isArray(arr)) throw new Error('Argument must be of type array');
+  if (!Array.isArray(arr)) throw new Error('Argument must be of type array')
   return Array.from(new Set(arr))
 }
 
@@ -42,7 +42,7 @@ function toUniqueArray (arr) {
  */
 function getFieldComponentName (field) {
   const fieldAttribute = field[field.inputType !== undefined ? 'inputType' : 'type']
-  return 'Field' + fieldAttribute.charAt(0).toUpperCase() + fieldAttribute.slice(1);
+  return 'Field' + fieldAttribute.charAt(0).toUpperCase() + fieldAttribute.slice(1)
 }
 
 /**
@@ -51,7 +51,7 @@ function getFieldComponentName (field) {
  * @returns {boolean}
  */
 function isEmpty (value) {
-  return value === undefined || value === null || value === '';
+  return value === undefined || value === null || value === ''
 }
 
 /**
@@ -60,7 +60,7 @@ function isEmpty (value) {
  * @returns {boolean}
  */
 function isNotEmpty (value) {
-  return !isEmpty(value);
+  return !isEmpty(value)
 }
 
 /**
