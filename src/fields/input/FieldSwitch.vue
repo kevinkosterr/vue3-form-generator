@@ -1,6 +1,12 @@
 <template>
   <label class="field-switch" :for="formFieldId">
-    <input :id="formFieldId" type="checkbox" :disabled="isDisabled" @change="onFieldValueChanged">
+    <input
+      :id="formFieldId"
+      type="checkbox"
+      :checked="model[field.model]"
+      :disabled="isDisabled"
+      @change="onFieldValueChanged"
+    >
     <span class="slider" />
   </label>
 </template>
