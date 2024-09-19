@@ -199,6 +199,14 @@ export default {
     },
 
     /**
+     * Compute the state of visibility of the field/input component. `this.field.visible` must be set for this to work,
+     * otherwise this will always return true.
+     */
+    isVisible () {
+      return this.determineDynamicAttribute('visible', true)
+    },
+
+    /**
      * Compute the disabled state of the field/input component. `this.field.disabled` must be set for this to work,
      * otherwise this will always return false.
      *

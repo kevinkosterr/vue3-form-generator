@@ -45,7 +45,7 @@ const shouldHaveLabel = computed(() => {
 </script>
 
 <template>
-  <div class="form-group">
+  <div class="form-group" :style="{display: fieldComponent && !fieldComponent.isVisible ? 'none': ''}">
     <label v-if="shouldHaveLabel" :for="fieldId">
       <span> {{ props.field.label }}</span>
     </label>
