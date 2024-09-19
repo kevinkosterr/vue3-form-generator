@@ -7,10 +7,19 @@ let messages = {
   mobilePhoneNL: 'Phone number is invalid (must be a valid Dutch phone number, e.g. +31612345678)'
 }
 
+/**
+ * Get the message belonging to when a validation has failed against a validator
+ * @param {String} validatorName - name of the validator
+ * @returns {String} - validation failed message
+ */
 function getMessage (validatorName) {
   return messages[validatorName] || 'Field is invalid'
 }
 
+/**
+ * Set/overwrite the messages
+ * @param {String} _messages
+ */
 function setMessages (_messages) {
   messages = { ...messages, ..._messages }
 }
