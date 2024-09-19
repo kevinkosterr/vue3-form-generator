@@ -235,8 +235,17 @@ export default {
      */
     isReadOnly () {
       return this.determineDynamicAttribute('readonly')
-    }
+    },
 
+    /**
+     * Compute the hint to be displayed underneath the field input element.
+     * Should return a string value.
+     *
+     * @returns {String}
+     */
+    hint () {
+      return this.determineDynamicAttribute('hint')
+    }
 
   }
 
