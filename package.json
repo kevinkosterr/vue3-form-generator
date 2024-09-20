@@ -1,8 +1,11 @@
 {
-  "name": "vue3-form-generator",
+  "name": "@kevinkosterr/vue3-form-generator",
   "version": "0.3.1",
-  "private": true,
+  "private": false,
   "type": "module",
+  "author": "Kevin Koster (@kevinkoster)",
+  "repository": "https://github.com/kevinkosterr/vue3-form-generator",
+  "license": "MIT",
   "main": "./dist/vue3-form-generator.umd.js",
   "module": "./dist/vue3-form-generator.es.js",
   "scripts": {
