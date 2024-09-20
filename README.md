@@ -1,12 +1,12 @@
 # Vue 3 Form Generator
-A Vue 3 version of `vue-form-generator`, a schema-based form generator.
+A schema-based form generator component for Vue 3, based on `vue-form-generator`
 
 ## Basic usage
 1. Install plugin in your Vue app, this will make all necessary components globally available in your app.
 ```javascript
 // ...
 
-import VueFormGenerator from 'vue3-form-generator'
+import VueFormGenerator from '@kevinkosterr/vue3-form-generator'
 
 app.use(VueFormGenerator)
 

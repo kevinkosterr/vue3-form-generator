@@ -1,16 +1,26 @@
 {
-  "name": "vue3-form-generator",
+  "name": "@kevinkosterr/vue3-form-generator",
   "version": "0.3.1",
-  "private": true,
+  "private": false,
   "type": "module",
-  "main": "src/index.js",
+  "author": "Kevin Koster (@kevinkoster)",
+  "repository": "https://github.com/kevinkosterr/vue3-form-generator",
+  "license": "MIT",
+  "main": "./dist/vue3-form-generator.umd.js",
+  "module": "./dist/vue3-form-generator.es.js",
   "scripts": {
     "dev": "vite",
     "build": "vite build",
     "preview": "vite preview"
   },
+  "exports": {
+    ".": {
+      "import": "./dist/vue3-form-generator.es.js",
+      "require": "./dist/vue3-form-generator.umd.js"
+    }
+  },
   "files": [
-    "src"
+    "dist"
   ],
   "dependencies": {
     "zxcvbn": "^4.4.2"
