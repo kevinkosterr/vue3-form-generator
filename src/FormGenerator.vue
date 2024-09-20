@@ -86,7 +86,6 @@ const onSubmit = () => {
         </fieldset>
       </template>
     </fieldset>
-    {{ formErrors }}
   </form>
 </template>
 
