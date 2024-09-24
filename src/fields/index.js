@@ -5,11 +5,11 @@ import FieldSelect from '@/fields/input/FieldSelect.vue'
 import FieldRadio from '@/fields/input/FieldRadio.vue'
 import FieldColor from '@/fields/input/FieldColor.vue'
 import FieldNumber from '@/fields/input/FieldNumber.vue'
+import FieldSwitch from '@/fields/input/FieldSwitch.vue'
 
 import FieldSubmit from '@/fields/buttons/FieldSubmit.vue'
 import FieldReset from '@/fields/buttons/FieldReset.vue'
 import FieldButton from '@/fields/buttons/FieldButton.vue'
-import FieldSwitch from '@/fields/input/FieldSwitch.vue'
 
 
 const fieldComponents = [
@@ -18,9 +18,14 @@ const fieldComponents = [
 ]
 
 export default {
-  install (app) {
+  install (app, aliases) {
     for (const fieldComponent of fieldComponents) {
-      app.component(fieldComponent.name, fieldComponent)
+      const alias = aliases[fieldComponent.name]
+      if (alias) {
+        app.component(alias, fieldComponent)
+      } else {
+        app.component(fieldComponent.name, fieldComponent)
+      }
     }
   }
 }

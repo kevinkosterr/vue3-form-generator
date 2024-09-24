@@ -10,7 +10,7 @@ const VueFormGenerator = {
   install (app, options) {
     if (!options) options = {}
 
-    app.use(FormGeneratorFields)
+    app.use(FormGeneratorFields, options.aliases ?? {})
     app.component('VueFormGenerator', FormGenerator)
 
     if (isObject(options.messages)) {
