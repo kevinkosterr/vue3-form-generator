@@ -1,6 +1,6 @@
 import { fileURLToPath, URL } from 'node:url'
-
 import { defineConfig } from 'vite'
+
 import vue from '@vitejs/plugin-vue'
 
 
@@ -10,6 +10,7 @@ export default defineConfig({
     vue()
   ],
   build: {
+    minify: 'terser',
     lib: {
       entry: 'src/index.js',
       name: 'vue3-form-generator',
@@ -18,6 +19,7 @@ export default defineConfig({
     rollupOptions: {
       external: [ 'vue' ],
       output: {
+        exports: 'named',
         globals: {
           vue: 'Vue'
         }
