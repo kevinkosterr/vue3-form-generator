@@ -22,11 +22,11 @@ const VueFormGenerator = {
         app.component(name, component)
       })
     }
-  },
-  validators
+  }
 }
 
 export default VueFormGenerator
 export {
-  abstractField
+  abstractField,
+  validators
 }
