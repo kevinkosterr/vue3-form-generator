@@ -23,9 +23,7 @@
   "files": [
     "dist"
   ],
-  "dependencies": {
-    "zxcvbn": "^4.4.2"
-  },
+  "dependencies": {},
   "devDependencies": {
     "@stylistic/eslint-plugin": "^2.8.0",
     "@vitejs/plugin-vue": "^5.1.3",

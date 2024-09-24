@@ -12,51 +12,39 @@
       @blur="onBlur"
     >
     <div v-if="field.indicator" class="password-strength-indicator" :style="meterStyle" />
-    <small v-if="(field.suggestions || field.warning) && passwordFeedback" class="password-feedback">
-      <div v-if="field.suggestions && passwordFeedback.suggestions.length" class="password-suggestions">
-        <strong>Suggestions</strong>
-        <ul class="password-suggestions-ul">
-          <li v-for="suggestion in passwordFeedback.suggestions" :key="suggestion">{{ suggestion }}</li>
-        </ul>
-      </div>
-      <div v-if="field.warning && passwordFeedback.warning" class="password-warnings">
-        <strong>Warning</strong>
-        <div>{{ passwordFeedback.warning }}</div>
-      </div>
-    </small>
   </div>
 </template>
 
 <script>
-import zxcvbn from 'zxcvbn'
 import { abstractField } from '@/mixins'
 
 export default {
   name: 'FieldPassword',
   mixins: [ abstractField ],
+  data () {
+    return {
+      /** from PrimeVue */
+      mediumRegex: new RegExp('^(((?=.*[a-z])(?=.*[A-Z]))|((?=.*[a-z])(?=.*[0-9]))|((?=.*[A-Z])(?=.*[0-9])))(?=.{6,})'),
+      strongRegex: new RegExp('^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.{8,})')
+    }
+  },
   computed: {
-    shouldCheckPassword () {
-      return (this.field.indicator || this.field.suggestions || this.field.warning)
-    },
-    checkedPassword () {
-      if (!this.model[this.field.model] || !this.shouldCheckPassword) return {}
-      return zxcvbn(this.model[this.field.model])
-    },
     passwordStrength () {
-      return this.checkedPassword?.score
-    },
-    passwordFeedback () {
-      return this.checkedPassword?.feedback
+      if (this.strongRegex.test(this.currentModelValue)) {
+        return 3
+      } else if (this.mediumRegex.test(this.currentModelValue)) {
+        return 2
+      } else if (this.currentModelValue.length) {
+        return 1
+      }
+      return 0
     },
     meterStyle () {
-      if (this.passwordStrength === 0 && this.model[this.field.model].length > 0) {
-        return 'width:10%;background:red;'
-      }
       return {
-        1: 'width:25%;background:red;',
+        0: '',
+        1: 'width:15%;background:red;',
         2: 'width:50%;background:orange;',
-        3: 'width:75%;background:green;',
-        4: 'width:100%;background:darkgreen;'
+        3: 'width:100%;background:green;'
       }[this.passwordStrength]
     }
   }
@@ -69,12 +57,5 @@ export default {
   height: .5em;
   width: 100%;
   background: rgba(0, 0, 0, 0.1);
-}
-
-.password-feedback {
-  margin-top: .5em;
-  margin-bottom: 1em;
-  display: grid;
-  grid-template-columns: 1fr 1fr;
 }
 </style>
