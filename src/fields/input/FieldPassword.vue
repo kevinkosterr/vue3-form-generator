@@ -7,7 +7,7 @@
       :required="isRequired"
       :disabled="isDisabled"
       :placeholder="field.placeholder"
-      :value="model[field.model]"
+      :value="currentModelValue"
       @input="onFieldValueChanged"
       @blur="onBlur"
     >

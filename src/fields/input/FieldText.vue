@@ -7,7 +7,7 @@
     :disabled="isDisabled"
     :placeholder="field.placeholder"
     :autocomplete="field.autocomplete || 'off'"
-    :value="model[field.model]"
+    :value="currentModelValue"
     @input="onFieldValueChanged"
     @blur="onBlur"
   >

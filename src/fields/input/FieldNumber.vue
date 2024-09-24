@@ -6,7 +6,7 @@
     :required="isRequired"
     :disabled="isDisabled"
     :placeholder="field.placeholder"
-    :value="model[field.model]"
+    :value="currentModelValue"
     :max="field.max || undefined"
     :min="field.min || undefined"
     :step="field.step || 1"

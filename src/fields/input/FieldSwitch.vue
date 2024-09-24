@@ -3,7 +3,7 @@
     <input
       :id="formFieldId"
       type="checkbox"
-      :checked="model[field.model]"
+      :checked="currentModelValue"
       :disabled="isDisabled"
       @change="onFieldValueChanged"
     >

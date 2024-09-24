@@ -2,7 +2,7 @@
   <select
     :id="id"
     :name="field.name"
-    :value="model[field.model]"
+    :value="currentModelValue"
     :required="isRequired"
     :disabled="isDisabled"
     @change="onFieldValueChanged"

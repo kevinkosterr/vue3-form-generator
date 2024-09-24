@@ -5,8 +5,8 @@
     :name="field.name"
     :required="isRequired"
     :disabled="isDisabled"
-    :value="model[field.model]"
-    :checked="model[field.model]"
+    :value="currentModelValue"
+    :checked="currentModelValue"
     @change="onFieldValueChanged"
   >
   <label v-if="field.label" style="margin-left: .4em" :for="id"> {{ field.label }}</label>
