@@ -10,8 +10,9 @@
   "module": "./dist/vue3-form-generator.es.js",
   "scripts": {
     "dev": "vite",
+    "test": "vitest",
     "build": "vite build",
-    "build:publish": "vite build && npm publish --access public",
+    "build:publish": "vitest && vite build && npm publish --access public",
     "preview": "vite preview"
   },
   "exports": {
