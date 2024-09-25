@@ -8,7 +8,7 @@ function getValidator (validator) {
     if (validators[validator] === undefined) throw new Error('Invalid validator: ' + validator)
     return validators[validator]
   }
-  throw new Error('Couldn\'t get validator for: ' + validator)
+  return () => true
 }
 
 export default {
@@ -52,8 +52,8 @@ export default {
     validate () {
       let results = []
 
-      if (!this.isDisabled && this.field.validator && !this.isReadOnly) {
-        const fieldValidators = [ ...this.defaultValidators ]
+      const fieldValidators = [ ...this.defaultValidators ]
+      if (!this.isDisabled && (this.field.validator || fieldValidators.length) && !this.isReadOnly) {
 
         if (Array.isArray(this.field.validator)) {
           /** Retrieve actual validators for every given validator in Array */
@@ -174,17 +174,18 @@ export default {
      */
     defaultValidators () {
       const fieldValidators = []
+      if (!this.isDisabled && !this.isReadOnly) {
+        if (this.isRequired && !fieldValidators.includes(validators.required)) {
+          fieldValidators.push(validators.required)
+        }
 
-      if (this.isRequired && !fieldValidators.includes(validators.required)) {
-        fieldValidators.push(validators.required)
-      }
+        if (this.field.min) {
+          fieldValidators.push(validators.minLength)
+        }
 
-      if (this.field.min) {
-        fieldValidators.push(validators.minLength)
-      }
-
-      if (this.field.max) {
-        fieldValidators.push(validators.maxLength)
+        if (this.field.max) {
+          fieldValidators.push(validators.maxLength)
+        }
       }
       return fieldValidators
     },
