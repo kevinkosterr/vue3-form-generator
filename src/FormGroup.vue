@@ -62,7 +62,7 @@ const shouldHaveLabel = computed(() => {
       <span class="hint">{{ fieldComponent.hint }}</span>
     </div>
 
-    <div v-if="fieldComponent && fieldComponent.errors.length" class="errors help-block">
+    <div v-if="fieldComponent && fieldComponent.errors && fieldComponent.errors.length" class="errors help-block">
       <template v-for="error in fieldComponent.errors" :key="error">
         <span class="error">{{ error }}</span> <br>
       </template>
