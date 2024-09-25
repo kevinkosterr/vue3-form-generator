@@ -1,8 +1,8 @@
+import { mountFormGenerator } from '@test/_resources/tools.js'
 import { describe, it, expect } from 'vitest'
 import { mount, config } from '@vue/test-utils'
 
 import FieldCheckbox from '@/fields/input/FieldCheckbox.vue'
-import FormGenerator from '@/FormGenerator.vue'
 
 const form = {
   model: {
@@ -38,6 +38,15 @@ describe('Test FieldCheckbox', () => {
     await wrapper.vm.$nextTick()
     // Checked attribute should be false, since the default value is set to false inside the model.
     expect(wrapper.find('input[type=checkbox]').element.checked).toBe(false)
+  })
+
+  it('Should render correctly inside form generator', async() => {
+    config.global.components = { FieldCheckbox }
+    const generatorWrapper = mountFormGenerator(form.schema, form.model)
+    await generatorWrapper.vm.$nextTick()
+
+    expect(generatorWrapper.findComponent(FieldCheckbox).exists()).toBe(true)
+    expect(generatorWrapper.find('input[type=checkbox]').exists()).toBe(true)
   })
 
   it('Should be disabled, when specified with a conditional function', async () => {
@@ -78,16 +87,16 @@ describe('Test FieldCheckbox', () => {
     expect(wrapper.find('input[type=checkbox]').element.checked).toBe(model.checkboxTestModel)
   })
 
-  it('Should update model value', async () => {
+  it('Should emit onInput event', async () => {
+    const wrapper = mount(FieldCheckbox, { props })
+    await wrapper.find('input[type=checkbox]').trigger('change' )
+    expect(wrapper.emitted()).toHaveProperty('onInput')
+  })
 
+  it('Should update model value', async () => {
     config.global.components = { FieldCheckbox }
 
-    const generatorWrapper = mount(FormGenerator, {
-      props: {
-        schema: form.schema, model: form.model
-      }
-    })
-
+    const generatorWrapper = mountFormGenerator(form.schema, form.model)
     await generatorWrapper.vm.$nextTick()
 
     const wrapper = generatorWrapper.findComponent(FieldCheckbox)
@@ -103,9 +112,9 @@ describe('Test FieldCheckbox', () => {
     expect(wrapper.emitted()).toHaveProperty('onInput', [ [ true ] ])
     await wrapper.vm.$nextTick()
 
-    expect(wrapper.vm.model.checkboxTestModel).toBe(true)
     expect(generatorWrapper.vm.model.checkboxTestModel).toBe(true)
-
+    // Model value of wrapper should be updated as well, since this gets passed down from the Form Generator.
+    expect(wrapper.vm.model.checkboxTestModel).toBe(true)
   })
 
 })
