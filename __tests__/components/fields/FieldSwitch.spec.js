@@ -27,10 +27,10 @@ describe('Test FieldSwitch', () => {
   it('Should render correctly inside form generator', async () => {
     config.global.components = { FieldSwitch }
 
-    const generatorWrapper = mountFormGenerator(form.schema, form.model)
-    await generatorWrapper.vm.$nextTick()
-    expect(generatorWrapper.findComponent(FieldSwitch).exists()).toBe(true)
-    expect(generatorWrapper.find('input[type=checkbox]').exists()).toBe(true)
+    const formWrapper = mountFormGenerator(form.schema, form.model)
+    await formWrapper.vm.$nextTick()
+    expect(formWrapper.findComponent(FieldSwitch).exists()).toBe(true)
+    expect(formWrapper.find('input[type=checkbox]').exists()).toBe(true)
   })
 
   it('Should be checked when toggling switch', async () => {
@@ -43,10 +43,10 @@ describe('Test FieldSwitch', () => {
   it('Should update model value', async () => {
     config.global.components = { FieldSwitch }
 
-    const generatorWrapper = mountFormGenerator(form.schema, form.model)
-    await generatorWrapper.vm.$nextTick()
+    const formWrapper = mountFormGenerator(form.schema, form.model)
+    await formWrapper.vm.$nextTick()
 
-    const wrapper = generatorWrapper.findComponent(FieldSwitch)
+    const wrapper = formWrapper.findComponent(FieldSwitch)
     expect(wrapper.exists()).toBe(true)
     await wrapper.find('input[type=checkbox]').setChecked(true)
     expect(wrapper.emitted()).toHaveProperty('onInput', [ [ true ] ])

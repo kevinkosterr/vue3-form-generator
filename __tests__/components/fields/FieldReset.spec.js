@@ -53,40 +53,40 @@ describe('Test FieldReset', () => {
   it('Should render correctly inside form generator', async () => {
     config.global.components = { FieldPassword, FieldCheckbox, FieldReset }
 
-    const generatorWrapper = mountFormGenerator(form.schema, form.model)
-    await generatorWrapper.vm.$nextTick()
+    const formWrapper = mountFormGenerator(form.schema, form.model)
+    await formWrapper.vm.$nextTick()
 
-    expect(generatorWrapper.findComponent(FieldReset).exists()).toBeTruthy()
-    expect(generatorWrapper.find('input[type=reset]').exists()).toBeTruthy()
+    expect(formWrapper.findComponent(FieldReset).exists()).toBeTruthy()
+    expect(formWrapper.find('input[type=reset]').exists()).toBeTruthy()
   })
 
   it('Should reset all values in a form\'s model', async () => {
     config.global.components = { FieldPassword, FieldCheckbox, FieldReset }
 
-    const generatorWrapper = mountFormGenerator(form.schema, form.model)
-    await generatorWrapper.vm.$nextTick()
+    const formWrapper = mountFormGenerator(form.schema, form.model)
+    await formWrapper.vm.$nextTick()
     // Check that the initial values have been passed down correctly
-    expect(generatorWrapper.vm.model.password).toBeFalsy()
-    expect(generatorWrapper.vm.model.checkboxTestModel).toBeFalsy()
+    expect(formWrapper.vm.model.password).toBeFalsy()
+    expect(formWrapper.vm.model.checkboxTestModel).toBeFalsy()
 
-    expect(generatorWrapper.findAllComponents([ FieldPassword, FieldCheckbox, FieldReset ])).toBeTruthy()
+    expect(formWrapper.findAllComponents([ FieldPassword, FieldCheckbox, FieldReset ])).toBeTruthy()
 
-    const passwordField = generatorWrapper.findComponent(FieldPassword)
-    const checkboxField = generatorWrapper.findComponent(FieldCheckbox)
+    const passwordField = formWrapper.findComponent(FieldPassword)
+    const checkboxField = formWrapper.findComponent(FieldCheckbox)
 
     await passwordField.find('input').setValue('password')
-    expect(generatorWrapper.vm.model.password).toBe('password')
+    expect(formWrapper.vm.model.password).toBe('password')
 
     await checkboxField.find('input').setChecked(true)
-    expect(generatorWrapper.vm.model.checkboxTestModel).toBe(true)
+    expect(formWrapper.vm.model.checkboxTestModel).toBe(true)
 
     // Reset will be triggered when clicking the reset button, however
     // this isn't the case when using vue test utils.
-    await generatorWrapper.find('form').trigger('reset')
-    expect(generatorWrapper.emitted()).toHaveProperty('reset')
-    await generatorWrapper.vm.$nextTick()
+    await formWrapper.find('form').trigger('reset')
+    expect(formWrapper.emitted()).toHaveProperty('reset')
+    await formWrapper.vm.$nextTick()
 
-    expect(generatorWrapper.vm.model.password).toBe('')
+    expect(formWrapper.vm.model.password).toBe('')
   })
 
 })

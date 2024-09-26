@@ -20,9 +20,18 @@ export function mountFormGenerator (schema, model) {
  * @param {String} inputType - field input type, required if `type === 'input'`
  * @param {String} label - field label
  * @param {any} initialValue - initial model value
+ * @param {Object} extraFieldProperties - extra field properties to add
  * @returns {{schema: {fields: [{name, model, inputType, label, type}]}, model: {}}}
  */
-export function generateSchemaSingleField (name, model, type, inputType, label, initialValue) {
+export function generateSchemaSingleField (
+  name,
+  model,
+  type,
+  inputType,
+  label,
+  initialValue,
+  extraFieldProperties
+) {
   return {
     model: {
       [model]: initialValue
@@ -30,7 +39,7 @@ export function generateSchemaSingleField (name, model, type, inputType, label, 
     schema: {
       fields: [
         {
-          name, model, type, inputType, label
+          name, model, type, inputType, label, ...extraFieldProperties
         }
       ]
     }

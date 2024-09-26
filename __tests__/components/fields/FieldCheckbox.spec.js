@@ -30,11 +30,11 @@ describe('Test FieldCheckbox', () => {
 
   it('Should render correctly inside form generator', async() => {
     config.global.components = { FieldCheckbox }
-    const generatorWrapper = mountFormGenerator(form.schema, form.model)
-    await generatorWrapper.vm.$nextTick()
+    const formWrapper = mountFormGenerator(form.schema, form.model)
+    await formWrapper.vm.$nextTick()
 
-    expect(generatorWrapper.findComponent(FieldCheckbox).exists()).toBe(true)
-    expect(generatorWrapper.find('input[type=checkbox]').exists()).toBe(true)
+    expect(formWrapper.findComponent(FieldCheckbox).exists()).toBe(true)
+    expect(formWrapper.find('input[type=checkbox]').exists()).toBe(true)
   })
 
   it('Should be disabled, when specified with a conditional function', async () => {
@@ -84,10 +84,10 @@ describe('Test FieldCheckbox', () => {
   it('Should update model value', async () => {
     config.global.components = { FieldCheckbox }
 
-    const generatorWrapper = mountFormGenerator(form.schema, form.model)
-    await generatorWrapper.vm.$nextTick()
+    const formWrapper = mountFormGenerator(form.schema, form.model)
+    await formWrapper.vm.$nextTick()
 
-    const wrapper = generatorWrapper.findComponent(FieldCheckbox)
+    const wrapper = formWrapper.findComponent(FieldCheckbox)
     expect(wrapper.exists()).toBe(true)
 
     await wrapper.vm.$nextTick()
@@ -100,7 +100,7 @@ describe('Test FieldCheckbox', () => {
     expect(wrapper.emitted()).toHaveProperty('onInput', [ [ true ] ])
     await wrapper.vm.$nextTick()
 
-    expect(generatorWrapper.vm.model.checkboxTestModel).toBe(true)
+    expect(formWrapper.vm.model.checkboxTestModel).toBe(true)
     // Model value of wrapper should be updated as well, since this gets passed down from the Form Generator.
     expect(wrapper.vm.model.checkboxTestModel).toBe(true)
   })

@@ -30,11 +30,11 @@ describe('Test FieldPassword', () => {
   it('Should render correctly inside form generator', async () => {
     config.global.components = { FieldPassword }
 
-    const generatorWrapper = mountFormGenerator(form.schema, form.model)
-    await generatorWrapper.vm.$nextTick()
+    const formWrapper = mountFormGenerator(form.schema, form.model)
+    await formWrapper.vm.$nextTick()
 
-    expect(generatorWrapper.find('input[type=password]').exists()).toBe(true)
-    expect(generatorWrapper.findComponent(FieldPassword).exists()).toBe(true)
+    expect(formWrapper.find('input[type=password]').exists()).toBe(true)
+    expect(formWrapper.findComponent(FieldPassword).exists()).toBe(true)
   })
 
   it('Shouldn\'t display password strength meter, if not specified', async () => {
@@ -86,16 +86,16 @@ describe('Test FieldPassword', () => {
   it('Should update model value', async () => {
     config.global.components = { FieldPassword }
 
-    const generatorWrapper = mountFormGenerator(form.schema, form.model)
-    await generatorWrapper.vm.$nextTick()
+    const formWrapper = mountFormGenerator(form.schema, form.model)
+    await formWrapper.vm.$nextTick()
 
-    const wrapper = generatorWrapper.findComponent(FieldPassword)
+    const wrapper = formWrapper.findComponent(FieldPassword)
     expect(wrapper.exists()).toBe(true)
     await wrapper.find('input').setValue('testpassword')
     expect(wrapper.emitted()).toHaveProperty('onInput', [ [ 'testpassword' ] ])
     await wrapper.vm.$nextTick()
 
-    expect(generatorWrapper.vm.model.password).toBe('testpassword')
+    expect(formWrapper.vm.model.password).toBe('testpassword')
     expect(wrapper.vm.model.password).toBe('testpassword')
   })
 
