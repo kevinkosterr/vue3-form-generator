@@ -23,6 +23,15 @@
   "files": [
     "dist"
   ],
+  "keywords": [
+    "vue-form-generator",
+    "form generator",
+    "form",
+    "schema",
+    "vue3-form-generator",
+    "vue3 forms",
+    "vuejs"
+  ],
   "dependencies": {},
   "devDependencies": {
     "@stylistic/eslint-plugin": "^2.8.0",
