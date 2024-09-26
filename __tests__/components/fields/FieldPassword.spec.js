@@ -1,32 +1,19 @@
-import { mountFormGenerator } from '@test/_resources/utils.js'
+import { mountFormGenerator, generateSchemaSingleField, generatePropsSingleField } from '@test/_resources/utils.js'
 import { describe, it, expect } from 'vitest'
 import { mount, config } from '@vue/test-utils'
 
 import FieldPassword from '@/fields/input/FieldPassword.vue'
 
-const form = {
-  model: {
-    password: ''
-  },
-  schema: {
-    fields: [
-      {
-        name: 'passwordTest',
-        model: 'password',
-        label: 'Password',
-        type: 'input',
-        inputType: 'password'
-      }
-    ]
-  }
-}
+const form = generateSchemaSingleField(
+  'passwordTest',
+  'password',
+  'input',
+  'password',
+  'Password',
+  ''
+)
 
-const props = {
-  id: 'password_test',
-  formGenerator: {},
-  field: { ...form.schema.fields[0] },
-  model: { ...form.model }
-}
+const props = generatePropsSingleField(form)
 
 const propsWithIndicator = {
   ...props,

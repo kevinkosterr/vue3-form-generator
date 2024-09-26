@@ -1,31 +1,19 @@
-import { mountFormGenerator } from '@test/_resources/utils.js'
+import { generatePropsSingleField, generateSchemaSingleField, mountFormGenerator } from '@test/_resources/utils.js'
 import { describe, it, expect } from 'vitest'
 import { mount, config } from '@vue/test-utils'
 
 import FieldSwitch from '@/fields/input/FieldSwitch.vue'
 
-const form = {
-  model: {
-    testToggle: false
-  },
-  schema: {
-    fields: [
-      {
-        name: 'switchTest',
-        model: 'testToggle',
-        label: 'Testing',
-        type: 'switch'
-      }
-    ]
-  }
-}
+const form = generateSchemaSingleField(
+  'switchTest',
+  'testToggle',
+  'switch',
+  null,
+  'Testing',
+  false
+)
 
-const props = {
-  id: 'switch_test',
-  formGenerator: {},
-  field: { ...form.schema.fields[0] },
-  model: { ...form.model }
-}
+const props = generatePropsSingleField(form)
 
 describe('Test FieldSwitch', () => {
 

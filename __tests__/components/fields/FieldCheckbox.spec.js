@@ -1,31 +1,19 @@
-import { mountFormGenerator } from '@test/_resources/utils.js'
+import { generatePropsSingleField, generateSchemaSingleField, mountFormGenerator } from '@test/_resources/utils.js'
 import { describe, it, expect } from 'vitest'
 import { mount, config } from '@vue/test-utils'
 
 import FieldCheckbox from '@/fields/input/FieldCheckbox.vue'
 
-const form = {
-  model: {
-    checkboxTestModel: false
-  },
-  schema: {
-    fields: [
-      {
-        name: 'checkboxTestName',
-        model: 'checkboxTestModel',
-        label: 'Checkbox Test',
-        type: 'checkbox'
-      }
-    ]
-  }
-}
+const form = generateSchemaSingleField(
+  'checkboxTestName',
+  'checkboxTestModel',
+  'input',
+  'checkbox',
+  'Checkbox Test',
+  false
+)
 
-const props = {
-  id: 'checkbox_test',
-  formGenerator: {},
-  field: { ...form.schema.fields[0] },
-  model: { ...form.model }
-}
+const props = generatePropsSingleField(form)
 
 describe('Test FieldCheckbox', () => {
 
