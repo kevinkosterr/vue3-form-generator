@@ -41,7 +41,7 @@ function toUniqueArray (arr) {
  * @returns {string} string representation of the field component.
  */
 function getFieldComponentName (field) {
-  const fieldAttribute = field[field.inputType !== undefined ? 'inputType' : 'type']
+  const fieldAttribute = field[![ null, undefined ].includes(field.inputType) ? 'inputType' : 'type']
   if (!fieldAttribute) throw new Error('No input or input type specified for ' + field)
   return 'Field' + fieldAttribute.charAt(0).toUpperCase() + fieldAttribute.slice(1)
 }
