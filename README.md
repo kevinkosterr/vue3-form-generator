@@ -4,92 +4,23 @@
 ![NPM Version](https://img.shields.io/npm/v/%40kevinkosterr%2Fvue3-form-generator?logo=npm)
 ![GitHub License](https://img.shields.io/github/license/kevinkosterr/vue3-form-generator)
 <br>
-A schema-based form generator component for Vue 3, based on `vue-form-generator`
+A schema-based form generator component for Vue 3, based on the original 
+[`vue-form-generator`](https://github.com/vue-generators/vue-form-generator) library.
 
+You can find documentation on the [documentation page](https://kevinkosterr.github.io/vue3-form-generator-docs).
 
-## Basic usage
-1. Install plugin in your Vue app, this will make all necessary components globally available in your app.
-```javascript
-// ...
-
-import VueFormGenerator from '@kevinkosterr/vue3-form-generator'
-
-app.use(VueFormGenerator)
-
-// ...
+## Building for development
+1. Install the dependencies
+```bash
+yarn install
 ```
-2. Define a schema inside your Vue component
-<br><br>
-#### Composition API:
-```vue
-<template>
-  <vue-form-generator :schema="form.schema" :model="form.model"/>
-</template>
-
-<script setup>
-  import { ref } from 'vue'
-  
-  const form = ref({
-    model: {
-      name: '',
-      terms: false,
-    },
-    schema: {
-      fields: [
-        {
-          name: 'name',
-          label: 'Name',
-          type: 'input',
-          inputType: 'text',
-          model: 'name',
-          placeholder: "Write name...",
-          readonly: false,
-          required: true,
-        },
-        {
-          name: 'terms',
-          label: 'Accept terms and conditions',
-          type: 'input',
-          inputType: 'checkbox',
-          model: 'terms',
-        }
-      ]
-    }
-  })
-</script>
+2. Create a schema inside the playground folder, for this you can copy `schema.example.js`.
+```bash
+cp playground/schema.example.js playground/schema.js
 ```
-#### Options API:
-```vue
-<template>
-  <vue-form-generator :schema="form.schema" :model="form.model"/>
-</template>
-
-<script>
-  export default {
-    data () {
-      return {
-        form: {
-          model: {
-            name: '',
-          },
-          schema: {
-            fields: [
-              {
-                name: 'name',
-                label: 'Name',
-                type: 'input',
-                inputType: 'text',
-                model: 'name',
-                placeholder: "Write name...",
-                readonly: false,
-                required: true,
-              }
-            ]
-          }
-        }
-      }
-    }
-  }
-</script>
+3. Run the development playground
+```bash
+yarn run dev 
 ```
+
 
