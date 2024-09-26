@@ -1,4 +1,4 @@
-import { mountFormGenerator } from '@test/_resources/tools.js'
+import { mountFormGenerator } from '@test/_resources/utils.js'
 import { describe, it, expect } from 'vitest'
 import { mount, config } from '@vue/test-utils'
 
