@@ -31,7 +31,6 @@ describe('Test FieldCheckbox', () => {
   it('Should render correctly inside form generator', async() => {
     config.global.components = { FieldCheckbox }
     const formWrapper = mountFormGenerator(form.schema, form.model)
-    await formWrapper.vm.$nextTick()
 
     expect(formWrapper.findComponent(FieldCheckbox).exists()).toBe(true)
     expect(formWrapper.find('input[type=checkbox]').exists()).toBe(true)
@@ -85,7 +84,7 @@ describe('Test FieldCheckbox', () => {
     config.global.components = { FieldCheckbox }
 
     const formWrapper = mountFormGenerator(form.schema, form.model)
-    await formWrapper.vm.$nextTick()
+
 
     const wrapper = formWrapper.findComponent(FieldCheckbox)
     expect(wrapper.exists()).toBe(true)

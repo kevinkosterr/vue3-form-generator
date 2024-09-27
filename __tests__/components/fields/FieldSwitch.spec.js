@@ -28,7 +28,7 @@ describe('Test FieldSwitch', () => {
     config.global.components = { FieldSwitch }
 
     const formWrapper = mountFormGenerator(form.schema, form.model)
-    await formWrapper.vm.$nextTick()
+
     expect(formWrapper.findComponent(FieldSwitch).exists()).toBe(true)
     expect(formWrapper.find('input[type=checkbox]').exists()).toBe(true)
   })
@@ -44,7 +44,7 @@ describe('Test FieldSwitch', () => {
     config.global.components = { FieldSwitch }
 
     const formWrapper = mountFormGenerator(form.schema, form.model)
-    await formWrapper.vm.$nextTick()
+
 
     const wrapper = formWrapper.findComponent(FieldSwitch)
     expect(wrapper.exists()).toBe(true)

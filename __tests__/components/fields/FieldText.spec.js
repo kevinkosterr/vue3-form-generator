@@ -35,7 +35,7 @@ describe('Test FieldText', () => {
     config.global.components = { FieldText }
 
     const formWrapper = mountFormGenerator(form.schema, form.model)
-    await formWrapper.vm.$nextTick()
+
 
     expect(formWrapper.findComponent(FieldText).exists()).toBeTruthy()
     expect(formWrapper.find('input[type=text]').exists()).toBeTruthy()
@@ -52,7 +52,7 @@ describe('Test FieldText', () => {
     config.global.components = { FieldText }
 
     const formWrapper = mountFormGenerator(form.schema, form.model)
-    await formWrapper.vm.$nextTick()
+
 
     const textField = formWrapper.findComponent(FieldText)
     expect(textField.exists()).toBeTruthy()

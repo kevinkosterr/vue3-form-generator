@@ -31,7 +31,7 @@ describe('Test FieldPassword', () => {
     config.global.components = { FieldPassword }
 
     const formWrapper = mountFormGenerator(form.schema, form.model)
-    await formWrapper.vm.$nextTick()
+
 
     expect(formWrapper.find('input[type=password]').exists()).toBe(true)
     expect(formWrapper.findComponent(FieldPassword).exists()).toBe(true)
@@ -87,7 +87,7 @@ describe('Test FieldPassword', () => {
     config.global.components = { FieldPassword }
 
     const formWrapper = mountFormGenerator(form.schema, form.model)
-    await formWrapper.vm.$nextTick()
+
 
     const wrapper = formWrapper.findComponent(FieldPassword)
     expect(wrapper.exists()).toBe(true)

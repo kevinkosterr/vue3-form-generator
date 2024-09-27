@@ -54,7 +54,7 @@ describe('Test FieldReset', () => {
     config.global.components = { FieldPassword, FieldCheckbox, FieldReset }
 
     const formWrapper = mountFormGenerator(form.schema, form.model)
-    await formWrapper.vm.$nextTick()
+
 
     expect(formWrapper.findComponent(FieldReset).exists()).toBeTruthy()
     expect(formWrapper.find('input[type=reset]').exists()).toBeTruthy()
@@ -64,7 +64,7 @@ describe('Test FieldReset', () => {
     config.global.components = { FieldPassword, FieldCheckbox, FieldReset }
 
     const formWrapper = mountFormGenerator(form.schema, form.model)
-    await formWrapper.vm.$nextTick()
+
     // Check that the initial values have been passed down correctly
     expect(formWrapper.vm.model.password).toBeFalsy()
     expect(formWrapper.vm.model.checkboxTestModel).toBeFalsy()
@@ -84,7 +84,7 @@ describe('Test FieldReset', () => {
     // this isn't the case when using vue test utils.
     await formWrapper.find('form').trigger('reset')
     expect(formWrapper.emitted()).toHaveProperty('reset')
-    await formWrapper.vm.$nextTick()
+
 
     expect(formWrapper.vm.model.password).toBe('')
   })
