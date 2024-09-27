@@ -50,6 +50,7 @@ describe('Test FieldSwitch', () => {
     expect(wrapper.exists()).toBe(true)
     await wrapper.find('input[type=checkbox]').setChecked(true)
     expect(wrapper.emitted()).toHaveProperty('onInput', [ [ true ] ])
+    expect(formWrapper.vm.model.testToggle).toBe(true)
   })
 
 })
