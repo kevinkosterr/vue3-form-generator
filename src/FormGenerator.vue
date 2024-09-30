@@ -1,5 +1,6 @@
 <script setup>
 import { ref, getCurrentInstance } from 'vue'
+import { resetObjectProperties } from '@/helpers'
 import FormGroup from './FormGroup.vue'
 
 const instance = getCurrentInstance()
@@ -54,6 +55,11 @@ const onFieldValidated = ({ _isValid, _fieldErrors, _field }) => {
 const onSubmit = () => {
   if (!formErrors.value.length) emits('submit')
 }
+
+const onReset = () => {
+  // eslint-disable-next-line vue/no-mutating-props
+  props.model = resetObjectProperties(props.model)
+}
 </script>
 
 <template>
@@ -61,6 +67,7 @@ const onSubmit = () => {
     v-if="props.schema !== undefined" :id="props.id ?? ''"
     class="vue-form-generator"
     :enctype="enctype" @submit.prevent="onSubmit"
+    @reset.prevent="onReset"
   >
     <fieldset v-if="props.schema.fields">
       <template v-for="field in props.schema.fields" :key="field">

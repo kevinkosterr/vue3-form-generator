@@ -1,7 +1,5 @@
 <template>
-  <button type="reset">
-    {{ field.buttonText }}
-  </button>
+  <input type="reset" :value="field.buttonText">
 </template>
 
 <script>

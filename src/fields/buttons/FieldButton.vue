@@ -1,5 +1,5 @@
 <template>
-  <button type="button" @click.prevent="field.onClick">
+  <button type="button" @click.prevent="field.onClick(model, field)">
     {{ field.buttonText }}
   </button>
 </template>

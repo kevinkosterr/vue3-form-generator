@@ -1,10 +1,9 @@
 <template>
-  <button
+  <input
     type="submit"
     :disabled="isDisabled"
+    :value="field.buttonText || 'Submit'"
   >
-    {{ field.buttonText || 'Submit' }}
-  </button>
 </template>
 
 <script>

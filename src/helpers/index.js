@@ -41,7 +41,8 @@ function toUniqueArray (arr) {
  * @returns {string} string representation of the field component.
  */
 function getFieldComponentName (field) {
-  const fieldAttribute = field[field.inputType !== undefined ? 'inputType' : 'type']
+  const fieldAttribute = field[![ null, undefined ].includes(field.inputType) ? 'inputType' : 'type']
+  if (!fieldAttribute) throw new Error('No input or input type specified for ' + field)
   return 'Field' + fieldAttribute.charAt(0).toUpperCase() + fieldAttribute.slice(1)
 }
 
@@ -81,11 +82,40 @@ function hasLabel(field) {
   }
 }
 
+/**
+ * Reset all properties to an empty value of the same type. Will recursively try and
+ * reset all properties if an object has a property with another object as its value.
+ * @param obj - object to reset properties for.
+ * @returns {Object} - emptied object
+ */
+function resetObjectProperties (obj) {
+  for (const key in obj) {
+    if (obj.hasOwnProperty(key)) {
+      const value = obj[key]
+      if (typeof value === 'string') {
+        obj[key] = ''
+      } else if (typeof value === 'number') {
+        obj[key] = 0
+      } else if (typeof value === 'boolean') {
+        obj[key] = false
+      } else if (Array.isArray(value)) {
+        obj[key] = []
+      } else if (typeof value === 'object' && value !== null) {
+        obj[key] = resetObjectProperties(value)
+      } else {
+        obj[key] = null
+      }
+    }
+  }
+  return obj
+}
+
 export {
   isFunction,
   isObject,
   isString,
   toUniqueArray,
+  resetObjectProperties,
   getFieldComponentName,
   hasLabel,
   isEmpty,

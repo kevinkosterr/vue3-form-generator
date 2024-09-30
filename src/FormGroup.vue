@@ -40,7 +40,7 @@ const fieldId = computed(() => {
 
 const shouldHaveLabel = computed(() => {
   // checkbox will have their own label
-  return hasLabel(props.field) && props.field.inputType !== 'checkbox'
+  return hasLabel(props.field) && ![ props.field.inputType, props.field.type ].includes('checkbox')
 })
 </script>
 
@@ -62,7 +62,7 @@ const shouldHaveLabel = computed(() => {
       <span class="hint">{{ fieldComponent.hint }}</span>
     </div>
 
-    <div v-if="fieldComponent && fieldComponent.errors.length" class="errors help-block">
+    <div v-if="fieldComponent && fieldComponent.errors && fieldComponent.errors.length" class="errors help-block">
       <template v-for="error in fieldComponent.errors" :key="error">
         <span class="error">{{ error }}</span> <br>
       </template>
