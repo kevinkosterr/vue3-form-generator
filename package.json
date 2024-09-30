@@ -1,6 +1,6 @@
 {
   "name": "@kevinkosterr/vue3-form-generator",
-  "version": "0.4.0",
+  "version": "0.4.1",
   "private": false,
   "type": "module",
   "author": "Kevin Koster (@kevinkoster)",
@@ -23,6 +23,15 @@
   },
   "files": [
     "dist"
+  ],
+  "keywords": [
+    "vue-form-generator",
+    "form generator",
+    "form",
+    "schema",
+    "vue3-form-generator",
+    "vue3 forms",
+    "vuejs"
   ],
   "dependencies": {},
   "devDependencies": {
