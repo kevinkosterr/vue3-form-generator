@@ -23,7 +23,8 @@ export default {
   mixins: [ abstractField ],
   methods: {
     formatFieldValue (target) {
-      const isDecimalStep = this.field.step.toString().split('.')[1]
+      const step = this.field.step ?? 1
+      const isDecimalStep = step.toString().split('.')[1]
       if (!isDecimalStep) return parseInt(target.value)
       return parseFloat(target.value)
     }
