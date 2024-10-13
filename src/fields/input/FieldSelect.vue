@@ -78,7 +78,7 @@ export default {
       this.isOpened = true
     },
     isSelected (option) {
-      return this.currentModelValue.includes(option.value)
+      return this.currentModelValue?.includes(option.value) ?? false
     },
     selectOption (option) {
       if (!this.field.multiple) {
@@ -97,6 +97,7 @@ export default {
 
         this.$emit('onInput', selectedValues)
       }
+      this.isOpened = false
     }
   }
 }

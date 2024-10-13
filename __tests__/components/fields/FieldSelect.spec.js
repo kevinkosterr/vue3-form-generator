@@ -51,7 +51,7 @@ describe('Test FieldSelect', () => {
 
   it('Should update model value', async () => {
     config.global.components = { FieldSelect }
-    const formWrapper = mountFormGenerator(form.schema, props)
+    const formWrapper = mountFormGenerator(form.schema, form.model)
     const selectComp = formWrapper.findComponent(FieldSelect)
     expect(selectComp.exists()).toBeTruthy()
 
@@ -61,6 +61,29 @@ describe('Test FieldSelect', () => {
     await selectComp.find('.vfg-select-option').trigger('click')
     expect(formWrapper.vm.model.selectModel).toBe('test_1')
     expect(selectComp.vm.isOpened).toBeFalsy()
+  })
+
+  it('Should update model value, with multiple option', async () => {
+    config.global.components = { FieldSelect }
+    const schema = { fields: [
+      { ...form.schema.fields[0], multiple: true }
+    ] }
+    const model = { selectModel: [] }
+    const formWrapper = mountFormGenerator(schema, model)
+
+    expect(formWrapper.vm.model.selectModel.length).toBe(0)
+    const fieldSelect = formWrapper.findComponent(FieldSelect)
+    expect(fieldSelect.exists()).toBeTruthy()
+
+    await fieldSelect.find('.vfg-select-label').trigger('click')
+    await fieldSelect.vm.$nextTick()
+    await fieldSelect.find('.vfg-select-option').trigger('click')
+    expect(formWrapper.vm.model.selectModel.length).toBe(1)
+
+    await fieldSelect.find('.vfg-select-label').trigger('click')
+    await fieldSelect.vm.$nextTick()
+    await fieldSelect.findAll('.vfg-select-option')[2].trigger('click')
+    expect(formWrapper.vm.model.selectModel.length).toBe(2)
   })
 
 })
