@@ -27,40 +27,40 @@ describe('Test FieldSelect', () => {
 
   it('Should render correctly', async () => {
     const wrapper = mount(FieldSelect, { props })
-    expect(wrapper.find('select').exists()).toBeTruthy()
-    expect(wrapper.findAll('option').length).toBe(4)
+    expect(wrapper.find('.vfg-select').exists()).toBeTruthy()
     // First option should be filled with placeholder and value should be empty
-    expect(wrapper.find('option').element.innerHTML).toContain(props.field.placeholder)
-    expect(wrapper.find('option').attributes().value).toBe('')
+    expect(wrapper.find('.vfg-select-label').element.innerHTML).toContain(props.field.placeholder)
+  })
+
+  it('Should open correctly', async () => {
+    const wrapper = mount(FieldSelect, { props })
+    const selectEl = wrapper.find('.vfg-select-label')
+    await selectEl.trigger('click')
+    expect(wrapper.vm.isOpened).toBeTruthy()
+    await wrapper.vm.$nextTick()
+    expect(wrapper.findAll('.vfg-select-option').length).toBe(3)
   })
 
   it('Should render correctly inside form generator', async () => {
     config.global.components = { FieldSelect }
-
-    const formWrapper = mountFormGenerator(form.schema, form.model)
-
-    const selectField = formWrapper.findComponent(FieldSelect)
-    expect(selectField.exists()).toBeTruthy()
-    expect(selectField.findAll('option').length).toBe(4)
-  })
-
-  it('Should emit onInput event', async () => {
-    const wrapper = mount(FieldSelect, { props })
-    await wrapper.find('select').trigger('change')
-    expect(wrapper.emitted()).toHaveProperty('onInput')
+    const formWrapper = mountFormGenerator(form.schema, props)
+    const selectComp = formWrapper.findComponent(FieldSelect)
+    expect(selectComp.exists()).toBeTruthy()
+    expect(formWrapper.find('.vfg-select').exists()).toBeTruthy()
   })
 
   it('Should update model value', async () => {
     config.global.components = { FieldSelect }
+    const formWrapper = mountFormGenerator(form.schema, props)
+    const selectComp = formWrapper.findComponent(FieldSelect)
+    expect(selectComp.exists()).toBeTruthy()
 
-    const formWrapper = mountFormGenerator(form.schema, form.model)
-    const selectField = formWrapper.findComponent(FieldSelect)
-    expect(selectField.exists()).toBeTruthy()
+    await selectComp.find('.vfg-select-label').trigger('click')
+    await selectComp.vm.$nextTick()
 
-    await selectField.find('select').setValue('test_2')
-    expect(formWrapper.vm.model.selectModel).toBe('test_2')
-    await selectField.find('select').setValue('test_3')
-    expect(formWrapper.vm.model.selectModel).toBe('test_3')
+    await selectComp.find('.vfg-select-option').trigger('click')
+    expect(formWrapper.vm.model.selectModel).toBe('test_1')
+    expect(selectComp.vm.isOpened).toBeFalsy()
   })
 
 })
