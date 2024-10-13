@@ -1,7 +1,11 @@
 <template>
   <div class="vfg-select">
     <span v-on-click-outside="() => isOpened = false" class="vfg-select-label" :class="{'text-muted': !selectedName}" @click.prevent="onClickInput">
-      <template v-if="selectedName">{{ selectedName }}</template>
+      <template v-if="selectedNames.length">
+        <span v-for="(selectedName, index) in selectedNames" :key="selectedName">
+          <template v-if="index !== 0">, </template>{{ selectedName }}
+        </span>
+      </template>
       <template v-else>{{ field.placeholder || 'Select an option' }}</template>
       <span style="float:right;">
         <!-- ChevronDown from https://heroicons.com -->
@@ -20,10 +24,21 @@
           v-for="option in field.options"
           :key="option.value"
           class="vfg-select-option"
-          :class="{'selected': currentModelValue === option.value}"
+          :class="{'selected': isSelected(option)}"
           @click.prevent="selectOption(option)"
         >
           {{ option.name }}
+          <span v-if="isSelected(option)" style="float: right;">
+            <!-- X-Mark Icon from https://heroicons.com -->
+            <svg
+              xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+              stroke-width="1.5"
+              stroke="currentColor" style="height: 15px;"
+            >
+              <path stroke-linecap="round" stroke-linejoin="round" d="M6 18 18 6M6 6l12 12" />
+            </svg>
+
+          </span>
         </div>
       </div>
     </div>
@@ -44,8 +59,14 @@ export default {
     }
   },
   computed: {
-    selectedName () {
-      return this.currentModelValue ? this.field.options.find(o => o.value === this.currentModelValue).name : undefined
+    selectedNames () {
+      if (!this.currentModelValue) return []
+
+      if (Array.isArray(this.currentModelValue) && this.field.multiple) {
+        return this.field.options.filter(o => this.currentModelValue.includes(o.value)).map(o => o.name)
+      } else {
+        return [ this.field.options.find(o => o.value === this.currentModelValue).name ]
+      }
     }
   },
   methods: {
@@ -56,9 +77,26 @@ export default {
       }
       this.isOpened = true
     },
+    isSelected (option) {
+      return this.currentModelValue.includes(option.value)
+    },
     selectOption (option) {
-      this.$emit('onInput', option.value)
-      this.isOpened = false
+      if (!this.field.multiple) {
+        const isSelected = this.currentModelValue === option.value
+        this.$emit('onInput', isSelected ? '' : option.value)
+      } else {
+        let selectedValues = [ ...this.currentModelValue ]
+        const isSelected = selectedValues.includes(option.value)
+
+        if (isSelected) {
+          selectedValues = selectedValues.filter(o => o !== option.value)
+        } else {
+          selectedValues.push(option.value)
+        }
+
+
+        this.$emit('onInput', selectedValues)
+      }
     }
   }
 }
