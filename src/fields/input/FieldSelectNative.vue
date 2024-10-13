@@ -21,7 +21,7 @@
 import { abstractField } from '@/mixins'
 
 export default {
-  name: 'FieldSelect',
+  name: 'FieldSelectNative',
   mixins: [ abstractField ]
 }
 </script>
