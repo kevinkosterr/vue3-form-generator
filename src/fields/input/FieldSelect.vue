@@ -2,7 +2,7 @@
   <div class="vfg-select">
     <span class="vfg-select-label" :class="{'text-muted': !selectedName}" @click.prevent="onClickInput">
       <template v-if="selectedName">{{ selectedName }}</template>
-      <template v-else>{{ field.emptyText || 'Select an option' }}</template>
+      <template v-else>{{ field.placeholder || 'Select an option' }}</template>
       <span style="float:right;">
         <!-- ChevronDown from https://heroicons.com -->
         <svg
