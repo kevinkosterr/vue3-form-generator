@@ -95,13 +95,3 @@ const onReset = () => {
     </fieldset>
   </form>
 </template>
-
-<style>
-.vue-form-generator input:not([type='checkbox'],[type='submit'],[type='radio']) {
-  width: 100%;
-}
-
-.vue-form-generator > fieldset {
-  border: none;
-}
-</style>

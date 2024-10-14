@@ -50,12 +50,3 @@ export default {
   }
 }
 </script>
-
-<style scoped>
-.password-strength-indicator {
-  transition: width 0.1s ease-in, background 0.3s ease-in;
-  height: .5em;
-  width: 100%;
-  background: rgba(0, 0, 0, 0.1);
-}
-</style>

@@ -17,7 +17,7 @@ export default defineConfig({
       fileName: (format) => `vue3-form-generator.${format}.js`
     },
     rollupOptions: {
-      external: [ 'vue' ],
+      external: [ 'vue', new RegExp('/themes/.*') ],
       output: {
         exports: 'named',
         globals: {

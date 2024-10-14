@@ -1,0 +1,170 @@
+.vue-form-generator {
+
+  &input:not([type='checkbox'],[type='submit'],[type='radio']) {
+    width: 100%;
+  }
+
+  fieldset {
+    border: none;
+  }
+
+  /** Form group */
+  .form-group {
+    &:has(input[required], select[required]) {
+      label:first-child::after {
+        content: "*";
+        font-size: 0.9em;
+        color: red;
+        margin-left: 0.2rem;
+      }
+    }
+  }
+
+  .hint {
+    color: gray;
+    font-size: 90%;
+  }
+
+  .errors {
+    color: red;
+    font-size: .8rem;
+    margin-bottom: .3rem;
+  }
+
+
+  /** Password strength */
+  .password-strength-indicator {
+    transition: width 0.1s ease-in, background 0.3s ease-in;
+    height: .5em;
+    width: 100%;
+    background: rgba(0, 0, 0, 0.1);
+  }
+
+  /** Radio field */
+  .field-radio {
+    .option-wrap {
+      margin: .4rem;
+    }
+
+    label {
+      margin-left: .5rem;
+    }
+  }
+
+  /** Switch field */
+  .field-switch {
+    position: relative;
+    display: inline-block;
+    width: 60px;
+    height: 34px;
+
+    input {
+      opacity: 0;
+      width: 0;
+      height: 0;
+
+      &:checked + .slider {
+        background-color: #2196F3;
+      }
+
+      &:checked + .slider:before {
+        -webkit-transform: translateX(26px);
+        -ms-transform: translateX(26px);
+        transform: translateX(26px);
+      }
+
+      &:focus + .slider {
+        box-shadow: 0 0 1px #2196F3;
+      }
+    }
+
+    .slider {
+      position: absolute;
+      cursor: pointer;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background-color: #ccc;
+      -webkit-transition: .4s;
+      transition: .4s;
+      border-radius: 34px;
+
+      &:before {
+        position: absolute;
+        content: '';
+        height: 26px;
+        width: 26px;
+        left: 4px;
+        bottom: 4px;
+        background-color: white;
+        -webkit-transition: .4s;
+        transition: .4s;
+        border-radius: 50%;
+      }
+    }
+
+  }
+  /** End of switch field */
+
+  /** Select field */
+  .vfg-select {
+    display: inline-flex;
+    cursor: pointer;
+    position: relative;
+    user-select: none;
+    border: 1px solid #cdcdcd;
+    color: #202020;
+    border-radius: 5px;
+    width: 100%;
+    min-height: 30px;
+    background: #f4f4f4;
+
+    .vfg-select-label {
+      flex: 1 0 70%;
+      align-content: center;
+      padding: 0 .3rem;
+      &.text-muted {
+        color: #5c5c5c;
+      }
+    }
+
+    .vfg-select-list-container {
+      position: absolute;
+      padding: .3rem;
+      top: 32px;
+      left: 0;
+      right: 0;
+      background: #F4F4F4FF;
+      border-radius: 3px;
+      max-height: 250px;
+      overflow-y: auto;
+
+      .vfg-select-list {
+        border-radius: inherit;
+
+        .vfg-select-option {
+          padding: .3rem .5rem;
+          margin-bottom: .1rem;
+
+          &:first-child, &:first-child:hover, &:last-child, &:last-child:hover {
+            border-radius: 3px;
+          }
+
+          &.selected, &:hover {
+            background: #d3d3d3;
+          }
+
+          &:hover {
+            cursor: pointer;
+          }
+
+        }
+
+      }
+    }
+
+  }
+  /** End of select field */
+
+}
