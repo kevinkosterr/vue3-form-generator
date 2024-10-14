@@ -7,6 +7,7 @@ import FieldRadio from '@/fields/input/FieldRadio.vue'
 import FieldColor from '@/fields/input/FieldColor.vue'
 import FieldNumber from '@/fields/input/FieldNumber.vue'
 import FieldSwitch from '@/fields/input/FieldSwitch.vue'
+import FieldTextarea from '@/fields/input/FieldTextarea.vue'
 
 import FieldSubmit from '@/fields/buttons/FieldSubmit.vue'
 import FieldReset from '@/fields/buttons/FieldReset.vue'
@@ -15,7 +16,7 @@ import FieldButton from '@/fields/buttons/FieldButton.vue'
 
 const fieldComponents = [
   FieldText, FieldCheckBox, FieldPassword, FieldSelect, FieldSelectNative, FieldRadio, FieldColor, FieldNumber,
-  FieldSubmit, FieldReset, FieldButton, FieldSwitch
+  FieldSubmit, FieldReset, FieldButton, FieldSwitch, FieldTextarea
 ]
 
 export default {
