@@ -2,6 +2,8 @@
 @import '../modules/colors';
 @import '../shared/fieldSelect';
 
+@use 'sass:color';
+
 $input-padding: .3rem .4rem;
 
 .vue-form-generator {
@@ -94,7 +96,7 @@ $input-padding: .3rem .4rem;
     border: 1px solid $primary-default-border;
     border-radius: 3px;
     &:hover {
-      background: lighten($primary-default, 2%);
+      background: color.adjust($primary-default, $lightness: 3%);
     }
   }
 
