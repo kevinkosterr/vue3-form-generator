@@ -1,7 +1,12 @@
+@import '../modules/base';
+
 .vue-form-generator {
 
-  &input:not([type='checkbox'],[type='submit'],[type='radio']) {
+  input:not([type='checkbox'],[type='submit'],[type='radio'],[type='color'],[type='reset']) {
     width: 100%;
+    padding: .4rem .3rem;
+    border-radius: 3px;
+    border: none;
   }
 
   fieldset {
@@ -10,6 +15,7 @@
 
   /** Form group */
   .form-group {
+    margin: .3rem 0;
     &:has(input[required], select[required]) {
       label:first-child::after {
         content: "*";
@@ -27,7 +33,8 @@
 
   .errors {
     color: red;
-    font-size: .8rem;
+    font-size: 90%;
+    margin-top: .2rem;
     margin-bottom: .3rem;
   }
 
@@ -49,6 +56,14 @@
     label {
       margin-left: .5rem;
     }
+  }
+
+  /** Color field */
+  .field-color {
+    padding: 0;
+    border: none;
+    border-radius: 3px;
+    width: 45px;
   }
 
   /** Switch field */
@@ -121,9 +136,11 @@
     background: #f4f4f4;
 
     .vfg-select-label {
+      display: flex;
+      justify-content: space-between;
       flex: 1 0 70%;
       align-content: center;
-      padding: 0 .3rem;
+      padding: .4rem .3rem;
       &.text-muted {
         color: #5c5c5c;
       }
@@ -132,7 +149,7 @@
     .vfg-select-list-container {
       position: absolute;
       padding: .3rem;
-      top: 32px;
+      top: calc(35px + .4rem);
       left: 0;
       right: 0;
       background: #F4F4F4FF;
