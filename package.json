@@ -10,9 +10,9 @@
   "module": "./dist/vue3-form-generator.es.js",
   "scripts": {
     "dev": "vite",
+    "dev:sass": "sass --watch src/scss/themes:playground/css/",
     "test": "vitest",
-    "build": "vite build",
-    "build:publish": "vitest && vite build && npm publish --access public",
+    "build": "vite build && sass src/scss/themes/:dist/themes/",
     "preview": "vite preview"
   },
   "exports": {
@@ -43,6 +43,7 @@
     "eslint-plugin-import-alias": "^1.2.0",
     "eslint-plugin-vue": "9.27.0",
     "jsdom": "^25.0.1",
+    "sass": "^1.79.5",
     "terser": "^5.33.0",
     "typescript": "^5.4.5",
     "vite": "^5.2.14",

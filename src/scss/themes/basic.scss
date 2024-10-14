@@ -1,0 +1,163 @@
+@use 'sass:color';
+
+@import '../modules/base';
+@import '../modules/colors';
+@import '../shared/fieldSelect';
+
+$input-padding: .3rem .4rem;
+
+.vue-form-generator {
+
+  input:not([type='checkbox'],[type='submit'],[type='radio'],[type='color'],[type='reset']) {
+    width: 100%;
+    padding: $input-padding;
+    border-radius: 3px;
+    border: none;
+  }
+
+  label {
+    margin-bottom: .15rem;
+  }
+
+  input {
+    &[type='submit'], &[type='reset'] {
+      padding: $input-padding;
+      min-width: 100px;
+    }
+
+    &:focus {
+      border: none;
+      outline: none;
+    }
+  }
+
+  fieldset {
+    border: none;
+  }
+
+  /** Form group */
+  .form-group {
+    margin: .3rem 0;
+    &:has(input[required], select[required]) {
+      label:first-child::after {
+        content: "*";
+        font-size: 0.9em;
+        color: $required-color;
+        margin-left: 0.2rem;
+      }
+    }
+  }
+
+  .hint {
+    color: $hint-color;
+    font-size: 90%;
+  }
+
+  .errors {
+    color: $required-color;
+    font-size: 90%;
+    margin-top: .2rem;
+    margin-bottom: .3rem;
+  }
+
+
+  /** Password strength */
+  .password-strength-indicator {
+    transition: width 0.1s ease-in, background 0.3s ease-in;
+    height: .5em;
+    width: 100%;
+    background: rgba(0, 0, 0, 0.1);
+  }
+
+  /** Radio field */
+  .field-radio {
+    .option-wrap {
+      margin: .4rem;
+    }
+
+    label {
+      margin-left: .5rem;
+    }
+  }
+
+  /** Color field */
+  .field-color {
+    padding: 0;
+    border: none;
+    border-radius: 3px;
+    width: 45px;
+  }
+  /** End of color field */
+
+  /** Submit field */
+  .field-submit {
+    color: #efefef;
+    background: $primary-default;
+    border: 1px solid $primary-default-border;
+    border-radius: 3px;
+    &:hover {
+      background: color.adjust($primary-default, $lightness: 3%);
+    }
+  }
+
+  .field-reset {
+    border-radius: 3px;
+  }
+
+  /** Switch field */
+  .field-switch {
+    position: relative;
+    display: inline-block;
+    width: 53px;
+    height: 30px;
+
+    input {
+      opacity: 0;
+      width: 0;
+      height: 0;
+
+      &:checked + .slider {
+        background-color: #2196F3;
+      }
+
+      &:checked + .slider:before {
+        -webkit-transform: translateX(22px);
+        -ms-transform: translateX(22px);
+        transform: translateX(22px);
+      }
+
+      &:focus + .slider {
+        box-shadow: 0 0 1px #2196F3;
+      }
+    }
+
+    .slider {
+      position: absolute;
+      cursor: pointer;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background-color: #ccc;
+      -webkit-transition: .4s;
+      transition: .4s;
+      border-radius: 34px;
+
+      &:before {
+        position: absolute;
+        content: '';
+        height: 24px;
+        width: 24px;
+        left: 4px;
+        bottom: 3px;
+        background-color: white;
+        -webkit-transition: .4s;
+        transition: .4s;
+        border-radius: 50%;
+      }
+    }
+
+  }
+  /** End of switch field */
+
+}

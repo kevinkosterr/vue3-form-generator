@@ -1,6 +1,6 @@
 <template>
   <template v-for="option in field.options" :key="option.value">
-    <div class="option-wrap">
+    <div class="option-wrap field-radio">
       <input
         :id="getFieldId(option.name)"
         type="radio"
@@ -27,13 +27,3 @@ export default {
   }
 }
 </script>
-
-<style scoped>
-.option-wrap {
-  margin: .4rem;
-}
-
-label {
-  margin-left: .5rem;
-}
-</style>

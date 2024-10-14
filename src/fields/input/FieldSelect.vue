@@ -7,12 +7,12 @@
         </span>
       </template>
       <template v-else>{{ field.placeholder || 'Select an option' }}</template>
-      <span style="float:right;">
+      <span class="vfg-fi vfg-fi-right">
         <!-- ChevronDown from https://heroicons.com -->
         <svg
           xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
           stroke-width="1.5"
-          stroke="currentColor" style="height: 15px;"
+          stroke="currentColor"
         >
           <path stroke-linecap="round" stroke-linejoin="round" d="m19.5 8.25-7.5 7.5-7.5-7.5" />
         </svg>
@@ -28,12 +28,12 @@
           @click.prevent="selectOption(option)"
         >
           {{ option.name }}
-          <span v-if="isSelected(option)" style="float: right;">
+          <span v-if="isSelected(option)" class="vfg-fi vfg-fi-right">
             <!-- X-Mark Icon from https://heroicons.com -->
             <svg
               xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
               stroke-width="1.5"
-              stroke="currentColor" style="height: 15px;"
+              stroke="currentColor"
             >
               <path stroke-linecap="round" stroke-linejoin="round" d="M6 18 18 6M6 6l12 12" />
             </svg>
@@ -102,68 +102,3 @@ export default {
   }
 }
 </script>
-
-<style>
-.vue-form-generator {
-  .vfg-select {
-    display: inline-flex;
-    cursor: pointer;
-    position: relative;
-    user-select: none;
-    border: 1px solid #cdcdcd;
-    color: #202020;
-    border-radius: 5px;
-    width: 100%;
-    min-height: 30px;
-    background: #f4f4f4;
-  }
-
-  .vfg-select-label {
-    flex: 1 0 70%;
-    align-content: center;
-    padding: 0 .3rem;
-  }
-
-  .vfg-select-label.text-muted {
-    color: #5c5c5c;
-  }
-
-  .vfg-select-list-container {
-    position: absolute;
-    padding: .3rem;
-    top: 32px;
-    left: 0;
-    right: 0;
-    background: #F4F4F4FF;
-    border-radius: 3px;
-    max-height: 250px;
-    overflow-y: auto;
-  }
-
-  .vfg-select-list {
-    border-radius: inherit;
-  }
-
-  .vfg-select-option {
-    padding: .3rem .5rem;
-    margin-bottom: .1rem;
-  }
-
-  .vfg-select-option:first-child, .vfg-select-option:first-child:hover {
-    border-radius: 3px;
-  }
-
-  .vfg-select-option:last-child, .vfg-select-option:last-child:hover {
-    border-radius: 3px;
-  }
-
-  .vfg-select-option.selected {
-    background: #d3d3d3;
-  }
-
-  .vfg-select-option:hover {
-    background: #d3d3d3;
-    cursor: pointer;
-  }
-}
-</style>

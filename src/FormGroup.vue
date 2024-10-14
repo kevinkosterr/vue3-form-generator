@@ -69,23 +69,3 @@ const shouldHaveLabel = computed(() => {
     </div>
   </div>
 </template>
-
-<style>
-.form-group:has(input[required],select[required]) label:first-child::after {
-  content: "*";
-  font-size: .9em;
-  color: red;
-  margin-left: .2rem;
-}
-
-.hint {
-  color: gray;
-  font-size: 90%;
-}
-
-.errors {
-  color: red;
-  font-size: .8rem;
-  margin-bottom: .3rem;
-}
-</style>
