@@ -8,7 +8,13 @@ $input-padding: .3rem .4rem;
 
 .vue-form-generator {
 
-  input:not([type='checkbox'],[type='submit'],[type='radio'],[type='color'],[type='reset']) {
+  input:not(
+    [type='checkbox'],
+    [type='submit'],
+    [type='radio'],
+    [type='color'],
+    [type='reset']),
+  textarea {
     width: 100%;
     padding: $input-padding;
     border-radius: 3px;
@@ -97,6 +103,14 @@ $input-padding: .3rem .4rem;
     border-radius: 3px;
     &:hover {
       background: color.adjust($primary-default, $lightness: 3%);
+    }
+  }
+
+  /** Textarea field */
+  .field-textarea {
+    &:focus {
+      border: none;
+      outline: none;
     }
   }
 
