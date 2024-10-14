@@ -1,5 +1,6 @@
 @import '../modules/base';
 @import '../modules/colors';
+@import '../shared/fieldSelect';
 
 $input-padding: .3rem .4rem;
 
@@ -141,70 +142,5 @@ $input-padding: .3rem .4rem;
 
   }
   /** End of switch field */
-
-  /** Select field */
-  .vfg-select {
-    display: inline-flex;
-    cursor: pointer;
-    position: relative;
-    user-select: none;
-    border: 1px solid #cdcdcd;
-    color: #202020;
-    border-radius: 5px;
-    width: 100%;
-    min-height: 30px;
-    background: #f4f4f4;
-
-    .vfg-select-label {
-      display: flex;
-      justify-content: space-between;
-      flex: 1 0 70%;
-      align-content: center;
-      padding: $input-padding;
-      &.text-muted {
-        color: #5c5c5c;
-      }
-    }
-
-    .vfg-select-list-container {
-      position: absolute;
-      padding: .3rem;
-      top: calc(35px + .2rem);
-      left: 0;
-      right: 0;
-      background: #F4F4F4FF;
-      border-radius: 3px;
-      max-height: 250px;
-      overflow-y: auto;
-
-      .vfg-select-list {
-        border-radius: inherit;
-
-        .vfg-select-option {
-          display: flex;
-          align-content: center;
-          justify-content: space-between;
-          padding: $input-padding;
-          margin-bottom: .1rem;
-
-          &:first-child, &:first-child:hover, &:last-child, &:last-child:hover {
-            border-radius: 3px;
-          }
-
-          &.selected, &:hover {
-            background: #d3d3d3;
-          }
-
-          &:hover {
-            cursor: pointer;
-          }
-
-        }
-
-      }
-    }
-
-  }
-  /** End of select field */
 
 }
