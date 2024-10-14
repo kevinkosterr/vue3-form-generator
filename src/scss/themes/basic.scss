@@ -70,8 +70,8 @@
   .field-switch {
     position: relative;
     display: inline-block;
-    width: 60px;
-    height: 34px;
+    width: 53px;
+    height: 30px;
 
     input {
       opacity: 0;
@@ -83,9 +83,9 @@
       }
 
       &:checked + .slider:before {
-        -webkit-transform: translateX(26px);
-        -ms-transform: translateX(26px);
-        transform: translateX(26px);
+        -webkit-transform: translateX(22px);
+        -ms-transform: translateX(22px);
+        transform: translateX(22px);
       }
 
       &:focus + .slider {
@@ -108,10 +108,10 @@
       &:before {
         position: absolute;
         content: '';
-        height: 26px;
-        width: 26px;
+        height: 24px;
+        width: 24px;
         left: 4px;
-        bottom: 4px;
+        bottom: 3px;
         background-color: white;
         -webkit-transition: .4s;
         transition: .4s;
