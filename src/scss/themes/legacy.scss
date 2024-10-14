@@ -28,7 +28,7 @@ $field-switch-height: 30px;
     height: $field-switch-height;
     padding: 0;
     margin: 0 10px 10px 0;
-    border-radius: $field-switch-height / 2;
+    border-radius: calc($field-switch-height / 2);
     cursor: pointer;
     font-size: 10px;
     text-transform: uppercase;
