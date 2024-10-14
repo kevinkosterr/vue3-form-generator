@@ -4,6 +4,8 @@
 @import '../modules/colors';
 @import '../shared/fieldSelect';
 
+@use 'sass:color';
+
 $input-padding: .3rem .4rem;
 
 .vue-form-generator {
