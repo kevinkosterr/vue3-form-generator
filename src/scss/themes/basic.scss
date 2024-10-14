@@ -1,7 +1,7 @@
 @import '../modules/base';
 @import '../modules/colors';
 
-$input-padding: .3rem .2rem;
+$input-padding: .3rem .4rem;
 
 .vue-form-generator {
 
@@ -10,6 +10,10 @@ $input-padding: .3rem .2rem;
     padding: $input-padding;
     border-radius: 3px;
     border: none;
+  }
+
+  label {
+    margin-bottom: .15rem;
   }
 
   input {
@@ -80,6 +84,7 @@ $input-padding: .3rem .2rem;
     border-radius: 3px;
     width: 45px;
   }
+  /** End of color field */
 
   /** Switch field */
   .field-switch {
@@ -176,7 +181,10 @@ $input-padding: .3rem .2rem;
         border-radius: inherit;
 
         .vfg-select-option {
-          padding: .3rem .5rem;
+          display: flex;
+          align-content: center;
+          justify-content: space-between;
+          padding: $input-padding;
           margin-bottom: .1rem;
 
           &:first-child, &:first-child:hover, &:last-child, &:last-child:hover {
