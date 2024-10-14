@@ -1,12 +1,27 @@
 @import '../modules/base';
+@import '../modules/colors';
+
+$input-padding: .3rem .2rem;
 
 .vue-form-generator {
 
   input:not([type='checkbox'],[type='submit'],[type='radio'],[type='color'],[type='reset']) {
     width: 100%;
-    padding: .4rem .3rem;
+    padding: $input-padding;
     border-radius: 3px;
     border: none;
+  }
+
+  input {
+    &[type='submit'], &[type='reset'] {
+      padding: $input-padding;
+      min-width: 100px;
+    }
+
+    &:focus {
+      border: none;
+      outline: none;
+    }
   }
 
   fieldset {
@@ -20,19 +35,19 @@
       label:first-child::after {
         content: "*";
         font-size: 0.9em;
-        color: red;
+        color: $required-color;
         margin-left: 0.2rem;
       }
     }
   }
 
   .hint {
-    color: gray;
+    color: $hint-color;
     font-size: 90%;
   }
 
   .errors {
-    color: red;
+    color: $required-color;
     font-size: 90%;
     margin-top: .2rem;
     margin-bottom: .3rem;
@@ -140,7 +155,7 @@
       justify-content: space-between;
       flex: 1 0 70%;
       align-content: center;
-      padding: .4rem .3rem;
+      padding: $input-padding;
       &.text-muted {
         color: #5c5c5c;
       }
@@ -149,7 +164,7 @@
     .vfg-select-list-container {
       position: absolute;
       padding: .3rem;
-      top: calc(35px + .4rem);
+      top: calc(35px + .2rem);
       left: 0;
       right: 0;
       background: #F4F4F4FF;
