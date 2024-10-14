@@ -87,6 +87,21 @@ $input-padding: .3rem .4rem;
   }
   /** End of color field */
 
+  /** Submit field */
+  .field-submit {
+    color: #efefef;
+    background: $primary-default;
+    border: 1px solid $primary-default-border;
+    border-radius: 3px;
+    &:hover {
+      background: lighten($primary-default, 2%);
+    }
+  }
+
+  .field-reset {
+    border-radius: 3px;
+  }
+
   /** Switch field */
   .field-switch {
     position: relative;
