@@ -19,7 +19,8 @@
     ".": {
       "import": "./dist/vue3-form-generator.es.js",
       "require": "./dist/vue3-form-generator.umd.js"
-    }
+    },
+    "./themes/*": "./dist/themes/*"
   },
   "files": [
     "dist"
