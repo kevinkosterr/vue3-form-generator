@@ -4,6 +4,7 @@
     class="field-color"
     type="color"
     :name="field.name"
+    :value="currentModelValue"
     :required="isRequired"
     @change="onFieldValueChanged"
   >
