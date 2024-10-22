@@ -92,6 +92,10 @@ $input-padding: .3rem .4rem;
     border: none;
     border-radius: 3px;
     width: 45px;
+    &:active, &:focus {
+      border: none;
+      padding: 0;
+    }
   }
   /** End of color field */
 
