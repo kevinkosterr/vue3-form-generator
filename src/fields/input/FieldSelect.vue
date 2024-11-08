@@ -2,8 +2,10 @@
   <div class="vfg-select">
     <span v-on-click-outside="() => isOpened = false" class="vfg-select-label" :class="{'text-muted': !selectedNames.length}" @click.prevent="onClickInput">
       <template v-if="selectedNames.length">
-        <span v-for="(selectedName, index) in selectedNames" :key="selectedName">
-          <template v-if="index !== 0">, </template>{{ selectedName }}
+        <span>
+          <template v-for="(selectedName, index) in selectedNames" :key="selectedName">
+            <template v-if="index !== 0">, </template>{{ selectedName }}
+          </template>
         </span>
       </template>
       <template v-else>{{ field.placeholder || 'Select an option' }}</template>
