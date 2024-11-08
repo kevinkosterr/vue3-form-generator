@@ -8,6 +8,16 @@
       </template>
       <template v-else>{{ field.placeholder || 'Select an option' }}</template>
       <span class="vfg-fi vfg-fi-right">
+        <!-- X-Mark Icon from https://heroicons.com -->
+        <span v-if="hasValue" @click.prevent="resetSelection">
+          <svg
+            xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+            stroke-width="1.5"
+            stroke="currentColor"
+          >
+            <path stroke-linecap="round" stroke-linejoin="round" d="M6 18 18 6M6 6l12 12" />
+          </svg>
+        </span>
         <!-- ChevronDown from https://heroicons.com -->
         <svg
           xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
@@ -67,6 +77,9 @@ export default {
       } else {
         return [ this.field.options.find(o => o.value === this.currentModelValue).name ]
       }
+    },
+    hasValue () {
+      return this.field.multiple ? this.currentModelValue.length : this.currentModelValue
     }
   },
   methods: {
@@ -76,6 +89,9 @@ export default {
         return
       }
       this.isOpened = true
+    },
+    resetSelection () {
+      this.$emit('onInput', this.field.multiple ? [] : '')
     },
     isSelected (option) {
       return this.currentModelValue?.includes(option.value) ?? false
