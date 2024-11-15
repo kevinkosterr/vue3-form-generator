@@ -34,6 +34,8 @@ export interface ISelectField extends IField {
 
 export interface IPasswordField extends IField {
   indicator: boolean;
+  min?: number;
+  max?: number;
 }
 
 export type Field = IField | IRadioField | ISelectField | IPasswordField

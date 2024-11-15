@@ -2,14 +2,20 @@ import { ref, Ref, computed, ComputedRef } from 'vue'
 import { getMessage } from '@/validators/messages'
 import { isFunction, isString } from '@/helpers'
 import { TValidatorFunction } from '@/resources/types/functions'
+import { ValidatorMap } from '@/resources/types/generic'
 import { Field } from '@/resources/types/fields'
 import validators from '@/validators'
 
-function getValidator (validator): TValidatorFunction {
-  if (isFunction(validator)) return validator
+function getValidator (validator: string | TValidatorFunction | undefined): TValidatorFunction {
+  if (validator === undefined) return (): boolean => true
+
+  if (isFunction(validator)) return <TValidatorFunction>validator
+
   if (isString(validator)) {
-    if (validators[validator] === undefined) throw new Error('Invalid validator: ' + validator)
-    return validators[validator]
+    if ((validators as ValidatorMap)[<string>validator] === undefined) {
+      throw new Error('Invalid validator: ' + validator)
+    }
+    return (validators as ValidatorMap)[<string>validator]
   }
   return (): boolean => true
 }
@@ -36,11 +42,11 @@ export function useValidate (
       }
 
       if (field.min) {
-        fieldValidators.push(validators.minLength)
+        fieldValidators.push(validators.min)
       }
 
       if (field.max) {
-        fieldValidators.push(validators.maxLength)
+        fieldValidators.push(validators.max)
       }
     }
     return fieldValidators
@@ -56,7 +62,7 @@ export function useValidate (
     if (Array.isArray(field.validator)) {
       field.validator.forEach(validator => fieldValidators.push(getValidator(validator)))
     } else {
-      fieldValidators.push(field.validator)
+      fieldValidators.push(getValidator(field.validator))
     }
 
     fieldValidators.forEach((validator: TValidatorFunction): void => {
@@ -64,7 +70,7 @@ export function useValidate (
       if (!isValid) results.push(getMessage(validator.name))
     })
 
-    error.value = results
+    errors.value = results
     return results
   }
 
