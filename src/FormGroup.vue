@@ -45,16 +45,20 @@ const shouldHaveLabel = computed(() => {
 </script>
 
 <template>
-  <div class="form-group" :style="{display: fieldComponent && !fieldComponent.isVisible ? 'none': ''}">
+  <div class="form-group">
     <label v-if="shouldHaveLabel" :for="fieldId">
       <span> {{ props.field.label }}</span>
     </label>
 
     <div class="field-wrap">
       <component
-        :is="getFieldComponentName(props.field)" :id="fieldId" ref="fieldComponent"
+        :is="getFieldComponentName(props.field)"
+        :id="fieldId"
+        ref="fieldComponent"
         :model="model"
-        :field="props.field" @on-input="onInput" @validated="onValidated"
+        :field="props.field"
+        @on-input="onInput"
+        @validated="onValidated"
       />
     </div>
 

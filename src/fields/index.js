@@ -15,8 +15,8 @@ import FieldButton from '@/fields/buttons/FieldButton.vue'
 
 
 const fieldComponents = [
-  FieldText, FieldCheckBox, FieldPassword, FieldSelect, FieldSelectNative, FieldRadio, FieldColor, FieldNumber,
-  FieldSubmit, FieldReset, FieldButton, FieldSwitch, FieldTextarea
+  FieldColor, FieldText, FieldCheckBox, FieldPassword, FieldSelect, FieldSelectNative, FieldRadio,
+  FieldNumber, FieldSubmit, FieldReset, FieldButton, FieldSwitch, FieldTextarea
 ]
 
 export default {
@@ -26,7 +26,14 @@ export default {
       if (alias) {
         app.component(alias, fieldComponent)
       } else {
-        app.component(fieldComponent.name, fieldComponent)
+        let componentName
+        if ('name' in fieldComponent) {
+          componentName = fieldComponent.name
+        } else {
+          /** Composition API components */
+          componentName = fieldComponent.__name
+        }
+        app.component(componentName, fieldComponent)
       }
     }
   }
