@@ -87,7 +87,7 @@ export default {
       this.errors = toUniqueArray(errors)
 
       if (isFunction(this.field.onValidated)) {
-        this.field.onValidated.call(this, this.model, results, this.field)
+        this.field.onValidated.call(this, this.model, errors, this.field)
       } else if (this.field.onValidated !== undefined) {
         throw new Error('onValidated property must be of type `function`, on ' + this.field.name)
       }
