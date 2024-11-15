@@ -8,11 +8,10 @@ export default {
    * @param {any} value - The current value of the field.
    * @param {Object} _field - The field as specified in the form's schema.
    * @param {Object} _model - The form model.
-   * @param {Component} fieldComponent - Field's Vue Component.
    * @returns {boolean} - Returns 'true' if the field is required and the value is not empty, otherwise false.
    */
-  required (value, _field, _model, fieldComponent) {
-    return !!(fieldComponent.isRequired && isNotEmpty(value))
+  required (value, _field, _model) {
+    return !!isNotEmpty(value)
   },
 
   /**
@@ -21,10 +20,9 @@ export default {
    * @param {any} value - The current value of the field.
    * @param {Object} field - The field as specified in the form's schema.
    * @param {Object} _model - The form model.
-   * @param {Component} _fieldComponent - Field's Vue Component.
    * @returns {boolean} - Returns 'true' if the field is required and the value is not empty, otherwise false.
    */
-  minLength (value, field, _model, _fieldComponent) {
+  min (value, field, _model) {
     return field.min && value.length >= field.min
   },
 
@@ -34,10 +32,9 @@ export default {
    * @param {any} value - The current value of the field.
    * @param {Object} field - The field as specified in the form's schema.
    * @param {Object} _model - The form model.
-   * @param {Component} _fieldComponent - Field's Vue Component.
    * @returns {boolean} - Returns 'true' if the field is required and the value is not empty, otherwise false.
    */
-  maxLength (value, field, _model, _fieldComponent) {
+  max (value, field, _model) {
     return field.max && value.length <= field.max
   },
 
@@ -47,10 +44,9 @@ export default {
    * @param {any} value - The current value of the field.
    * @param {Object} _field - The field as specified in the form's schema.
    * @param {Object} _model - The form model.
-   * @param {Component} _fieldComponent - Field's Vue Component.
    * @returns {boolean} - Returns 'true' if the field is required and the value is not empty, otherwise false.
    */
-  string (value, _field, _model, _fieldComponent) {
+  string (value, _field, _model) {
     return isString(value)
   },
 
@@ -60,10 +56,9 @@ export default {
    * @param {any} value - The current value of the field.
    * @param {Object} _field - The field as specified in the form's schema.
    * @param {Object} _model - The form model.
-   * @param {Component} _fieldComponent - Field's Vue Component.
    * @returns {boolean} - Returns 'true' if the field is a number.
    */
-  number (value, _field, _model, _fieldComponent) {
+  number (value, _field, _model) {
     return Number.isNaN(value)
   },
 
@@ -73,10 +68,9 @@ export default {
    * @param {any} value - The current value of the field.
    * @param {Object} _field - The field as specified in the form's schema.
    * @param {Object} _model - The form model.
-   * @param {Component} _fieldComponent - Field's Vue Component.
    * @returns {boolean} - Returns 'true' if the field's format is a valid email format, otherwise false.
    */
-  email (value, _field, _model, _fieldComponent) {
+  email (value, _field, _model) {
     // eslint-disable-next-line max-len
     const regex = new RegExp('^([^<>()\\[\\]\\\\.,;:\\s@"]+(?:\\.[^<>()\\[\\]\\\\.,;:\\s@"]+)*|".+")@(\\[[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}]|(?:[a-zA-Z\\-0-9]+\\.)+[a-zA-Z]{2,})$', 'i')
     return Boolean(value.match(regex))
@@ -88,10 +82,9 @@ export default {
    * @param {String} value current value of the field
    * @param {Object} _field - The field as specified in the form's schema.
    * @param {Object} _model - The form model.
-   * @param {Component} _fieldComponent - Field's Vue Component.
    * @returns {boolean} - Returns 'true' if value matches the format, otherwise false.
    */
-  phoneNumberE164andE123 (value, _field, _model, _fieldComponent) {
+  phoneNumberE164andE123 (value, _field, _model) {
     const regex = new RegExp(
       // eslint-disable-next-line max-len
       '^\\+\\d{1,3}\\s\\d{2,3}\\s\\d{2,3}\\s\\d{4}|^\\+\\d{1,3}\\s\\d{1,14}(\\s\\d{1,13})?|^\\(\\d{3}\\)\\s\\d{3}\\s\\d{4}?',
@@ -106,10 +99,9 @@ export default {
    * @param {String} value current value of the field
    * @param {Object} _field - The field as specified in the form's schema.
    * @param {Object} _model - The form model.
-   * @param {Component} _fieldComponent - Field's Vue Component.
    * @returns {boolean} - Returns 'true' if value matches the format, otherwise false.
    */
-  mobilePhoneNL (value, _field, _model, _fieldComponent) {
+  mobilePhoneNL (value, _field, _model) {
     const regex = new RegExp('(\\+316[0-9]{8})|(06[0-9]{8})', 'i')
     return Boolean(value.match(regex))
   }

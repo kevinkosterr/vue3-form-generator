@@ -180,11 +180,11 @@ export default {
         }
 
         if (this.field.min) {
-          fieldValidators.push(validators.minLength)
+          fieldValidators.push(validators.min)
         }
 
         if (this.field.max) {
-          fieldValidators.push(validators.maxLength)
+          fieldValidators.push(validators.max)
         }
       }
       return fieldValidators
