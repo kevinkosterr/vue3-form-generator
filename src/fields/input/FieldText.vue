@@ -14,11 +14,38 @@
   >
 </template>
 
-<script>
-import { abstractField } from '@/mixins'
+<script setup>
+import { toRefs } from 'vue'
+import { useModel, useAttributes, useValidate, useFieldProps, useFieldEmits } from '@/composables'
 
-export default {
-  name: 'FieldText',
-  mixins: [ abstractField ]
+const emits = defineEmits(useFieldEmits())
+const props = defineProps(useFieldProps())
+
+const { field, model } = toRefs(props)
+
+const { currentModelValue } = useModel(model, field)
+const { isRequired, isDisabled } = useAttributes(model, field)
+const { errors, validate } = useValidate(
+  model,
+  field,
+  isDisabled.value,
+  isRequired.value,
+  false,
+  currentModelValue
+)
+
+const onBlur = () => {
+  validate().then((validationErrors) => {
+    emits('validated',
+      validationErrors.length === 0,
+      validationErrors,
+      field
+    )
+  })
+}
+
+const onFieldValueChanged = ({ target }) => {
+  errors.value = []
+  emits('onInput', target.value)
 }
 </script>
