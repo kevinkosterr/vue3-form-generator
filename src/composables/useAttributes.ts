@@ -1,4 +1,4 @@
-import { computed, Ref } from 'vue'
+import { computed } from 'vue'
 import { type Field } from '@/resources/types/fields'
 import { TDynamicAttributeBooleanFunction, TDynamicAttributeStringFunction } from '@/resources/types/functions'
 import { isFunction } from '@/helpers'

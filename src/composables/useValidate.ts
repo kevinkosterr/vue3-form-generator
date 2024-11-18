@@ -32,7 +32,7 @@ export function useValidate (
   isDisabled: boolean = false,
   isRequired: boolean = false,
   isReadOnly: boolean = false,
-  currentModelValue: ComputedRef<never>
+  currentModelValue: boolean
 ) {
 
   const errors: Ref<string[]> = ref([])
@@ -72,7 +72,7 @@ export function useValidate (
     }
 
     fieldValidators.forEach((validator: TValidatorFunction): void => {
-      const isValid: boolean = validator(currentModelValue.value, field, model)
+      const isValid: boolean = validator(currentModelValue, field, model)
       if (!isValid) results.push(getMessage(validator.name))
     })
 

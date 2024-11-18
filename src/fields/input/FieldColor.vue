@@ -34,7 +34,7 @@ const { errors, validate } = useValidate(
   false,
   isRequired.value,
   false,
-  currentModelValue
+  currentModelValue.value
 )
 
 const onBlur = () => {
