@@ -1,5 +1,5 @@
 import { isFunction, isString, toUniqueArray } from '@/helpers'
-import { getMessage } from '@/validators/messages.js'
+import { getMessage } from '@/validators/messages'
 import validators from '@/validators'
 
 function getValidator (validator) {

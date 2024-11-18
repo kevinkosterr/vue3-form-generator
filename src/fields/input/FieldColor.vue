@@ -27,7 +27,7 @@ const props = defineProps(useFieldProps())
 const { field, model } = toRefs(props)
 
 const { currentModelValue } = useModel(model, field)
-const { isRequired, isVisible } = useAttributes(model, field)
+const { isRequired, isVisible } = useAttributes(model.value, field.value)
 const { errors, validate } = useValidate(
   model,
   field,

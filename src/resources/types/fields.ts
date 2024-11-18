@@ -38,5 +38,13 @@ export interface IPasswordField extends IField {
   indicator: boolean;
 }
 
-export type Field = IField | IRadioField | ISelectField | IPasswordField
+export interface IButtonFieldBase {
+  buttonText: string;
+}
+
+export interface IButtonField extends IButtonFieldBase {
+  onClick?: () => void;
+}
+
+export type Field = IField | IRadioField | ISelectField | IPasswordField | IButtonField
 export type FieldValue = number | string | number[] | string[]

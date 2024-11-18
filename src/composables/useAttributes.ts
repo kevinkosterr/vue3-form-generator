@@ -1,11 +1,11 @@
-import { computed, ComputedRef } from 'vue'
+import { computed, Ref } from 'vue'
 import { type Field } from '@/resources/types/fields'
 import { TDynamicAttributeBooleanFunction, TDynamicAttributeStringFunction } from '@/resources/types/functions'
 import { isFunction } from '@/helpers'
 
 export function useAttributes (
-  model: ComputedRef<Record<string, never>>,
-  field: ComputedRef<Field>
+  model: Record<string, never>,
+  field: Field
 ) {
 
   /**
@@ -13,10 +13,10 @@ export function useAttributes (
    * value.
    */
   function determineDynamicBooleanAttribute(attribute: keyof Field, defaultValue: boolean = false): boolean {
-    const attributeValue = field.value[attribute]
+    const attributeValue = field[attribute]
 
     if (isFunction(attributeValue)) {
-      return (attributeValue as TDynamicAttributeBooleanFunction)(model.value, field.value)
+      return (attributeValue as TDynamicAttributeBooleanFunction)(model, field)
     }
 
     return typeof attributeValue !== 'boolean' ? defaultValue : attributeValue
@@ -27,10 +27,10 @@ export function useAttributes (
    * value.
    */
   function determineDynamicStringAttribute(attribute: keyof Field, defaultValue: string = ''): string {
-    const attributeValue = field.value[attribute]
+    const attributeValue = field[attribute]
 
     if (isFunction(attributeValue)) {
-      return (attributeValue as TDynamicAttributeStringFunction)(model.value, field.value)
+      return (attributeValue as TDynamicAttributeStringFunction)(model, field)
     }
 
     return typeof attributeValue !== 'string' ? defaultValue : attributeValue

@@ -7,11 +7,13 @@
   >
 </template>
 
-<script>
-import { abstractField } from '@/mixins/index.js'
+<script setup>
+import { toRefs } from 'vue'
+import { useFieldProps, useAttributes } from '@/composables'
 
-export default {
-  name: 'FieldSubmit',
-  mixins: [ abstractField ]
-}
+const props = defineProps(useFieldProps())
+
+const { model, field } = toRefs(props)
+
+const { isDisabled } = useAttributes(model.value, field.value)
 </script>
