@@ -26,11 +26,11 @@ const props = defineProps(useFieldProps())
 
 const { field, model } = toRefs(props)
 
-const { currentModelValue } = useModel(model, field)
+const { currentModelValue } = useModel(model.value, field.value)
 const { isRequired, isVisible } = useAttributes(model.value, field.value)
 const { errors, validate } = useValidate(
-  model,
-  field,
+  model.value,
+  field.value,
   false,
   isRequired.value,
   false,
@@ -42,7 +42,7 @@ const onBlur = () => {
     emits('validated',
       validationErrors.length === 0,
       validationErrors,
-      field
+      field.value
     )
   })
 }
