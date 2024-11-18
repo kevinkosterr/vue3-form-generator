@@ -64,7 +64,7 @@
 
 <script>
 import { abstractField } from '@/mixins'
-import onClickOutside from '@/directives/onClickOutside.js'
+import onClickOutside from '@/directives/onClickOutside'
 
 export default {
   name: 'FieldSelect',

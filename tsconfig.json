@@ -5,7 +5,7 @@
     "module": "ESNext",
     "baseUrl": ".",
     "paths": {
-      "@/*": ["src/*"] // Adjust "src" to match the base directory of your project
+      "@/*": ["src/*"]
     },
     "moduleResolution": "Node",
     "strict": true,

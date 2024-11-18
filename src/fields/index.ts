@@ -1,3 +1,5 @@
+import { App, Component } from 'vue'
+
 import FieldText from '@/fields/input/FieldText.vue'
 import FieldCheckBox from '@/fields/input/FieldCheckbox.vue'
 import FieldPassword from '@/fields/input/FieldPassword.vue'
@@ -14,25 +16,29 @@ import FieldReset from '@/fields/buttons/FieldReset.vue'
 import FieldButton from '@/fields/buttons/FieldButton.vue'
 
 
-const fieldComponents = [
+const fieldComponents: Component[] = [
   FieldColor, FieldText, FieldCheckBox, FieldPassword, FieldSelect, FieldSelectNative, FieldRadio,
   FieldNumber, FieldSubmit, FieldReset, FieldButton, FieldSwitch, FieldTextarea
 ]
 
 export default {
-  install (app, aliases) {
+  install (app: App, aliases: Record<string, string>) {
     for (const fieldComponent of fieldComponents) {
-      const alias = aliases[fieldComponent.name]
+      let componentName
+
+      if ('name' in fieldComponent) {
+        componentName = fieldComponent.name
+      } else {
+        /** Composition API components */
+        componentName = fieldComponent.__name
+      }
+
+      if (!componentName) throw new Error('Something went wrong')
+
+      const alias = aliases[componentName]
       if (alias) {
         app.component(alias, fieldComponent)
       } else {
-        let componentName
-        if ('name' in fieldComponent) {
-          componentName = fieldComponent.name
-        } else {
-          /** Composition API components */
-          componentName = fieldComponent.__name
-        }
         app.component(componentName, fieldComponent)
       }
     }

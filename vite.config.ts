@@ -2,17 +2,19 @@ import { fileURLToPath, URL } from 'node:url'
 import { defineConfig } from 'vite'
 
 import vue from '@vitejs/plugin-vue'
+import dts from 'vite-plugin-dts'
 
 
 // https://vitejs.dev/config/
 export default defineConfig({
   plugins: [
-    vue()
+    vue(),
+    dts()
   ],
   build: {
     minify: 'terser',
     lib: {
-      entry: 'src/index.js',
+      entry: 'src/index.ts',
       name: 'vue3-form-generator',
       fileName: (format) => `vue3-form-generator.${format}.js`
     },

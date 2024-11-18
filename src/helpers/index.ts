@@ -1,57 +1,55 @@
+import { Field } from '@/resources/types/fields'
+
 /**
  * Determine if value is of type Function.
- * @param {any} val
- * @returns {boolean}
  */
-function isFunction(val) {
+export function isFunction(val: any): boolean {
   return typeof val === 'function'
 }
 
 /**
  * Determine if a value is of type Object.
- * @param {any} val
- * @returns {boolean}
  */
-function isObject(val) {
+export function isObject(val: any): boolean {
   return typeof val === 'object'
 }
 
 /**
  * Determine if a value is of type String.
- * @param {any} val
- * @returns {boolean}
  */
-function isString (val) {
+export function isString (val: any): boolean {
   return typeof val === 'string'
 }
 
 /**
  * Remove duplicates from an array.
- * @param {Array} arr
- * @returns {Array}
  */
-function toUniqueArray (arr) {
+export function toUniqueArray (arr: any[]): any[] {
   if (!Array.isArray(arr)) throw new Error('Argument must be of type array')
   return Array.from(new Set(arr))
 }
 
 /**
  * Determine the field component name based on the field schema.
- * @param {Object} field field from form schema.
- * @returns {string} string representation of the field component.
  */
-function getFieldComponentName (field) {
-  const fieldAttribute = field[![ null, undefined ].includes(field.inputType) ? 'inputType' : 'type']
+export function getFieldComponentName (field: Field): string {
+  let fieldAttribute
+
+  if (field.inputType == undefined) {
+    fieldAttribute = field.type
+  } else {
+    fieldAttribute = field.inputType
+  }
+
   if (!fieldAttribute) throw new Error('No input or input type specified for ' + field)
   return 'Field' + fieldAttribute.charAt(0).toUpperCase() + fieldAttribute.slice(1)
 }
 
 /**
  * Determine if a value is empty.
- * @param {any} value
- * @returns {boolean}
  */
-function isEmpty (value) {
+export function isEmpty (value: any): boolean {
+  if (Array.isArray(value)) return value.length === 0
   return value === undefined || value === null || value === ''
 }
 
@@ -60,16 +58,14 @@ function isEmpty (value) {
  * @param {any} value
  * @returns {boolean}
  */
-function isNotEmpty (value) {
+export function isNotEmpty (value: any): boolean {
   return !isEmpty(value)
 }
 
 /**
  * Determine if a field should have a top-level label.
- * @param field
- * @returns {boolean}
  */
-function hasLabel(field) {
+export function hasLabel(field: Field): boolean {
   if (!field.label) return false
 
   switch (field.type) {
@@ -85,10 +81,8 @@ function hasLabel(field) {
 /**
  * Reset all properties to an empty value of the same type. Will recursively try and
  * reset all properties if an object has a property with another object as its value.
- * @param obj - object to reset properties for.
- * @returns {Object} - emptied object
  */
-function resetObjectProperties (obj) {
+export function resetObjectProperties (obj: Record<string, any>): object {
   for (const key in obj) {
     if (obj.hasOwnProperty(key)) {
       const value = obj[key]
@@ -108,16 +102,4 @@ function resetObjectProperties (obj) {
     }
   }
   return obj
-}
-
-export {
-  isFunction,
-  isObject,
-  isString,
-  toUniqueArray,
-  resetObjectProperties,
-  getFieldComponentName,
-  hasLabel,
-  isEmpty,
-  isNotEmpty
 }

@@ -6,6 +6,12 @@ import { ValidatorMap } from '@/resources/types/generic'
 import { Field } from '@/resources/types/fields'
 import validators from '@/validators'
 
+/**
+ * Get the corresponding validator function for a given string, or function. If a function is passed, the function is
+ * assumed to be the validator to use and thus return. If no argument is passed, we'll just return a function that
+ * will always return true, thus assuming the value is always valid.
+ * @param validator
+ */
 function getValidator (validator: string | TValidatorFunction | undefined): TValidatorFunction {
   if (validator === undefined) return (): boolean => true
 
