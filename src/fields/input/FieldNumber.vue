@@ -42,7 +42,6 @@ const { errors, validate } = useValidate(
 )
 
 const onBlur = () => {
-  errors.value = []
   validate().then((validationErrors) => {
     emits('validated',
       validationErrors.length === 0,
@@ -53,6 +52,7 @@ const onBlur = () => {
 }
 
 const onFieldValueChanged = ({ target }) => {
+  errors.value = []
   const step = field.value.step ?? 1
   const isDecimalStep = step.toString().split('.')[1]
   if (!isDecimalStep) return emits('onInput', parseInt(target.value))
