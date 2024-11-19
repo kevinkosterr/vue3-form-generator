@@ -15,19 +15,47 @@
   >
 </template>
 
-<script>
-import { abstractField } from '@/mixins'
+<script setup>
+import { toRefs } from 'vue'
+import {
+  useModel,
+  useAttributes,
+  useValidate,
+  useFieldEmits,
+  useFieldProps
+} from '@/composables'
 
-export default {
-  name: 'FieldNumber',
-  mixins: [ abstractField ],
-  methods: {
-    formatFieldValue (target) {
-      const step = this.field.step ?? 1
-      const isDecimalStep = step.toString().split('.')[1]
-      if (!isDecimalStep) return parseInt(target.value)
-      return parseFloat(target.value)
-    }
-  }
+const props = defineProps(useFieldProps())
+const emits = defineEmits(useFieldEmits())
+
+const { field, model } = toRefs(props)
+
+const { isDisabled, isRequired } = useAttributes(model.value, field.value)
+const { currentModelValue } = useModel(model.value, field.value)
+const { errors, validate } = useValidate(
+  model.value,
+  field.value,
+  isDisabled.value,
+  isRequired.value,
+  false,
+  currentModelValue.value
+)
+
+const onBlur = () => {
+  errors.value = []
+  validate().then((validationErrors) => {
+    emits('validated',
+      validationErrors.length === 0,
+      validationErrors,
+      field.value
+    )
+  })
+}
+
+const onFieldValueChanged = ({ target }) => {
+  const step = field.value.step ?? 1
+  const isDecimalStep = step.toString().split('.')[1]
+  if (!isDecimalStep) return emits('onInput', parseInt(target.value))
+  emits('onInput', parseFloat(target.value))
 }
 </script>
