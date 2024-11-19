@@ -26,7 +26,7 @@ function getValidator (validator: string | TValidatorFunction | undefined): TVal
   return (): boolean => true
 }
 
-export function useValidate (
+export function useFieldValidate (
   model: Record<string, never>,
   field: Field,
   isDisabled: boolean = false,

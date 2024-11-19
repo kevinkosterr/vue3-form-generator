@@ -9,11 +9,11 @@
 
 <script setup>
 import { toRefs } from 'vue'
-import { useFieldProps, useAttributes } from '@/composables'
+import { useFieldProps, useFieldAttributes } from '@/composables'
 
 const props = defineProps(useFieldProps())
 
 const { model, field } = toRefs(props)
 
-const { isDisabled } = useAttributes(model.value, field.value)
+const { isDisabled } = useFieldAttributes(model.value, field.value)
 </script>

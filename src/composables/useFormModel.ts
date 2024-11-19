@@ -1,7 +1,7 @@
 import { computed, ComputedRef } from 'vue'
 import { Field } from '@/resources/types/fields'
 
-export function useModel(
+export function useFormModel(
   model: Record<string, never>,
   field: Field
 ) {

@@ -16,16 +16,16 @@
 
 <script setup>
 import { toRefs } from 'vue'
-import { useModel, useAttributes, useValidate, useFieldProps, useFieldEmits } from '@/composables'
+import { useFormModel, useFieldAttributes, useFieldValidate, useFieldProps, useFieldEmits } from '@/composables'
 
 const emits = defineEmits(useFieldEmits())
 const props = defineProps(useFieldProps())
 
 const { field, model } = toRefs(props)
 
-const { currentModelValue } = useModel(model, field)
-const { isRequired, isDisabled } = useAttributes(model, field)
-const { errors, validate } = useValidate(
+const { currentModelValue } = useFormModel(model, field)
+const { isRequired, isDisabled } = useFieldAttributes(model, field)
+const { errors, validate } = useFieldValidate(
   model,
   field,
   isDisabled.value,

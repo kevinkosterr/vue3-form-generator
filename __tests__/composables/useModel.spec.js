@@ -1,6 +1,6 @@
 import { describe, it, expect } from 'vitest'
 import { ref } from 'vue'
-import { useModel } from '@/composables/useModel'
+import { useFormModel } from '@/composables/useFormModel'
 
 describe('Test useModel', () => {
 
@@ -15,7 +15,7 @@ describe('Test useModel', () => {
       type: 'number'
     }
 
-    const { currentModelValue } = useModel(model.value, field)
+    const { currentModelValue } = useFormModel(model.value, field)
     expect(currentModelValue.value).toEqual(123)
   })
 
@@ -30,7 +30,7 @@ describe('Test useModel', () => {
       type: 'number'
     })
 
-    const { currentModelValue } = useModel(model.value, field.value)
+    const { currentModelValue } = useFormModel(model.value, field.value)
     expect(currentModelValue.value).toEqual(123)
 
     model.value.test = 456

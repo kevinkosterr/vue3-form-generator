@@ -18,9 +18,9 @@
 <script setup>
 import { computed, toRefs } from 'vue'
 import {
-  useModel,
-  useValidate,
-  useAttributes,
+  useFormModel,
+  useFieldValidate,
+  useFieldAttributes,
   useFieldProps,
   useFieldEmits
 } from '@/composables'
@@ -32,10 +32,10 @@ const props = defineProps(useFieldProps())
 const emits = defineEmits(useFieldEmits())
 
 const { model, field } = toRefs(props)
-const { isRequired, isDisabled } = useAttributes(model.value, field.value)
-const { currentModelValue } = useModel(model.value, field.value)
+const { isRequired, isDisabled } = useFieldAttributes(model.value, field.value)
+const { currentModelValue } = useFormModel(model.value, field.value)
 
-const { errors, validate } = useValidate(
+const { errors, validate } = useFieldValidate(
   model.value,
   field.value,
   isDisabled.value,

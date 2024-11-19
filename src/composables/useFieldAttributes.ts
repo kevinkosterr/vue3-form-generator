@@ -3,7 +3,7 @@ import { type Field } from '@/resources/types/fields'
 import { TDynamicAttributeBooleanFunction, TDynamicAttributeStringFunction } from '@/resources/types/functions'
 import { isFunction } from '@/helpers'
 
-export function useAttributes (
+export function useFieldAttributes (
   model: Record<string, never>,
   field: Field
 ) {
