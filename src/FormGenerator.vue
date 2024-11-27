@@ -1,6 +1,6 @@
 <script setup>
 import { ref, getCurrentInstance } from 'vue'
-import { resetObjectProperties } from '@/helpers'
+import { resetObjectProperties, toUniqueArray } from '@/helpers'
 import FormGroup from './FormGroup.vue'
 
 const instance = getCurrentInstance()
@@ -46,7 +46,8 @@ const updateGeneratorModel = ({ model, value }) => {
   props.model[model] = value
 }
 
-const onFieldValidated = ({ _isValid, _fieldErrors, _field }) => {
+const onFieldValidated = ({ fieldErrors }) => {
+  formErrors.value = toUniqueArray([ ...formErrors.value, ...fieldErrors ])
 }
 
 /**
@@ -72,9 +73,11 @@ const onReset = () => {
     <fieldset v-if="props.schema.fields">
       <template v-for="field in props.schema.fields" :key="field">
         <form-group
-          :ref="el => fieldElements.push(el)" :form-generator="formGenerator" :field="field"
+          :ref="el => fieldElements.push(el)"
+          :form-generator="formGenerator" :field="field"
           :model="props.model"
-          @value-updated="updateGeneratorModel" @validated="onFieldValidated"
+          @value-updated="updateGeneratorModel"
+          @validated="onFieldValidated"
         />
       </template>
       <template v-for="group in props.schema.groups" :key="group">
@@ -84,10 +87,12 @@ const onReset = () => {
           </legend>
           <template v-for="field in group.fields" :key="field">
             <form-group
-              :ref="el => fieldElements.push(el)" :form-generator="formGenerator"
+              :ref="el => fieldElements.push(el)"
+              :form-generator="formGenerator"
               :field="field"
               :model="props.model"
-              @value-updated="updateGeneratorModel" @validated="onFieldValidated"
+              @value-updated="updateGeneratorModel"
+              @validated="onFieldValidated"
             />
           </template>
         </fieldset>

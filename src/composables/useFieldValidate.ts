@@ -1,6 +1,6 @@
 import { ref, Ref, computed, ComputedRef } from 'vue'
 import { getMessage } from '@/validators/messages'
-import { isFunction, isString } from '@/helpers'
+import { isFunction, isString, toUniqueArray } from '@/helpers'
 import { TValidatorFunction } from '@/resources/types/functions'
 import { ValidatorMap } from '@/resources/types/generic'
 import { Field } from '@/resources/types/fields'
@@ -31,8 +31,7 @@ export function useFieldValidate (
   field: Field,
   isDisabled: boolean = false,
   isRequired: boolean = false,
-  isReadOnly: boolean = false,
-  currentModelValue: boolean
+  isReadOnly: boolean = false
 ) {
 
   const errors: Ref<string[]> = ref([])
@@ -61,12 +60,14 @@ export function useFieldValidate (
   /**
    * Validate the field against given validators, plus the validators that are put there by default.
    */
-  const validate = async (): Promise<string[]> => {
+  const validate = async (currentModelValue: any): Promise<string[]> => {
+    if (!('validator' in field)) return []
+
     const results: string[] = []
     const fieldValidators: TValidatorFunction[] = [ ...defaultValidators.value ]
 
     if (Array.isArray(field.validator)) {
-      field.validator.forEach(validator => fieldValidators.push(getValidator(validator)))
+      field.validator.forEach((validator: any) => fieldValidators.push(getValidator(validator)))
     } else {
       fieldValidators.push(getValidator(field.validator))
     }
@@ -76,8 +77,10 @@ export function useFieldValidate (
       if (!isValid) results.push(getMessage(validator.name))
     })
 
-    errors.value = results
-    return results
+    const uniqueResults = toUniqueArray(results)
+
+    errors.value = uniqueResults
+    return uniqueResults
   }
 
   return { errors, validate }

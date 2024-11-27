@@ -37,12 +37,11 @@ const { errors, validate } = useFieldValidate(
   field.value,
   isDisabled.value,
   isRequired.value,
-  false,
-  currentModelValue.value
+  false
 )
 
 const onBlur = () => {
-  validate().then((validationErrors) => {
+  validate(currentModelValue.value).then((validationErrors) => {
     emits('validated',
       validationErrors.length === 0,
       validationErrors,

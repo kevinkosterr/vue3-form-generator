@@ -40,8 +40,7 @@ const { errors, validate } = useFieldValidate(
   field.value,
   isDisabled.value,
   isRequired.value,
-  false,
-  currentModelValue.value
+  false
 )
 
 /** Roughly determine the strength level of the password */
@@ -71,7 +70,7 @@ const onFieldValueChanged = ({ target }) => {
 }
 
 const onBlur = () => {
-  validate().then((validationErrors) => {
+  validate(currentModelValue.value).then((validationErrors) => {
     emits('validated',
       validationErrors.length === 0,
       validationErrors,

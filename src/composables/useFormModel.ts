@@ -7,7 +7,7 @@ export function useFormModel(
 ) {
 
   const currentModelValue: ComputedRef<any> = computed((): unknown => {
-    return model[field.model]
+    return 'model' in field ? model[field.model] : undefined
   })
 
   return { currentModelValue }
