@@ -21,7 +21,7 @@ const propsWithIndicator = {
   field: { ...props.field, indicator: true }
 }
 
-describe('Test FieldPassword', () => {
+describe('FieldPassword', () => {
 
   it('Should render correctly', async () => {
     const wrapper = mount(FieldPassword, { props })

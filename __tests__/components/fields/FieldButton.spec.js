@@ -40,7 +40,7 @@ const form = {
 const props = generatePropsSingleField(form)
 
 
-describe('Test FieldButton', () => {
+describe('FieldButton', () => {
 
   it('Should render correctly', () => {
     const wrapper = mount(FieldButton, { props })

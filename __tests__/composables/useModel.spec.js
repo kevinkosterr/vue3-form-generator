@@ -2,7 +2,7 @@ import { describe, it, expect } from 'vitest'
 import { ref } from 'vue'
 import { useFormModel } from '@/composables/useFormModel'
 
-describe('Test useModel', () => {
+describe('useModel', () => {
 
   it('Should return initial model value', () => {
     const model = ref({

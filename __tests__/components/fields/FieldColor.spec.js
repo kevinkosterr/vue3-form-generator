@@ -15,7 +15,7 @@ const form = generateSchemaSingleField(
 
 const props = generatePropsSingleField(form)
 
-describe('Test FieldColor', () => {
+describe('FieldColor', () => {
 
   it('Should render correctly', async () => {
     const wrapper = mount(FieldColor, { props })
