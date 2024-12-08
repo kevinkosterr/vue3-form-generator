@@ -72,10 +72,11 @@ describe('useFieldAttributes', () => {
   })
 
   it('Should update according to changes in the schema', () => {
+    const disabledIfPasswordHasValue = (model, _field) => model.password !== ''
     const schema = ref({
       model: { password: '' },
       fields: [
-        { name: 'password', label: 'Password', model: 'password', disabled: (model, _field) => model.password !== '' }
+        { name: 'password', label: 'Password', model: 'password', disabled: disabledIfPasswordHasValue }
       ]
     })
     const attributes = useFieldAttributes(schema.value.model, schema.value.fields[0])
