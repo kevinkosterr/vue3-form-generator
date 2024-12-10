@@ -1,10 +1,9 @@
 import { computed, ComputedRef } from 'vue'
 import { type Field } from '@/resources/types/fields'
 import { TDynamicAttributeBooleanFunction, TDynamicAttributeStringFunction } from '@/resources/types/functions'
-import { isFunction } from '@/helpers'
 
 export function useFieldAttributes (
-  model: Record<string, never>,
+  model: Record<string, any>,
   field: Field
 ) {
 
@@ -12,10 +11,10 @@ export function useFieldAttributes (
    * Determine the boolean value of an attribute by calling the provided method, or simply returning the set boolean
    * value.
    */
-  function determineDynamicBooleanAttribute(attribute: keyof Field, defaultValue: boolean = false): boolean {
-    const attributeValue = field[attribute]
+  function determineDynamicBooleanAttribute(attribute: string, defaultValue: boolean = false): boolean {
+    const attributeValue = field[(attribute as keyof Field)]
 
-    if (isFunction(attributeValue)) {
+    if (typeof attributeValue === 'function') {
       return (attributeValue as TDynamicAttributeBooleanFunction)(model, field)
     }
 
@@ -26,10 +25,10 @@ export function useFieldAttributes (
    * Determine the string value of an attribute by calling the provided method, or simply returning the set string
    * value.
    */
-  function determineDynamicStringAttribute(attribute: keyof Field, defaultValue: string = ''): string {
-    const attributeValue = field[attribute]
+  function determineDynamicStringAttribute(attribute: string, defaultValue: string = ''): string {
+    const attributeValue = field[(attribute as keyof Field)]
 
-    if (isFunction(attributeValue)) {
+    if (typeof attributeValue === 'function') {
       return (attributeValue as TDynamicAttributeStringFunction)(model, field)
     }
 

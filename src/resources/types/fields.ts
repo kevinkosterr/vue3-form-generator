@@ -40,6 +40,7 @@ export interface IPasswordField extends IField {
 
 export interface IButtonFieldBase {
   buttonText: string;
+  type: string;
 }
 
 export interface IButtonField extends IButtonFieldBase {

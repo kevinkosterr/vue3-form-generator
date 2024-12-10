@@ -35,9 +35,9 @@ export function toUniqueArray (arr: any[]): any[] {
 export function getFieldComponentName (field: Field): string {
   let fieldAttribute
 
-  if (field.inputType == undefined) {
+  if ((!('inputType' in field) || field.inputType == undefined) && 'type' in field) {
     fieldAttribute = field.type
-  } else {
+  } else if ('inputType' in field) {
     fieldAttribute = field.inputType
   }
 
@@ -66,7 +66,7 @@ export function isNotEmpty (value: any): boolean {
  * Determine if a field should have a top-level label.
  */
 export function hasLabel(field: Field): boolean {
-  if (!field.label) return false
+  if (!('label' in field) || !field.label) return false
 
   switch (field.type) {
     case 'button':

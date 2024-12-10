@@ -27,7 +27,7 @@ function getValidator (validator: string | TValidatorFunction | undefined): TVal
 }
 
 export function useFieldValidate (
-  model: Record<string, never>,
+  model: Record<string, any>,
   field: Field,
   isDisabled: boolean = false,
   isRequired: boolean = false,
@@ -46,11 +46,11 @@ export function useFieldValidate (
         fieldValidators.push(validators.required)
       }
 
-      if (field.min) {
+      if ('min' in field && field.min) {
         fieldValidators.push(validators.min)
       }
 
-      if (field.max) {
+      if ('max' in field && field.max) {
         fieldValidators.push(validators.max)
       }
     }

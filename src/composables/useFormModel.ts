@@ -7,7 +7,7 @@ import { Field } from '@/resources/types/fields'
  * @param field - form field
  */
 export function useFormModel(
-  model: Record<string, never>,
+  model: Record<string, any>,
   field: Field
 ) {
 
