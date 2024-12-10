@@ -40,7 +40,7 @@ const fieldId = computed(() => {
 
 const shouldHaveLabel = computed(() => {
   // checkbox will have their own label
-  return hasLabel(props.field) && ![ props.field.inputType, props.field.type ].includes('checkbox')
+  return hasLabel(props.field) && ![ props.field.inputType, props.field.type ].includes('checkbox') && !props.field.noLabel
 })
 </script>
 
