@@ -41,7 +41,7 @@ const props = {
   model: { ...form.model }
 }
 
-describe('Test FieldSubmit', () => {
+describe('FieldSubmit', () => {
 
   it('Should render correctly', async () => {
     const wrapper = mount(FieldSubmit, { props })

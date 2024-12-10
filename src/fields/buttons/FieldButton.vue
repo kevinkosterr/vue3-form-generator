@@ -4,11 +4,11 @@
   </button>
 </template>
 
-<script>
-import { abstractField } from '@/mixins/index.js'
+<script setup>
+import { toRefs } from 'vue'
+import { useFieldProps } from '@/composables'
 
-export default {
-  name: 'FieldButton',
-  mixins: [ abstractField ]
-}
+const props = defineProps(useFieldProps())
+
+const { model, field } = toRefs(props)
 </script>

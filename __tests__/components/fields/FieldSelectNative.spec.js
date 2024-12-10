@@ -23,7 +23,7 @@ const form = generateSchemaSingleField(
 
 const props = generatePropsSingleField(form)
 
-describe('Test FieldSelectNative', () => {
+describe('FieldSelectNative', () => {
 
   it('Should render correctly', async () => {
     const wrapper = mount(FieldSelect, { props })

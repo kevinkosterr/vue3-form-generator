@@ -41,7 +41,7 @@ const props = {
   model: { ...form.model }
 }
 
-describe('Test FieldReset', () => {
+describe('FieldReset', () => {
 
   it('Should render correctly', async () => {
     const wrapper = mount(FieldReset, { props })

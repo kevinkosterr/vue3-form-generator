@@ -15,7 +15,7 @@ const form = generateSchemaSingleField(
 
 const props = generatePropsSingleField(form)
 
-describe('Test FieldCheckbox', () => {
+describe('FieldCheckbox', () => {
 
   it('Should render correctly', async () => {
     const wrapper = mount(FieldCheckbox, { props })

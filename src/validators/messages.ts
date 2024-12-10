@@ -1,4 +1,4 @@
-let messages = {
+let messages: Record<string, string> = {
   required: 'Field is required',
   string: 'Value must be a string',
   number: 'Value must be a number',
@@ -9,18 +9,15 @@ let messages = {
 
 /**
  * Get the message belonging to when a validation has failed against a validator
- * @param {String} validatorName - name of the validator
- * @returns {String} - validation failed message
  */
-function getMessage (validatorName) {
+function getMessage (validatorName: string): string {
   return messages[validatorName] || 'Field is invalid'
 }
 
 /**
  * Set/overwrite the messages
- * @param {String} _messages
  */
-function setMessages (_messages) {
+function setMessages (_messages: Record<string, string>): void {
   messages = { ...messages, ..._messages }
 }
 

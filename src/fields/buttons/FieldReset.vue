@@ -2,11 +2,11 @@
   <input type="reset" class="field-reset" :value="field.buttonText">
 </template>
 
-<script>
-import { abstractField } from '@/mixins/index.js'
+<script setup>
+import { toRefs } from 'vue'
+import { useFieldProps } from '@/composables'
 
-export default {
-  name: 'FieldReset',
-  mixins: [ abstractField ]
-}
+const props = defineProps(useFieldProps())
+
+const { field } = toRefs(props)
 </script>

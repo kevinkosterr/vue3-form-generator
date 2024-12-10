@@ -18,7 +18,7 @@ const form = generateSchemaSingleField(
 
 const props = generatePropsSingleField(form)
 
-describe('Test FieldText', () => {
+describe('FieldText', () => {
 
   it('Should render correctly', async () => {
     const wrapper = mount(FieldText, { props })

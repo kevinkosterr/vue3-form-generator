@@ -19,6 +19,7 @@ $input-padding: .3rem .4rem;
     padding: $input-padding;
     border-radius: 3px;
     border: none;
+    background: #f4f4f4;
   }
 
   label {
@@ -121,6 +122,7 @@ $input-padding: .3rem .4rem;
   .field-reset {
     background: $secondary-default;
     border: 2px solid $secondary-default-border;
+    color: $secondary-default-color;
     border-radius: 3px;
     &:hover {
       background: color.adjust($secondary-default, $lightness: -3%)

@@ -36,7 +36,7 @@ const checkRadioInputs = (radioInputs, wrapper) => {
   }
 }
 
-describe('Test FieldRadio', () => {
+describe('FieldRadio', () => {
 
   it('Should render correctly', async () => {
     const wrapper = mount(FieldRadio, { props })

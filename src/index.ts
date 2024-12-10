@@ -1,19 +1,28 @@
-import { setMessages } from '@/validators/messages.js'
+import { App } from 'vue'
+import { PluginOptions } from '@/resources/types/generic'
+
+import { setMessages } from '@/validators/messages'
 import { isObject } from '@/helpers'
-import { abstractField } from '@/mixins'
+import {
+  useFieldValidate,
+  useFormModel,
+  useFieldAttributes,
+  useFieldEmits,
+  useFieldProps
+} from '@/composables'
 
 import FormGenerator from '@/FormGenerator.vue'
 import FormGeneratorFields from '@/fields'
 import validators from '@/validators'
 
 const VueFormGenerator = {
-  install (app, options) {
+  install (app: App, options: PluginOptions) {
     if (!options) options = {}
 
     app.use(FormGeneratorFields, options.aliases ?? {})
     app.component('VueFormGenerator', FormGenerator)
 
-    if (isObject(options.messages)) {
+    if (options.messages !== undefined && isObject(options.messages)) {
       setMessages(options.messages)
     }
 
@@ -27,6 +36,10 @@ const VueFormGenerator = {
 
 export default VueFormGenerator
 export {
-  abstractField,
+  useFieldProps,
+  useFormModel,
+  useFieldEmits,
+  useFieldAttributes,
+  useFieldValidate,
   validators
 }
