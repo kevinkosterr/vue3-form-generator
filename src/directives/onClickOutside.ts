@@ -18,4 +18,6 @@ const onClickOutside: Directive<HTMLElement, string> = {
   }
 }
 
-export default onClickOutside
+export {
+  onClickOutside
+}

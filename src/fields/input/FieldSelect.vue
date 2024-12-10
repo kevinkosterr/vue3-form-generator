@@ -62,66 +62,69 @@
   </div>
 </template>
 
-<script>
-import { abstractField } from '@/mixins'
-import onClickOutside from '@/directives/onClickOutside'
+<script setup>
+import { onClickOutside as vOnClickOutside } from '@/directives/onClickOutside'
+import { ref, toRefs, computed } from 'vue'
+import {
+  useFieldEmits,
+  useFieldProps,
+  useFormModel
+} from '@/composables'
 
-export default {
-  name: 'FieldSelect',
-  directives: { onClickOutside },
-  mixins: [ abstractField ],
-  data () {
-    return {
-      isOpened: false
-    }
-  },
-  computed: {
-    selectedNames () {
-      if (!this.currentModelValue) return []
+const props = defineProps(useFieldProps())
+const emits = defineEmits(useFieldEmits())
 
-      if (Array.isArray(this.currentModelValue) && this.field.multiple) {
-        return this.field.options.filter(o => this.currentModelValue.includes(o.value)).map(o => o.name)
-      } else {
-        return [ this.field.options.find(o => o.value === this.currentModelValue).name ]
-      }
-    },
-    hasValue () {
-      return this.field.multiple ? this.currentModelValue.length : this.currentModelValue
-    }
-  },
-  methods: {
-    onClickInput () {
-      if (this.isOpened) {
-        this.isOpened = false
-        return
-      }
-      this.isOpened = true
-    },
-    resetSelection () {
-      this.$emit('onInput', this.field.multiple ? [] : '')
-    },
-    isSelected (option) {
-      return this.currentModelValue?.includes(option.value) ?? false
-    },
-    selectOption (option) {
-      if (!this.field.multiple) {
-        const isSelected = this.currentModelValue === option.value
-        this.$emit('onInput', isSelected ? '' : option.value)
-      } else {
-        let selectedValues = [ ...this.currentModelValue ]
-        const isSelected = selectedValues.includes(option.value)
+const isOpened = ref(false)
+const { field, model } = toRefs(props)
 
-        if (isSelected) {
-          selectedValues = selectedValues.filter(o => o !== option.value)
-        } else {
-          selectedValues.push(option.value)
-        }
-
-
-        this.$emit('onInput', selectedValues)
-      }
-      this.isOpened = false
-    }
+/** Names of the selected values */
+const selectedNames = computed(() => {
+  if (!currentModelValue.value) return []
+  if (Array.isArray(currentModelValue.value) && field.value.multiple) {
+    return field.value.options.filter(o => currentModelValue.value.includes(o.value)).map(o => o.name)
+  } else {
+    return [ field.value.options.find(o => o.value === currentModelValue.value).name ]
   }
+})
+
+/** Whether the field has a value */
+const hasValue = computed(() => field.value.multiple ? currentModelValue.value.length : currentModelValue.value)
+
+const { currentModelValue } = useFormModel(model.value, field.value)
+
+function onClickInput () {
+  if (isOpened.value) {
+    isOpened.value = false
+    return
+  }
+  isOpened.value = true
+}
+
+function resetSelection () {
+  emits('onInput', field.value.multiple ? [] : '')
+}
+
+function isSelected (option) {
+  return currentModelValue.value?.includes(option.value) ?? false
+}
+
+function selectOption (option) {
+  if (!field.value.multiple) {
+    const isSelected = currentModelValue.value === option.value
+    emits('onInput', isSelected ? '' : option.value)
+  } else {
+    let selectedValues = [ ...currentModelValue.value ]
+    const isSelected = selectedValues.includes(option.value)
+
+    if (isSelected) {
+      selectedValues = selectedValues.filter(o => o !== option.value)
+    } else {
+      selectedValues.push(option.value)
+    }
+
+
+    emits('onInput', selectedValues)
+  }
+  isOpened.value = false
 }
 </script>

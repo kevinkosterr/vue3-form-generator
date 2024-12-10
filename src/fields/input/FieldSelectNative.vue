@@ -17,11 +17,37 @@
   </select>
 </template>
 
-<script>
-import { abstractField } from '@/mixins'
+<script setup>
+import { toRefs } from 'vue'
 
-export default {
-  name: 'FieldSelectNative',
-  mixins: [ abstractField ]
+import {
+  useFieldEmits,
+  useFieldValidate,
+  useFieldAttributes,
+  useFieldProps,
+  useFormModel
+} from '@/composables'
+
+const props = defineProps(useFieldProps())
+const emits = defineEmits(useFieldEmits())
+
+const { field, model } = toRefs(props)
+
+const { isRequired, isDisabled } = useFieldAttributes(model.value, field.value)
+const { currentModelValue } = useFormModel(model.value, field.value)
+const { validate } = useFieldValidate(model.value, field.value)
+
+const onBlur = () => {
+  validate().then((validationErrors) => {
+    emits('validated',
+      validationErrors.length === 0,
+      validationErrors,
+      field.value
+    )
+  })
+}
+
+const onFieldValueChanged = (event) => {
+  emits('onInput', event.target.value)
 }
 </script>

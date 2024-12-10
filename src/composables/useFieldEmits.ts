@@ -1,3 +1,3 @@
-export function useFieldEmits () {
+export function useFieldEmits (): string[] {
   return [ 'onInput', 'validated' ]
 }

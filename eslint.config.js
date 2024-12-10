@@ -34,7 +34,6 @@ export default [
       '@stylistic/quotes': [ 1, 'single' ],
       '@stylistic/quote-props': [ 1, 'consistent-as-needed' ],
       '@stylistic/no-trailing-spaces': 'error',
-      'max-len': [ 'error', { code: 120 } ],
       'comma-dangle': [ 'error', 'never' ],
       'semi': [ 'error', 'never' ],
       '@typescript-eslint/no-explicit-any': 'off',

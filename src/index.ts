@@ -4,6 +4,13 @@ import { PluginOptions } from '@/resources/types/generic'
 import { setMessages } from '@/validators/messages'
 import { isObject } from '@/helpers'
 import { abstractField } from '@/mixins'
+import {
+  useFieldValidate,
+  useFormModel,
+  useFieldAttributes,
+  useFieldEmits,
+  useFieldProps
+} from '@/composables'
 
 import FormGenerator from '@/FormGenerator.vue'
 import FormGeneratorFields from '@/fields'
@@ -31,5 +38,10 @@ const VueFormGenerator = {
 export default VueFormGenerator
 export {
   abstractField,
+  useFieldProps,
+  useFormModel,
+  useFieldEmits,
+  useFieldAttributes,
+  useFieldValidate,
   validators
 }
