@@ -23,7 +23,9 @@
     "./themes/*": "./dist/themes/*"
   },
   "release": {
-    "branches": [ "production" ],
+    "branches": [
+      "production"
+    ],
     "tagFormat": "${version}",
     "plugins": [
       "@semantic-release/commit-analyzer",
@@ -44,7 +46,6 @@
     "vue3 forms",
     "vuejs"
   ],
-  "dependencies": {},
   "devDependencies": {
     "@semantic-release/github": "^11.0.0",
     "@semantic-release/npm": "^12.0.1",
