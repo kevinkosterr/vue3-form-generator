@@ -79,6 +79,14 @@ export function useFieldValidate (
 
     const uniqueResults = toUniqueArray(results)
 
+    if ('onValidated' in field && field.onValidated) {
+      if (isFunction(field.onValidated)) {
+        field.onValidated.call(null, model, uniqueResults, field)
+      } else {
+        throw new Error('onValidated property must be of type `function` on field: ' + field.name)
+      }
+    }
+
     errors.value = uniqueResults
     return uniqueResults
   }
