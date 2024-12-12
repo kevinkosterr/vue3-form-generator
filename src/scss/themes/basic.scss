@@ -100,6 +100,15 @@ $input-padding: .3rem .4rem;
   }
   /** End of color field */
 
+  /** Simple button */
+  button {
+    border-radius: 3px;
+    padding: $input-padding;
+    min-width: 100px;
+    border: none;
+  }
+  /** End of simple button */
+
   /** Submit field */
   .field-submit {
     color: #efefef;
