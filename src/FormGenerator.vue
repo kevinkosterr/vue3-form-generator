@@ -79,7 +79,7 @@ const onReset = () => {
   props.model = resetObjectProperties(props.model)
 }
 
-defineExpose({ hasErrors })
+defineExpose({ hasErrors, idPrefix: props.idPrefix })
 </script>
 
 <template>
