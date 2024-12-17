@@ -2,7 +2,7 @@ import { generateSchemaSingleField, generatePropsSingleField, mountFormGenerator
 import { mount, config } from '@vue/test-utils'
 import { describe, it, expect } from 'vitest'
 
-import FieldTextarea from '@/fields/input/FieldTextarea.vue'
+import FieldTextarea from '@/fields/core/FieldTextarea.vue'
 
 const form = generateSchemaSingleField(
   'textTest',

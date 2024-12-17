@@ -19,7 +19,7 @@ import {
   useFieldAttributes,
   useFieldProps,
   useFormModel
-} from '@/composables'
+} from '@/composables/index.ts'
 
 
 const props = defineProps(useFieldProps())

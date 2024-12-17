@@ -1,19 +1,19 @@
 import { App, Component } from 'vue'
 
-import FieldText from '@/fields/input/FieldText.vue'
-import FieldCheckBox from '@/fields/input/FieldCheckbox.vue'
-import FieldPassword from '@/fields/input/FieldPassword.vue'
-import FieldSelectNative from '@/fields/input/FieldSelectNative.vue'
-import FieldSelect from '@/fields/input/FieldSelect.vue'
-import FieldRadio from '@/fields/input/FieldRadio.vue'
-import FieldColor from '@/fields/input/FieldColor.vue'
-import FieldNumber from '@/fields/input/FieldNumber.vue'
-import FieldSwitch from '@/fields/input/FieldSwitch.vue'
-import FieldTextarea from '@/fields/input/FieldTextarea.vue'
+import FieldText from '@/fields/core/FieldText.vue'
+import FieldCheckBox from '@/fields/core/FieldCheckbox.vue'
+import FieldPassword from '@/fields/core/FieldPassword.vue'
+import FieldSelect from '@/fields/core/FieldSelect.vue'
+import FieldSelectNative from '@/fields/core/FieldSelectNative.vue'
+import FieldRadio from '@/fields/core/FieldRadio.vue'
+import FieldColor from '@/fields/core/FieldColor.vue'
+import FieldNumber from '@/fields/core/FieldNumber.vue'
+import FieldSwitch from '@/fields/core/FieldSwitch.vue'
+import FieldTextarea from '@/fields/core/FieldTextarea.vue'
 
-import FieldSubmit from '@/fields/buttons/FieldSubmit.vue'
-import FieldReset from '@/fields/buttons/FieldReset.vue'
-import FieldButton from '@/fields/buttons/FieldButton.vue'
+import FieldSubmit from '@/fields/core/FieldSubmit.vue'
+import FieldReset from '@/fields/core/FieldReset.vue'
+import FieldButton from '@/fields/core/FieldButton.vue'
 
 
 const fieldComponents: Component[] = [

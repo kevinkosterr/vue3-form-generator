@@ -2,9 +2,9 @@ import { mountFormGenerator, generatePropsSingleField } from '@test/_resources/u
 import { describe, it, expect } from 'vitest'
 import { mount, config } from '@vue/test-utils'
 
-import FieldButton from '@/fields/buttons/FieldButton.vue'
-import FieldPassword from '@/fields/input/FieldPassword.vue'
-import FieldCheckbox from '@/fields/input/FieldCheckbox.vue'
+import FieldButton from '@/fields/core/FieldButton.vue'
+import FieldPassword from '@/fields/core/FieldPassword.vue'
+import FieldCheckbox from '@/fields/core/FieldCheckbox.vue'
 
 const form = {
   model: {

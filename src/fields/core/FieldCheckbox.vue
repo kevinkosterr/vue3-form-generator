@@ -1,14 +1,15 @@
 <template>
   <input
-    :id="props.id"
-    class="field-color"
-    type="color"
-    :name="props.field.name"
-    :value="currentModelValue"
+    :id="id"
+    type="checkbox"
+    :name="field.name"
     :required="isRequired"
+    :disabled="isDisabled"
+    :value="currentModelValue"
+    :checked="currentModelValue"
     @change="onFieldValueChanged"
-    @blur="onBlur"
   >
+  <label v-if="field.label" style="margin-left: .4em" :for="id"> {{ field.label }}</label>
 </template>
 
 <script setup>
@@ -19,7 +20,7 @@ import {
   useFieldValidate,
   useFieldProps,
   useFieldEmits
-} from '@/composables'
+} from '@/composables/index.ts'
 
 const emits = defineEmits(useFieldEmits())
 const props = defineProps(useFieldProps())
@@ -27,30 +28,24 @@ const props = defineProps(useFieldProps())
 const { field, model } = toRefs(props)
 
 const { currentModelValue } = useFormModel(model.value, field.value)
-const { isRequired, isVisible } = useFieldAttributes(model.value, field.value)
+const { isRequired, isDisabled } = useFieldAttributes(model.value, field.value)
 const { errors, validate } = useFieldValidate(
   model.value,
   field.value,
-  false,
+  isDisabled.value,
   isRequired.value,
-  false,
-  currentModelValue.value
+  false
 )
 
-const onBlur = () => {
-  validate().then((validationErrors) => {
+const onFieldValueChanged = ({ target }) => {
+  errors.value = []
+  validate(currentModelValue.value).then((validationErrors) => {
     emits('validated',
       validationErrors.length === 0,
       validationErrors,
       field.value
     )
   })
+  emits('onInput', target.checked)
 }
-
-const onFieldValueChanged = ({ target }) => {
-  errors.value = []
-  emits('onInput', target.value)
-}
-
-defineExpose({ isVisible })
 </script>

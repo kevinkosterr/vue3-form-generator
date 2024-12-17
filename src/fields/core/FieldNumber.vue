@@ -1,14 +1,15 @@
 <template>
   <input
     :id="id"
-    class="field-input"
-    type="text"
+    type="number"
     :name="field.name"
     :required="isRequired"
     :disabled="isDisabled"
     :placeholder="field.placeholder"
-    :autocomplete="field.autocomplete || 'off'"
     :value="currentModelValue"
+    :max="field.max || undefined"
+    :min="field.min || undefined"
+    :step="field.step || 1"
     @input="onFieldValueChanged"
     @blur="onBlur"
   >
@@ -16,15 +17,21 @@
 
 <script setup>
 import { toRefs } from 'vue'
-import { useFormModel, useFieldAttributes, useFieldValidate, useFieldProps, useFieldEmits } from '@/composables'
+import {
+  useFormModel,
+  useFieldAttributes,
+  useFieldValidate,
+  useFieldEmits,
+  useFieldProps
+} from '@/composables/index.ts'
 
-const emits = defineEmits(useFieldEmits())
 const props = defineProps(useFieldProps())
+const emits = defineEmits(useFieldEmits())
 
 const { field, model } = toRefs(props)
 
+const { isDisabled, isRequired } = useFieldAttributes(model.value, field.value)
 const { currentModelValue } = useFormModel(model.value, field.value)
-const { isRequired, isDisabled } = useFieldAttributes(model.value, field.value)
 const { errors, validate } = useFieldValidate(
   model.value,
   field.value,
@@ -45,8 +52,9 @@ const onBlur = () => {
 
 const onFieldValueChanged = ({ target }) => {
   errors.value = []
-  emits('onInput', target.value)
+  const step = field.value.step ?? 1
+  const isDecimalStep = step.toString().split('.')[1]
+  if (!isDecimalStep) return emits('onInput', parseInt(target.value))
+  emits('onInput', parseFloat(target.value))
 }
-
-defineExpose({ errors })
 </script>

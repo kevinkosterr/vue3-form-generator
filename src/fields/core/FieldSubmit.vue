@@ -9,7 +9,7 @@
 
 <script setup>
 import { toRefs } from 'vue'
-import { useFieldProps, useFieldAttributes } from '@/composables'
+import { useFieldProps, useFieldAttributes } from '@/composables/index.ts'
 
 const props = defineProps(useFieldProps())
 

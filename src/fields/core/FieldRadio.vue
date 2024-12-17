@@ -22,7 +22,7 @@ import {
   useFieldProps,
   useFormModel,
   useFieldAttributes
-} from '@/composables'
+} from '@/composables/index.ts'
 
 const props = defineProps(useFieldProps())
 const emits = defineEmits(useFieldEmits())

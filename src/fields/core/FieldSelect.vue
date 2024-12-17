@@ -63,13 +63,13 @@
 </template>
 
 <script setup>
-import { onClickOutside as vOnClickOutside } from '@/directives/onClickOutside'
+import { onClickOutside as vOnClickOutside } from '@/directives/onClickOutside.ts'
 import { ref, toRefs, computed } from 'vue'
 import {
   useFieldEmits,
   useFieldProps,
   useFormModel
-} from '@/composables'
+} from '@/composables/index.ts'
 
 const props = defineProps(useFieldProps())
 const emits = defineEmits(useFieldEmits())

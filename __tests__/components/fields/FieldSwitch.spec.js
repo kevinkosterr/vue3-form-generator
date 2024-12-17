@@ -2,7 +2,7 @@ import { generatePropsSingleField, generateSchemaSingleField, mountFormGenerator
 import { describe, it, expect } from 'vitest'
 import { mount, config } from '@vue/test-utils'
 
-import FieldSwitch from '@/fields/input/FieldSwitch.vue'
+import FieldSwitch from '@/fields/core/FieldSwitch.vue'
 
 const form = generateSchemaSingleField(
   'switchTest',
