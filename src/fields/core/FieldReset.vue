@@ -1,5 +1,5 @@
 <template>
-  <input type="reset" class="field-reset" :value="field.buttonText">
+  <input type="reset" class="field-reset" :value="field.buttonText" :class="field.buttonClasses">
 </template>
 
 <script setup>

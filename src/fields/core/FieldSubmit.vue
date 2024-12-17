@@ -4,6 +4,7 @@
     class="field-submit"
     :disabled="isDisabled"
     :value="field.buttonText || 'Submit'"
+    :class="field.buttonClasses"
   >
 </template>
 
