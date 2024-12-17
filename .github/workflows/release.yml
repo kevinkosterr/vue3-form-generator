@@ -18,13 +18,16 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: 20
-      - run: pnpm install --frozen-lockfile
+      - run: yarn install
       - name: Running tests
-        run: pnpm run test
+        run: yarn run test
       - name: Building
-        run: pnpm run build
+        run: yarn run build
+      - name: Running audit
+        run: yarn audit signatures
       - name: Semantic release
         run: npx semantic-release
+      - name: Release
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
