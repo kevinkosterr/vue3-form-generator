@@ -2,7 +2,7 @@ import { generateSchemaSingleField, generatePropsSingleField, mountFormGenerator
 import { mount, config } from '@vue/test-utils'
 import { describe, it, expect } from 'vitest'
 
-import FieldSelect from '@/fields/input/FieldSelect.vue'
+import FieldSelect from '@/fields/core/FieldSelect.vue'
 
 const form = generateSchemaSingleField(
   'testSelect',
@@ -23,7 +23,7 @@ const form = generateSchemaSingleField(
 
 const props = generatePropsSingleField(form)
 
-describe('Test FieldSelect', () => {
+describe('FieldSelect', () => {
 
   it('Should render correctly', async () => {
     const wrapper = mount(FieldSelect, { props })

@@ -2,7 +2,7 @@ import { mountFormGenerator, generatePropsSingleField, generateSchemaSingleField
 import { mount, config } from '@vue/test-utils'
 import { describe, it, expect } from 'vitest'
 
-import FieldColor from '@/fields/input/FieldColor.vue'
+import FieldColor from '@/fields/core/FieldColor.vue'
 
 const form = generateSchemaSingleField(
   'testColor',
@@ -15,7 +15,7 @@ const form = generateSchemaSingleField(
 
 const props = generatePropsSingleField(form)
 
-describe('Test FieldColor', () => {
+describe('FieldColor', () => {
 
   it('Should render correctly', async () => {
     const wrapper = mount(FieldColor, { props })
