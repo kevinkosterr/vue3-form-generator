@@ -20,6 +20,9 @@ $input-padding: .3rem .4rem;
     border-radius: 3px;
     border: none;
     background: #f4f4f4;
+    &::placeholder {
+      color: grey;
+    }
   }
 
   label {
