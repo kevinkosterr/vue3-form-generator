@@ -1,8 +1,9 @@
 import { mountFormGenerator, generateSchemaSingleField, generatePropsSingleField } from '@test/_resources/utils.js'
 import { describe, it, expect } from 'vitest'
 import { mount, config } from '@vue/test-utils'
+import validators from '@/validators'
 
-import FieldPassword from '@/fields/input/FieldPassword.vue'
+import FieldPassword from '@/fields/core/FieldPassword.vue'
 
 const form = generateSchemaSingleField(
   'passwordTest',
@@ -20,7 +21,7 @@ const propsWithIndicator = {
   field: { ...props.field, indicator: true }
 }
 
-describe('Test FieldPassword', () => {
+describe('FieldPassword', () => {
 
   it('Should render correctly', async () => {
     const wrapper = mount(FieldPassword, { props })
@@ -101,6 +102,7 @@ describe('Test FieldPassword', () => {
 
   it('Should give an error when required and empty', async () => {
     const fieldProps = { ...props, field: { ...props.field, required: true } }
+    fieldProps.field.validator = [ validators.required ]
     const wrapper = mount(FieldPassword, { props: fieldProps })
 
     const input = wrapper.find('input[type=password]')

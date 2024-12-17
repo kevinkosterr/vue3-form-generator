@@ -18,13 +18,11 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: 20
-      - run: yarn install --immutable
+      - run: pnpm install --frozen-lockfile
       - name: Running tests
-        run: yarn run test
+        run: pnpm run test
       - name: Building
-        run: yarn run build
-      - name: Running audit
-        run: yarn audit signatures
+        run: pnpm run build
       - name: Semantic release
         run: npx semantic-release
         env:

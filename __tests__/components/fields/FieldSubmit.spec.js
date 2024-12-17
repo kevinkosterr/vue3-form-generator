@@ -2,9 +2,9 @@ import { mountFormGenerator } from '@test/_resources/utils.js'
 import { describe, it, expect } from 'vitest'
 import { mount, config } from '@vue/test-utils'
 
-import FieldCheckbox from '@/fields/input/FieldCheckbox.vue'
-import FieldPassword from '@/fields/input/FieldPassword.vue'
-import FieldSubmit from '@/fields/buttons/FieldSubmit.vue'
+import FieldCheckbox from '@/fields/core/FieldCheckbox.vue'
+import FieldPassword from '@/fields/core/FieldPassword.vue'
+import FieldSubmit from '@/fields/core/FieldSubmit.vue'
 
 const form = {
   model: {
@@ -41,7 +41,7 @@ const props = {
   model: { ...form.model }
 }
 
-describe('Test FieldSubmit', () => {
+describe('FieldSubmit', () => {
 
   it('Should render correctly', async () => {
     const wrapper = mount(FieldSubmit, { props })
