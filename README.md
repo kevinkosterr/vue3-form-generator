@@ -13,7 +13,7 @@ You can find documentation on the [documentation page](https://kevinkosterr.gith
 ## Building for development
 1. Install the dependencies
 ```bash
-yarn install
+pnpm install
 ```
 2. Create a schema inside the playground folder, for this you can copy `schema.example.js`.
 ```bash
@@ -21,7 +21,7 @@ cp playground/schema.example.js playground/schema.js
 ```
 3. Run the development playground
 ```bash
-yarn run dev 
+pnpm run dev 
 ```
 
 

@@ -28,13 +28,26 @@ export interface IRadioField extends IField {
   options: IOption[]
 }
 
-export interface ISelectField extends IField {
+export interface ITextField extends IField {
+  placeholder: string;
+}
+
+export interface ISelectField extends ITextField {
   emptyText: string;
   multiple: boolean;
   options: IOption[]
 }
 
-export interface IPasswordField extends IField {
+export interface IMaskField extends ITextField {
+  mask: string;
+  maskOptions?: {
+    eager?: boolean;
+    tokens?: Record<string, { pattern: RegExp, uppercase: boolean }>;
+    unmasked?: boolean;
+  };
+}
+
+export interface IPasswordField extends ITextField {
   indicator: boolean;
 }
 
@@ -47,5 +60,12 @@ export interface IButtonField extends IButtonFieldBase {
   onClick?: () => void;
 }
 
-export type Field = IField | IRadioField | ISelectField | IPasswordField | IButtonField
+export type Field = IField | IRadioField | ISelectField | IPasswordField | IButtonField | ITextField | IMaskField
 export type FieldValue = number | string | number[] | string[]
+
+export interface FieldProps<T extends Field=Field> {
+  id: string;
+  formGenerator: object;
+  field: T;
+  model: Record<string, unknown>;
+}
