@@ -1,7 +1,8 @@
 <template>
   <div class="vfg-select">
     <span
-      v-on-click-outside="() => isOpened = false"
+      :id="props.id + 'vfg-select-label'"
+      v-on-click-outside="handleClickOutside"
       class="vfg-select-label"
       :class="{'text-muted': !selectedNames.length}"
       @click.prevent="onClickInput"
@@ -35,10 +36,11 @@
         </svg>
       </span>
     </span>
-    <div v-if="isOpened" class="vfg-select-list-container">
-      <div class="vfg-select-list">
+    <div v-if="isOpened" :id="props.id + 'vfg-select-list-container'" class="vfg-select-list-container">
+      <div :id="props.id + 'vfg-select-list'" class="vfg-select-list">
         <div
           v-for="option in field.options"
+          :id="props.id + 'vfg-select-option-' + option.value"
           :key="option.value"
           class="vfg-select-option"
           :class="{'selected': isSelected(option)}"
@@ -63,6 +65,7 @@
 </template>
 
 <script setup>
+import { useMagicKeys } from '@vueuse/core'
 import { onClickOutside as vOnClickOutside } from '@/directives/onClickOutside.ts'
 import { ref, toRefs, computed } from 'vue'
 import {
@@ -73,6 +76,7 @@ import {
 
 const props = defineProps(useFieldProps())
 const emits = defineEmits(useFieldEmits())
+const { controlLeft, metaLeft } = useMagicKeys()
 
 const isOpened = ref(false)
 const { field, model } = toRefs(props)
@@ -89,6 +93,7 @@ const selectedNames = computed(() => {
 
 /** Whether the field has a value */
 const hasValue = computed(() => field.value.multiple ? currentModelValue.value.length : currentModelValue.value)
+const isPressingModifierKey = computed(() => metaLeft.value || controlLeft.value)
 
 const { currentModelValue } = useFormModel(model.value, field.value)
 
@@ -108,6 +113,15 @@ function isSelected (option) {
   return currentModelValue.value?.includes(option.value) ?? false
 }
 
+function handleClickOutside (event) {
+  if (
+    (!field.value.multiple && !isPressingModifierKey.value) ||
+      !event.target.id.startsWith(props.id + 'vfg-select')
+  ) {
+    isOpened.value = false
+  }
+}
+
 function selectOption (option) {
   if (!field.value.multiple) {
     const isSelected = currentModelValue.value === option.value
@@ -122,8 +136,8 @@ function selectOption (option) {
       selectedValues.push(option.value)
     }
 
-
     emits('onInput', selectedValues)
+    if (metaLeft.value || controlLeft.value) return
   }
   isOpened.value = false
 }
