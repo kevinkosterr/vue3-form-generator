@@ -69,5 +69,9 @@
     "vue": "^3.5.6",
     "vue-eslint-parser": "^9.4.3",
     "vue3-json-viewer": "^2.2.2"
+  },
+  "dependencies": {
+    "@vueuse/core": "^13.1.0",
+    "maska": "^3.1.1"
   }
 }
