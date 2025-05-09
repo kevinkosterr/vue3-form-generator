@@ -6,8 +6,7 @@
   "author": "Kevin Koster (@kevinkoster)",
   "repository": "https://github.com/kevinkosterr/vue3-form-generator",
   "license": "MIT",
-  "main": "./dist/vue3-form-generator.umd.js",
-  "module": "./dist/vue3-form-generator.es.js",
+  "main": "./dist/vue3-form-generator.js",
   "scripts": {
     "dev": "vite",
     "dev:sass": "sass --watch src/scss/themes:playground/css/",
@@ -17,8 +16,7 @@
   },
   "exports": {
     ".": {
-      "import": "./dist/vue3-form-generator.es.js",
-      "require": "./dist/vue3-form-generator.umd.js"
+      "import": "./dist/vue3-form-generator.js"
     },
     "./themes/*": "./dist/themes/*"
   },
