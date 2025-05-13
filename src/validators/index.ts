@@ -75,7 +75,6 @@ export default {
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   email (value: FieldValue, field: Field, model: Record<string, any>): boolean {
     if (typeof value !== 'string') return false
-    // eslint-disable-next-line max-len
     const regex = new RegExp('^([^<>()\\[\\]\\\\.,;:\\s@"]+(?:\\.[^<>()\\[\\]\\\\.,;:\\s@"]+)*|".+")@(\\[[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}]|(?:[a-zA-Z\\-0-9]+\\.)+[a-zA-Z]{2,})$', 'i')
     return Boolean(value.match(regex))
   },
@@ -89,7 +88,6 @@ export default {
     if (typeof value !== 'string') return false
 
     const regex = new RegExp(
-      // eslint-disable-next-line max-len
       '^\\+\\d{1,3}\\s\\d{2,3}\\s\\d{2,3}\\s\\d{4}|^\\+\\d{1,3}\\s\\d{1,14}(\\s\\d{1,13})?|^\\(\\d{3}\\)\\s\\d{3}\\s\\d{4}?',
       'i'
     )
@@ -105,6 +103,18 @@ export default {
     if (typeof value !== 'string') return false
 
     const regex = new RegExp('(\\+316[0-9]{8})|(06[0-9]{8})', 'i')
+    return Boolean(value.match(regex))
+  },
+
+  /**
+   * Check if a value is a valid HEX color value.
+   * @returns {boolean} - Returns `true` if value matches the format, otherwise false.
+   */
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  hexColorValue (value: FieldValue, field: Field, model: Record<string, any>): boolean {
+    if (typeof value !== 'string') return false
+
+    const regex = new RegExp('^\#([a-f0-9]{3}|[a-f0-9]{6})$', 'i')
     return Boolean(value.match(regex))
   }
 
