@@ -1,6 +1,6 @@
 <template>
   <input
-    :id="id"
+    :id="props.id"
     type="number"
     :name="field.name"
     :required="isRequired"
@@ -10,6 +10,7 @@
     :max="field.max || undefined"
     :min="field.min || undefined"
     :step="field.step || 1"
+    inputmode="numeric"
     @input="onFieldValueChanged"
     @blur="onBlur"
   >

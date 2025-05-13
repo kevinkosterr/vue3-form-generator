@@ -3,6 +3,7 @@
 @import '../modules/base';
 @import '../modules/colors';
 @import '../shared/fieldSelect';
+@import '../shared/fieldColor';
 
 $input-padding: .3rem .4rem;
 
@@ -99,6 +100,9 @@ $input-padding: .3rem .4rem;
     &:active, &:focus {
       border: none;
       padding: 0;
+    }
+    &:hover {
+      cursor: pointer;
     }
   }
   /** End of color field */

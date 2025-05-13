@@ -1,0 +1,10 @@
+.field-color-wrapper {
+  display: flex;
+  flex-direction: row-reverse;
+  align-items: stretch;
+  justify-content: start;
+
+  .field-color-input {
+    max-width: 100px;
+  }
+}
