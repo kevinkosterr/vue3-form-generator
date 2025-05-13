@@ -101,6 +101,9 @@ $input-padding: .3rem .4rem;
       border: none;
       padding: 0;
     }
+    &:hover {
+      cursor: pointer;
+    }
   }
   /** End of color field */
 
