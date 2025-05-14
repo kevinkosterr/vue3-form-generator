@@ -16,10 +16,12 @@
   },
   "exports": {
     ".": {
-      "import": "./dist/vue3-form-generator.js"
+      "import": "./dist/vue3-form-generator.js",
+      "types": "./dist/index.d.ts"
     },
     "./themes/*": "./dist/themes/*"
   },
+  "types": "./dist/index.d.ts",
   "release": {
     "branches": [
       "production"
