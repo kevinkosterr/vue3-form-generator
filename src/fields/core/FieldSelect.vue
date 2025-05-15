@@ -85,7 +85,7 @@ const { field, model } = toRefs(props)
 const selectedNames = computed(() => {
   if (!currentModelValue.value) return []
   if (Array.isArray(currentModelValue.value) && field.value.multiple) {
-    return field.value.options.filter(o => currentModelValue.value.includes(o.value)).map(o => o.name)
+    return currentModelValue.value.map(val => field.value.options.find(o => o.value === val)?.name)
   } else {
     return [ field.value.options.find(o => o.value === currentModelValue.value).name ]
   }
