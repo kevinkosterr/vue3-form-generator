@@ -1,7 +1,7 @@
 <template>
-  <label class="field-switch" :for="formFieldId">
+  <label class="field-switch" :for="props.id">
     <input
-      :id="formFieldId"
+      :id="props.id"
       type="checkbox"
       :checked="currentModelValue"
       :disabled="isDisabled"
