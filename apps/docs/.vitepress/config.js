@@ -1,4 +1,5 @@
 import { defineConfig } from 'vitepress'
+import { groupIconMdPlugin, groupIconVitePlugin } from 'vitepress-plugin-group-icons'
 import path from 'path'
 
 // https://vitepress.dev/reference/site-config
@@ -6,6 +7,11 @@ export default defineConfig({
   base: '/vue3-form-generator/',
   title: 'Vue3 Form Generator',
   description: 'Documentation for vue3-form-generator',
+  markdown: {
+    config(md) {
+      md.use(groupIconMdPlugin)
+    }
+  },
   themeConfig: {
     nav: [
       { text: 'Home', link: '/' }
@@ -48,6 +54,7 @@ export default defineConfig({
         items: [
           { text: 'FieldButton', link: '/guide/fields/FieldButton' },
           { text: 'FieldCheckbox', link: '/guide/fields/FieldCheckbox' },
+          { text: 'FieldChecklist', link: '/guide/fields/FieldChecklist' },
           { text: 'FieldColor', link: '/guide/fields/FieldColor' },
           { text: 'FieldMask', link: '/guide/fields/FieldMask' },
           { text: 'FieldNumber', link: '/guide/fields/FieldNumber' },
@@ -75,6 +82,7 @@ export default defineConfig({
     ]
   },
   vite: {
+    plugins: [ groupIconVitePlugin() ],
     resolve: {
       alias: {
         '@': path.resolve(__dirname, '../../../src')

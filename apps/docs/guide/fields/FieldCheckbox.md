@@ -6,7 +6,7 @@ FieldCheckbox is a checkbox field that renders an input element of type `checkbo
 
 ## Basic example
 <script setup>
-import FieldCheckboxExample from '/components/FieldCheckboxExample.vue'
+import FieldCheckboxExample from '/components/examples/fieldsFieldCheckboxExample.vue'
 </script>
 
 <FieldCheckboxExample />

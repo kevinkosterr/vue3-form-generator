@@ -3,6 +3,7 @@ import VueFormGenerator from '@/index'
 
 import './index.css'
 import '@/scss/themes/basic.scss'
+import 'virtual:group-icons.css'
 
 export default {
   extends: DefaultTheme,
