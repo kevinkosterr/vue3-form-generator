@@ -1,13 +1,13 @@
 <script setup>
-import { ref, computed } from 'vue'
-import { getFieldComponentName, hasLabel } from '@/helpers'
+import { computed, useTemplateRef } from 'vue'
+import { getFieldComponentName } from '@/helpers'
 
-const fieldComponent = ref(null)
+const fieldComponent = useTemplateRef('fieldComponent')
 
 const props = defineProps({
-  formGenerator: {
+  formOptions: {
     type: Object,
-    required: true
+    default: () => ({})
   },
   model: {
     type: Object,
@@ -35,12 +35,14 @@ function onValidated (isValid, fieldErrors, field) {
 
 /** Computed */
 const fieldId = computed(() => {
-  return `${props.formGenerator.idPrefix ? props.formGenerator.idPrefix + '_' : ''}${props.field.name}`
+  return `${props.formOptions.idPrefix ? props.formOptions.idPrefix + '_' : ''}${props.field.name}`
 })
 
 const shouldHaveLabel = computed(() => {
-  // checkbox will have their own label
-  return hasLabel(props.field) && ![ props.field.inputType, props.field.type ].includes('checkbox') && !props.field.noLabel
+  if (fieldComponent.value?.noLabel || props.field.noLabel === true) {
+    return false
+  }
+  return props.field.label
 })
 </script>
 
@@ -55,6 +57,7 @@ const shouldHaveLabel = computed(() => {
         :is="getFieldComponentName(props.field)"
         :id="fieldId"
         ref="fieldComponent"
+        :form-options="props.formOptions"
         :model="model"
         :field="props.field"
         @on-input="onInput"

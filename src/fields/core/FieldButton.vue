@@ -11,4 +11,6 @@ import { useFieldProps } from '@/composables/index.ts'
 const props = defineProps(useFieldProps())
 
 const { model, field } = toRefs(props)
+
+defineExpose({ noLabel: true })
 </script>

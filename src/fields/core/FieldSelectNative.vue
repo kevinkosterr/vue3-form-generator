@@ -33,7 +33,7 @@ const emits = defineEmits(useFieldEmits())
 
 const { field, model } = toRefs(props)
 
-const { isRequired, isDisabled } = useFieldAttributes(model.value, field.value)
+const { isRequired, isDisabled, hint } = useFieldAttributes(model.value, field.value)
 const { currentModelValue } = useFormModel(model.value, field.value)
 const { validate } = useFieldValidate(model.value, field.value)
 
@@ -50,4 +50,6 @@ const onBlur = () => {
 const onFieldValueChanged = (event) => {
   emits('onInput', event.target.value)
 }
+
+defineExpose({ hint })
 </script>

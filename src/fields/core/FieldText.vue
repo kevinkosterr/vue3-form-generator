@@ -24,7 +24,7 @@ const props = defineProps(useFieldProps())
 const { field, model } = toRefs(props)
 
 const { currentModelValue } = useFormModel(model.value, field.value)
-const { isRequired, isDisabled } = useFieldAttributes(model.value, field.value)
+const { isRequired, isDisabled, hint } = useFieldAttributes(model.value, field.value)
 const { errors, validate } = useFieldValidate(
   model.value,
   field.value,
@@ -48,5 +48,5 @@ const onFieldValueChanged = ({ target }) => {
   emits('onInput', target.value)
 }
 
-defineExpose({ errors })
+defineExpose({ errors, hint })
 </script>

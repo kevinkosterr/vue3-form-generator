@@ -1,9 +1,8 @@
 <script setup>
-import { computed, getCurrentInstance, ref } from 'vue'
+import { computed, ref } from 'vue'
 import { resetObjectProperties, toUniqueArray } from '@/helpers'
 import FormGroup from './FormGroup.vue'
 
-const instance = getCurrentInstance()
 const emits = defineEmits([ 'submit' ])
 
 const props = defineProps({
@@ -16,6 +15,10 @@ const props = defineProps({
     type: String,
     required: false,
     default: ''
+  },
+  options: {
+    type: Object,
+    default: () => ({})
   },
   schema: {
     type: Object,
@@ -32,9 +35,9 @@ const props = defineProps({
 })
 
 /** Data / Refs */
-const formGenerator = ref(instance?.proxy || null)
 const fieldElements = ref([])
 const formErrors = ref({})
+const formOptions = computed(() => ({ ...props.options, idPrefix: props.idPrefix }))
 
 /**
  * Update form model key with its new value.
@@ -79,7 +82,7 @@ const onReset = () => {
   props.model = resetObjectProperties(props.model)
 }
 
-defineExpose({ hasErrors, idPrefix: props.idPrefix })
+defineExpose({ hasErrors })
 </script>
 
 <template>
@@ -94,7 +97,8 @@ defineExpose({ hasErrors, idPrefix: props.idPrefix })
       <template v-for="field in props.schema.fields" :key="field">
         <form-group
           :ref="el => fieldElements.push(el)"
-          :form-generator="formGenerator" :field="field"
+          :form-options="formOptions"
+          :field="field"
           :model="props.model"
           @value-updated="updateGeneratorModel"
           @validated="onFieldValidated"
@@ -108,7 +112,7 @@ defineExpose({ hasErrors, idPrefix: props.idPrefix })
           <template v-for="field in group.fields" :key="field">
             <form-group
               :ref="el => fieldElements.push(el)"
-              :form-generator="formGenerator"
+              :form-options="formOptions"
               :field="field"
               :model="props.model"
               @value-updated="updateGeneratorModel"

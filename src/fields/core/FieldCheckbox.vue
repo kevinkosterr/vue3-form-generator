@@ -1,6 +1,6 @@
 <template>
   <input
-    :id="id"
+    :id="props.id"
     type="checkbox"
     :name="field.name"
     :required="isRequired"
@@ -9,7 +9,7 @@
     :checked="currentModelValue"
     @change="onFieldValueChanged"
   >
-  <label v-if="field.label" style="margin-left: .4em" :for="id"> {{ field.label }}</label>
+  <label v-if="field.label" style="margin-left: .4em" :for="props.id"> {{ field.label }}</label>
 </template>
 
 <script setup>
@@ -28,7 +28,7 @@ const props = defineProps(useFieldProps())
 const { field, model } = toRefs(props)
 
 const { currentModelValue } = useFormModel(model.value, field.value)
-const { isRequired, isDisabled } = useFieldAttributes(model.value, field.value)
+const { isRequired, isDisabled, hint } = useFieldAttributes(model.value, field.value)
 const { errors, validate } = useFieldValidate(
   model.value,
   field.value,
@@ -48,4 +48,6 @@ const onFieldValueChanged = ({ target }) => {
   })
   emits('onInput', target.checked)
 }
+
+defineExpose({ hint, noLabel: true })
 </script>

@@ -28,7 +28,7 @@ const props = defineProps(useFieldProps())
 const emits = defineEmits(useFieldEmits())
 
 const { field, model } = toRefs(props)
-const { isRequired } = useFieldAttributes(model.value, field.value)
+const { isRequired, hint } = useFieldAttributes(model.value, field.value)
 const { currentModelValue } = useFormModel(model.value, field.value)
 
 const getFieldId = (optionName) => `${field.value.name}_${optionName}`
@@ -36,4 +36,6 @@ const getFieldId = (optionName) => `${field.value.name}_${optionName}`
 const onFieldValueChanged = ({ target }) => {
   emits('onInput', target.value)
 }
+
+defineExpose({ hint })
 </script>

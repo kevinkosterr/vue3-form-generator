@@ -1,6 +1,6 @@
 import { generateSchemaSingleField, generatePropsSingleField, mountFormGenerator } from '@test/_resources/utils.js'
 import { mount, config } from '@vue/test-utils'
-import { describe, it, expect } from 'vitest'
+import { describe, it, expect, beforeAll } from 'vitest'
 
 import FieldSelect from '@/fields/core/FieldSelect.vue'
 
@@ -23,6 +23,10 @@ const form = generateSchemaSingleField(
 
 const props = generatePropsSingleField(form)
 
+beforeAll(() => {
+  config.global.components = { FieldSelect }
+})
+
 describe('FieldSelect', () => {
 
   it('Should render correctly', async () => {
@@ -42,7 +46,6 @@ describe('FieldSelect', () => {
   })
 
   it('Should render correctly inside form generator', async () => {
-    config.global.components = { FieldSelect }
     const formWrapper = mountFormGenerator(form.schema, props)
     const selectComp = formWrapper.findComponent(FieldSelect)
     expect(selectComp.exists()).toBeTruthy()

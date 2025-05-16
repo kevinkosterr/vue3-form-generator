@@ -1,10 +1,14 @@
 import { mountFormGenerator, generatePropsSingleField } from '@test/_resources/utils.js'
-import { describe, it, expect } from 'vitest'
+import { describe, it, expect, beforeAll } from 'vitest'
 import { mount, config } from '@vue/test-utils'
 
 import FieldButton from '@/fields/core/FieldButton.vue'
 import FieldPassword from '@/fields/core/FieldPassword.vue'
 import FieldCheckbox from '@/fields/core/FieldCheckbox.vue'
+
+beforeAll(() => {
+  config.global.components = { FieldButton }
+})
 
 const form = {
   model: {
@@ -49,8 +53,6 @@ describe('FieldButton', () => {
   })
 
   it('Should render correctly inside form generator', async () => {
-    config.global.components = { FieldButton }
-
     const formWrapper = mountFormGenerator(form.schema, form.model)
     const buttonField = formWrapper.findComponent(FieldButton)
     expect(buttonField.exists()).toBeTruthy()
@@ -58,7 +60,7 @@ describe('FieldButton', () => {
   })
 
   it('Should update model values', async () => {
-    config.global.components = { FieldPassword, FieldButton, FieldCheckbox }
+    config.global.components = { ...config.global.components, FieldPassword, FieldCheckbox }
 
     const formWrapper = mountFormGenerator(form.schema, form.model)
     expect(formWrapper.find('input[type=password]').exists()).toBe(true)

@@ -31,7 +31,7 @@ const emits = defineEmits(useFieldEmits())
 
 const { field, model } = toRefs(props)
 
-const { isDisabled, isRequired } = useFieldAttributes(model.value, field.value)
+const { isDisabled, isRequired, hint } = useFieldAttributes(model.value, field.value)
 const { currentModelValue } = useFormModel(model.value, field.value)
 const { errors, validate } = useFieldValidate(
   model.value,
@@ -58,4 +58,6 @@ const onFieldValueChanged = ({ target }) => {
   if (!isDecimalStep) return emits('onInput', parseInt(target.value))
   emits('onInput', parseFloat(target.value))
 }
+
+defineExpose({ hint })
 </script>

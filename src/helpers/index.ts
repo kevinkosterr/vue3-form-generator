@@ -67,22 +67,6 @@ export function isNotEmpty (value: any): boolean {
 }
 
 /**
- * Determine if a field should have a top-level label.
- */
-export function hasLabel(field: Field): boolean {
-  if (!('label' in field) || !field.label) return false
-
-  switch (field.type) {
-    case 'button':
-    case 'submit':
-    case 'reset':
-      return false
-    default:
-      return true
-  }
-}
-
-/**
  * Reset all properties to an empty value of the same type. Will recursively try and
  * reset all properties if an object has a property with another object as its value.
  */

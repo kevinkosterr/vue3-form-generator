@@ -1,6 +1,6 @@
 import { mountFormGenerator, generatePropsSingleField, generateSchemaSingleField } from '@test/_resources/utils.js'
 import { mount, config } from '@vue/test-utils'
-import { describe, it, expect } from 'vitest'
+import { describe, it, expect, beforeAll } from 'vitest'
 
 import FieldColor from '@/fields/core/FieldColor.vue'
 
@@ -16,6 +16,10 @@ const form = generateSchemaSingleField(
 
 const props = generatePropsSingleField(form)
 
+beforeAll(() => {
+  config.global.components = { FieldColor }
+})
+
 describe('FieldColor', () => {
 
   it('Should render correctly', async () => {
@@ -24,16 +28,12 @@ describe('FieldColor', () => {
   })
 
   it('Should render correctly inside form generator', async () => {
-    config.global.components = { FieldColor }
-
     const formWrapper = mountFormGenerator(form.schema, form.model)
     expect(formWrapper.findComponent(FieldColor).exists()).toBe(true)
     expect(formWrapper.find('input[type=color]').exists()).toBe(true)
   })
 
   it('Should render correctly, with input', async () => {
-    config.global.components = { FieldColor }
-
     const schema = { ...form.schema }
     schema.fields[0].withInput = true
     const formWrapper = mountFormGenerator(schema, form.model)
@@ -50,8 +50,6 @@ describe('FieldColor', () => {
   })
 
   it('Should update model value', async () => {
-    config.global.components = { FieldColor }
-
     const formWrapper = mountFormGenerator(form.schema, form.model)
 
     const wrapper = formWrapper.findComponent(FieldColor)
@@ -61,8 +59,6 @@ describe('FieldColor', () => {
   })
 
   it ('Should update model value and sync values', async () => {
-    config.global.components = { FieldColor }
-
     const schema = { ...form.schema }
     schema.fields[0].withInput = true
     const formWrapper = mountFormGenerator(schema, form.model)
