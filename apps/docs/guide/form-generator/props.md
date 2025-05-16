@@ -4,11 +4,17 @@ outline: [ 2,3 ]
 
 ## Overview
 
-| Prop       | Type     | Description                                         |
-|------------|----------|-----------------------------------------------------|
-| `schema`   | `Object` | Form schema, filled with field groups and/or fields |
-| `model`    | `Object` | Model object, contains all form data                |
-| `idPrefix` | `string` | Prefix for all the generated ids in the form        |
+| Prop          | Type     | Description                                          |
+|---------------|----------|------------------------------------------------------|
+| `formOptions` | `Object` | Options object, contains options for the entire form |
+| `schema`      | `Object` | Form schema, filled with field groups and/or fields  |
+| `model`       | `Object` | Model object, contains all form data                 |
+| `idPrefix`    | `string` | Prefix for all the generated ids in the form         |
+
+## `formOptions`
+| Property          | Type     | Description                                          |
+|---------------|----------|------------------------------------------------------|
+| `idPrefix` | `string` | Prefix for all the generated ids in the form |
 
 ## `model`
 Type: `Object`
