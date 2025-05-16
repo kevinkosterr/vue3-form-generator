@@ -5,9 +5,9 @@ import { getFieldComponentName, hasLabel } from '@/helpers'
 const fieldComponent = ref(null)
 
 const props = defineProps({
-  formGenerator: {
+  formOptions: {
     type: Object,
-    required: true
+    default: () => ({})
   },
   model: {
     type: Object,
@@ -35,7 +35,7 @@ function onValidated (isValid, fieldErrors, field) {
 
 /** Computed */
 const fieldId = computed(() => {
-  return `${props.formGenerator.idPrefix ? props.formGenerator.idPrefix + '_' : ''}${props.field.name}`
+  return `${props.formOptions.idPrefix ? props.formOptions.idPrefix + '_' : ''}${props.field.name}`
 })
 
 const shouldHaveLabel = computed(() => {
@@ -55,6 +55,7 @@ const shouldHaveLabel = computed(() => {
         :is="getFieldComponentName(props.field)"
         :id="fieldId"
         ref="fieldComponent"
+        :form-options="props.formOptions"
         :model="model"
         :field="props.field"
         @on-input="onInput"

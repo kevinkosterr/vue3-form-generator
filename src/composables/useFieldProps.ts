@@ -2,7 +2,7 @@ export function useFieldProps () {
 
   return {
     id: String,
-    formGenerator: Object,
+    formOptions: Object,
     field: {
       type: Object,
       required: true
