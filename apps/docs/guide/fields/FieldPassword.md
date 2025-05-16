@@ -5,7 +5,7 @@ FieldPassword is a password field that renders an input element of type `passwor
 ### inputType `password`
 
 <script setup>
-import FieldPasswordExample from '/components/FieldPasswordExample.vue'
+import FieldPasswordExample from '/components/examples/fieldsFieldPasswordExample.vue'
 </script>
 
 ## Basic example

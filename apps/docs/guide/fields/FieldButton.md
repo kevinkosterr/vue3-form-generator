@@ -5,8 +5,8 @@
 
 ## Basic example
 <script setup>
-import FieldButtonExampleWithSideEffect from '/components/FieldButtonExampleWithSideEffect.vue'
-import FieldButtonExample from '/components/FieldButtonExample.vue'
+import FieldButtonExampleWithSideEffect from '/components/examples/fieldsFieldButtonExampleWithSideEffect.vue'
+import FieldButtonExample from '/components/examples/fieldsFieldButtonExample.vue'
 </script>
 
 ::: details Code

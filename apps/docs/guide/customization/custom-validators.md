@@ -11,7 +11,7 @@ a user's input on the server-side.
 :::
 
 <script setup>
-import ValidatorExample from '/components/ValidatorExample.vue'
+import ValidatorExample from '/components/examples/ValidatorExample.vue'
 </script>
 
 ## Arguments

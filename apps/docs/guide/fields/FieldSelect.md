@@ -20,7 +20,7 @@
 ```
 :::
 <script setup>
-import FieldSelectExample from '/components/FieldSelectExample.vue'
+import FieldSelectExample from '/components/examples/fieldsFieldSelectExample.vue'
 </script>
 
 <FieldSelectExample />

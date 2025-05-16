@@ -6,7 +6,7 @@ FieldNumber is a number field that renders an input element of type `number`
 
 ## Basic example
 <script setup>
-import FieldNumberExample from '/components/FieldNumberExample.vue'
+import FieldNumberExample from '/components/examples/fieldsFieldNumberExample.vue'
 </script>
 
 <FieldNumberExample/>
