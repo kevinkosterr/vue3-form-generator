@@ -4,7 +4,7 @@ FieldSubmit is a field that renders an input of type `submit`.
 ### type `submit`
 
 <script setup>
-import FieldSubmitExample from '/components/examples/fieldsFieldSubmitExample.vue'
+import FieldSubmitExample from '/components/examples/fields/FieldSubmitExample.vue'
 </script>
 
 ## Basic example

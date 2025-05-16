@@ -4,7 +4,7 @@ FieldReset is a field that renders an input of type `reset`.
 ### type `reset`
 
 <script setup>
-import FieldResetExample from '/components/examples/fieldsFieldResetExample.vue'
+import FieldResetExample from '/components/examples/fields/FieldResetExample.vue'
 </script>
 
 ## Basic example

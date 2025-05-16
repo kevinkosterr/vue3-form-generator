@@ -4,7 +4,7 @@
 ### inputType `radio`
 
 <script setup>
-import FieldRadioExample from '/components/examples/fieldsFieldRadioExample.vue'
+import FieldRadioExample from '/components/examples/fields/FieldRadioExample.vue'
 </script>
 
 ## Basic example

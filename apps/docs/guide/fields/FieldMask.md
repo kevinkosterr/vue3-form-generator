@@ -11,7 +11,7 @@ same features (and limitations) `maska` has.
 The value inside the model will reflect the masked value by default.
 
 <script setup>
-import FieldMaskExample from '/components/examples/fieldsFieldMaskExample.vue'
+import FieldMaskExample from '/components/examples/fields/FieldMaskExample.vue'
 </script>
 
 ::: details Code
