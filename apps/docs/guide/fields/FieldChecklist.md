@@ -4,7 +4,7 @@
 ### type `checklist`
 
 <script setup>
-import FieldChecklistExample from '/components/examples/fields/FieldChecklistExample.vue'
+import FieldChecklistExample from '/components/examples/fields//FieldChecklistExample.vue'
 </script>
 
 ## Basic example

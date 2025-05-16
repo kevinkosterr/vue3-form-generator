@@ -3,7 +3,7 @@
 ### type `textarea`
 
 <script setup>
-import FieldTextAreaExample from '/components/examples/fieldsFieldTextareaExample.vue'
+import FieldTextAreaExample from '/components/examples/fields/FieldTextareaExample.vue'
 </script>
 
 ## Basic example

@@ -3,7 +3,7 @@
 ### type `switch`
 
 <script setup>
-import FieldSwitchExample from '/components/examples/fieldsFieldSwitchExample.vue'
+import FieldSwitchExample from '/components/examples/fields/FieldSwitchExample.vue'
 </script>
 
 ## Basic example

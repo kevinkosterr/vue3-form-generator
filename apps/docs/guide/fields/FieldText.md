@@ -5,7 +5,7 @@ FieldText is an input field of type `text`
 ### inputType `text`
 
 <script setup>
-import FieldTextExample from '/components/examples/fieldsFieldTextExample.vue'
+import FieldTextExample from '/components/examples/fields/FieldTextExample.vue'
 </script>
 
 ## Basic example

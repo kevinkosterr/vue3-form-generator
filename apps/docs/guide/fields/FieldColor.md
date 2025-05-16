@@ -6,7 +6,7 @@ FieldColor is a color field that renders an input element of type `color`
 
 ## Basic example
 <script setup>
-import FieldColorExample from '/components/examples/fieldsFieldColorExample.vue'
+import FieldColorExample from '/components/examples/fields/FieldColorExample.vue'
 </script>
 ::: details Code
 ```javascript
