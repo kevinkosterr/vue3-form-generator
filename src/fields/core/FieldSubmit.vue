@@ -17,4 +17,6 @@ const props = defineProps(useFieldProps())
 const { model, field } = toRefs(props)
 
 const { isDisabled } = useFieldAttributes(model.value, field.value)
+
+defineExpose({ noLabel: true })
 </script>

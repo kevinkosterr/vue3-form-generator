@@ -1,8 +1,8 @@
 <script setup>
-import { ref, computed } from 'vue'
-import { getFieldComponentName, hasLabel } from '@/helpers'
+import { computed, useTemplateRef } from 'vue'
+import { getFieldComponentName } from '@/helpers'
 
-const fieldComponent = ref(null)
+const fieldComponent = useTemplateRef('fieldComponent')
 
 const props = defineProps({
   formOptions: {
@@ -39,8 +39,10 @@ const fieldId = computed(() => {
 })
 
 const shouldHaveLabel = computed(() => {
-  // checkbox will have their own label
-  return hasLabel(props.field) && ![ props.field.inputType, props.field.type ].includes('checkbox') && !props.field.noLabel
+  if (fieldComponent.value?.noLabel || props.field.noLabel === true) {
+    return false
+  }
+  return props.field.label
 })
 </script>
 

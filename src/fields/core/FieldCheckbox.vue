@@ -1,6 +1,6 @@
 <template>
   <input
-    :id="id"
+    :id="props.id"
     type="checkbox"
     :name="field.name"
     :required="isRequired"
@@ -9,7 +9,7 @@
     :checked="currentModelValue"
     @change="onFieldValueChanged"
   >
-  <label v-if="field.label" style="margin-left: .4em" :for="id"> {{ field.label }}</label>
+  <label v-if="field.label" style="margin-left: .4em" :for="props.id"> {{ field.label }}</label>
 </template>
 
 <script setup>
@@ -49,5 +49,5 @@ const onFieldValueChanged = ({ target }) => {
   emits('onInput', target.checked)
 }
 
-defineExpose({ hint })
+defineExpose({ hint, noLabel: true })
 </script>
