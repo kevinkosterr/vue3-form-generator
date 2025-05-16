@@ -38,7 +38,7 @@ const maskOptions: ComputedRef<MaskInputOptions> = computed(() => {
 })
 
 const { currentModelValue } = useFormModel(model.value, field.value)
-const { isRequired, isDisabled } = useFieldAttributes(model.value, field.value)
+const { isRequired, isDisabled, hint } = useFieldAttributes(model.value, field.value)
 const { errors, validate } = useFieldValidate(
   model.value,
   field.value,
@@ -76,5 +76,5 @@ onBeforeMount(() => {
   }
 })
 
-defineExpose({ unmaskedValue })
+defineExpose({ unmaskedValue, hint })
 </script>

@@ -69,6 +69,7 @@ import { useMagicKeys } from '@vueuse/core'
 import { onClickOutside as vOnClickOutside } from '@/directives/onClickOutside.ts'
 import { ref, toRefs, computed } from 'vue'
 import {
+  useFieldAttributes,
   useFieldEmits,
   useFieldProps,
   useFormModel
@@ -80,6 +81,7 @@ const { controlLeft, metaLeft } = useMagicKeys()
 
 const isOpened = ref(false)
 const { field, model } = toRefs(props)
+const { hint } = useFieldAttributes(model.value, field.value)
 
 /** Names of the selected values */
 const selectedNames = computed(() => {
@@ -93,23 +95,19 @@ const selectedNames = computed(() => {
 
 /** Whether the field has a value */
 const hasValue = computed(() => field.value.multiple ? currentModelValue.value.length : currentModelValue.value)
+/** Whether the user is pressing a modifier key (CMD or left CTRL) */
 const isPressingModifierKey = computed(() => metaLeft.value || controlLeft.value)
 
 const { currentModelValue } = useFormModel(model.value, field.value)
 
-function onClickInput () {
-  if (isOpened.value) {
-    isOpened.value = false
-    return
-  }
-  isOpened.value = true
-}
+/** Toggles the isOpened state when the input is clicked. */
+const onClickInput = () => isOpened.value = !isOpened.value
+/** Unselect all items. */
+const resetSelection = () => emits('onInput', field.value.multiple ? [] : '')
 
-function resetSelection () {
-  emits('onInput', field.value.multiple ? [] : '')
-}
-
+/** Determine whether an option is currently selected by the user */
 function isSelected (option) {
+  if (!field.value.multiple) return currentModelValue.value === option.value
   return currentModelValue.value?.includes(option.value) ?? false
 }
 
@@ -123,14 +121,14 @@ function handleClickOutside (event) {
 }
 
 function selectOption (option) {
+  const optionSelected = isSelected(option)
+
   if (!field.value.multiple) {
-    const isSelected = currentModelValue.value === option.value
-    emits('onInput', isSelected ? '' : option.value)
+    emits('onInput', optionSelected ? '' : option.value)
   } else {
     let selectedValues = [ ...currentModelValue.value ]
-    const isSelected = selectedValues.includes(option.value)
 
-    if (isSelected) {
+    if (optionSelected) {
       selectedValues = selectedValues.filter(o => o !== option.value)
     } else {
       selectedValues.push(option.value)
@@ -141,4 +139,6 @@ function selectOption (option) {
   }
   isOpened.value = false
 }
+
+defineExpose({ hint })
 </script>

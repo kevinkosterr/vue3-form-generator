@@ -50,7 +50,7 @@ const maskOptions = {
 const { field, model } = toRefs(props)
 
 const { currentModelValue } = useFormModel(model.value, field.value)
-const { isRequired, isVisible } = useFieldAttributes(model.value, field.value)
+const { isRequired, isVisible, hint } = useFieldAttributes(model.value, field.value)
 const { errors, validate } = useFieldValidate(
   model.value,
   field.value,
@@ -93,5 +93,5 @@ onBeforeMount(() => {
   }
 })
 
-defineExpose({ isVisible, errors })
+defineExpose({ isVisible, errors, hint })
 </script>
