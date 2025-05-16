@@ -54,6 +54,7 @@ export default defineConfig({
         items: [
           { text: 'FieldButton', link: '/guide/fields/FieldButton' },
           { text: 'FieldCheckbox', link: '/guide/fields/FieldCheckbox' },
+          { text: 'FieldChecklist', link: '/guide/fields/FieldChecklist' },
           { text: 'FieldColor', link: '/guide/fields/FieldColor' },
           { text: 'FieldMask', link: '/guide/fields/FieldMask' },
           { text: 'FieldNumber', link: '/guide/fields/FieldNumber' },
