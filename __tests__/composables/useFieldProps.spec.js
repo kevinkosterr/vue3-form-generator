@@ -7,7 +7,7 @@ describe('useFieldProps', () => {
     const props = useFieldProps()
     expect(props.id).toBeTruthy()
     expect(props.field).toBeTruthy()
-    expect(props.formGenerator).toBeTruthy()
+    expect(props.formOptions).toBeTruthy()
     expect(props.model).toBeTruthy()
 
     // Test for a random value
