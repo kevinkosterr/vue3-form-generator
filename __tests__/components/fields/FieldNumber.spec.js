@@ -1,4 +1,4 @@
-import { describe, it, expect } from 'vitest'
+import { describe, it, expect, beforeAll } from 'vitest'
 import { mountFormGenerator, generatePropsSingleField, generateSchemaSingleField } from '@test/_resources/utils.js'
 import { mount, config } from '@vue/test-utils'
 
@@ -19,6 +19,10 @@ const form = generateSchemaSingleField(
 
 const props = generatePropsSingleField(form)
 
+beforeAll(() => {
+  config.global.components = { FieldNumber }
+})
+
 describe('FieldNumber', () => {
 
   it('Should render correctly', async () => {
@@ -27,7 +31,6 @@ describe('FieldNumber', () => {
   })
 
   it('Should render correctly inside form generator', async () => {
-    config.global.components = { FieldNumber }
     const formWrapper = mountFormGenerator(form.schema, form.model)
     expect(formWrapper.find('input[type=number]').exists()).toBeTruthy()
 
@@ -44,8 +47,6 @@ describe('FieldNumber', () => {
   })
 
   it('Should update model value', async () => {
-    config.global.components = { FieldNumber }
-
     const formWrapper = mountFormGenerator(form.schema, form.model)
     const numberField = formWrapper.findComponent(FieldNumber)
     expect(numberField.exists()).toBeTruthy()

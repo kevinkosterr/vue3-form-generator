@@ -1,5 +1,5 @@
 import { mountFormGenerator, generateSchemaSingleField, generatePropsSingleField } from '@test/_resources/utils.js'
-import { describe, it, expect } from 'vitest'
+import { describe, it, expect, beforeAll } from 'vitest'
 import { mount, config } from '@vue/test-utils'
 import validators from '@/validators'
 
@@ -21,6 +21,10 @@ const propsWithIndicator = {
   field: { ...props.field, indicator: true }
 }
 
+beforeAll(() => {
+  config.global.components = { FieldPassword }
+})
+
 describe('FieldPassword', () => {
 
   it('Should render correctly', async () => {
@@ -29,8 +33,6 @@ describe('FieldPassword', () => {
   })
 
   it('Should render correctly inside form generator', async () => {
-    config.global.components = { FieldPassword }
-
     const formWrapper = mountFormGenerator(form.schema, form.model)
 
 
@@ -85,8 +87,6 @@ describe('FieldPassword', () => {
   })
 
   it('Should update model value', async () => {
-    config.global.components = { FieldPassword }
-
     const formWrapper = mountFormGenerator(form.schema, form.model)
 
 

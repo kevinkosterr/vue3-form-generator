@@ -1,5 +1,5 @@
 import { mountFormGenerator, generatePropsSingleField, generateSchemaSingleField } from '@test/_resources/utils.js'
-import { describe, it, expect } from 'vitest'
+import { describe, it, expect, beforeAll } from 'vitest'
 import { mount, config } from '@vue/test-utils'
 
 import FieldRadio from '@/fields/core/FieldRadio.vue'
@@ -36,6 +36,10 @@ const checkRadioInputs = (radioInputs, wrapper) => {
   }
 }
 
+beforeAll(() => {
+  config.global.components = { FieldRadio }
+})
+
 describe('FieldRadio', () => {
 
   it('Should render correctly', async () => {
@@ -50,8 +54,6 @@ describe('FieldRadio', () => {
   })
 
   it('Should render correctly inside form generator', async () => {
-    config.global.components = { FieldRadio }
-
     const formWrapper = mountFormGenerator(form.schema, form.model)
 
     expect(formWrapper.findComponent(FieldRadio).exists()).toBeTruthy()
@@ -69,8 +71,6 @@ describe('FieldRadio', () => {
   })
 
   it('Should update model value', async () => {
-    config.global.components = { FieldRadio }
-
     const formWrapper = mountFormGenerator(form.schema, form.model)
     expect(formWrapper.findComponent(FieldRadio)).toBeTruthy()
     expect(formWrapper.vm.model.radioModel).toBe('')

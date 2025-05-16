@@ -1,5 +1,5 @@
 import { generatePropsSingleField, generateSchemaSingleField, mountFormGenerator } from '@test/_resources/utils.js'
-import { describe, it, expect } from 'vitest'
+import { describe, it, expect, beforeAll } from 'vitest'
 import { mount, config } from '@vue/test-utils'
 
 import FieldCheckbox from '@/fields/core/FieldCheckbox.vue'
@@ -15,6 +15,10 @@ const form = generateSchemaSingleField(
 
 const props = generatePropsSingleField(form)
 
+beforeAll(() => {
+  config.global.components = { FieldCheckbox }
+})
+
 describe('FieldCheckbox', () => {
 
   it('Should render correctly', async () => {
@@ -29,7 +33,6 @@ describe('FieldCheckbox', () => {
   })
 
   it('Should render correctly inside form generator', async() => {
-    config.global.components = { FieldCheckbox }
     const formWrapper = mountFormGenerator(form.schema, form.model)
 
     expect(formWrapper.findComponent(FieldCheckbox).exists()).toBe(true)
@@ -81,10 +84,7 @@ describe('FieldCheckbox', () => {
   })
 
   it('Should update model value', async () => {
-    config.global.components = { FieldCheckbox }
-
     const formWrapper = mountFormGenerator(form.schema, form.model)
-
 
     const wrapper = formWrapper.findComponent(FieldCheckbox)
     expect(wrapper.exists()).toBe(true)

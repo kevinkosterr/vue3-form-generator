@@ -1,5 +1,5 @@
 import { mountFormGenerator } from '@test/_resources/utils.js'
-import { describe, it, expect } from 'vitest'
+import { describe, it, expect, beforeAll } from 'vitest'
 import { mount, config } from '@vue/test-utils'
 
 import FieldReset from '@/fields/core/FieldReset.vue'
@@ -41,6 +41,10 @@ const props = {
   model: { ...form.model }
 }
 
+beforeAll(() => {
+  config.global.components = { FieldPassword, FieldCheckbox, FieldReset }
+})
+
 describe('FieldReset', () => {
 
   it('Should render correctly', async () => {
@@ -51,8 +55,6 @@ describe('FieldReset', () => {
   })
 
   it('Should render correctly inside form generator', async () => {
-    config.global.components = { FieldPassword, FieldCheckbox, FieldReset }
-
     const formWrapper = mountFormGenerator(form.schema, form.model)
 
 
@@ -61,8 +63,6 @@ describe('FieldReset', () => {
   })
 
   it('Should reset all values in a form\'s model', async () => {
-    config.global.components = { FieldPassword, FieldCheckbox, FieldReset }
-
     const formWrapper = mountFormGenerator(form.schema, form.model)
 
     // Check that the initial values have been passed down correctly
