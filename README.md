@@ -8,7 +8,7 @@ A schema-based form generator component for Vue 3, based on the original
 [![NPM Version](https://img.shields.io/npm/v/%40kevinkosterr%2Fvue3-form-generator?logo=npm)](https://www.npmjs.com/package/@kevinkosterr/vue3-form-generator)
 [![GitHub License](https://img.shields.io/github/license/kevinkosterr/vue3-form-generator)](https://github.com/kevinkosterr/vue3-form-generator?tab=MIT-1-ov-file)
 
-You can find documentation on the [documentation page](https://kevinkosterr.github.io/vue3-form-generator-docs).
+You can find documentation on the [documentation page](https://kevinkosterr.github.io/vue3-form-generator).
 
 ## Building for development
 1. Install the dependencies
