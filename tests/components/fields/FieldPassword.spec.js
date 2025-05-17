@@ -112,4 +112,20 @@ describe('FieldPassword', () => {
     expect(wrapper.vm.errors.length).toBe(1)
   })
 
+  it('Should display error, with minimum length 3', async () => {
+    const schema = { ...form.schema }
+    const validator = (value) => value.length >= 3
+    schema.fields[0].validator = [ validator ]
+
+    const formWrapper = mountFormGenerator(schema, form.model)
+    const wrapper = formWrapper.findComponent(FieldPassword)
+    const input = wrapper.find('input[type=password]')
+    await input.setValue('aa')
+    await input.trigger('blur')
+    expect(wrapper.vm.errors.length).toBe(1)
+    const errorContainer = formWrapper.find('.errors')
+    expect(errorContainer.exists()).toBeTruthy()
+    expect(errorContainer.find('.error').element.innerHTML).toBe('Field is invalid')
+  })
+
 })
