@@ -49,5 +49,5 @@ const onFieldValueChanged = ({ target }) => {
   emits('onInput', target.checked)
 }
 
-defineExpose({ hint, noLabel: true })
+defineExpose({ hint, noLabel: true, errors })
 </script>

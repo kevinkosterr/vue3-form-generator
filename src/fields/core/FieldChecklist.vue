@@ -61,5 +61,5 @@ const onFieldValueChanged = ({ target }) => {
   })
 }
 
-defineExpose({ hint })
+defineExpose({ hint, errors })
 </script>

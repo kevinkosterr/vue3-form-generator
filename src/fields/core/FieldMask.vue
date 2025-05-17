@@ -76,5 +76,5 @@ onBeforeMount(() => {
   }
 })
 
-defineExpose({ unmaskedValue, hint })
+defineExpose({ unmaskedValue, hint, errors })
 </script>
