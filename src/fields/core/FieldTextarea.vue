@@ -34,10 +34,10 @@ const { field, model } = toRefs(props)
 
 const { isRequired, isDisabled, isReadonly, hint } = useFieldAttributes(model.value, field.value)
 const { currentModelValue } = useFormModel(model.value, field.value)
-const { validate } = useFieldValidate(model.value, field.value)
+const { validate, errors } = useFieldValidate(model.value, field.value)
 
 const onBlur = () => {
-  validate().then((validationErrors) => {
+  validate(currentModelValue.value).then((validationErrors) => {
     emits('validated',
       validationErrors.length === 0,
       validationErrors,
@@ -47,8 +47,9 @@ const onBlur = () => {
 }
 
 const onFieldValueChanged = (event) => {
+  errors.value = []
   emits('onInput', event.target.value)
 }
 
-defineExpose({ hint })
+defineExpose({ hint, errors })
 </script>

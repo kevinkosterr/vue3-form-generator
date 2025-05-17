@@ -79,5 +79,5 @@ const onBlur = () => {
   })
 }
 
-defineExpose({ hint })
+defineExpose({ hint, errors })
 </script>

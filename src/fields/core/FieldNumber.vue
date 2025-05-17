@@ -59,5 +59,5 @@ const onFieldValueChanged = ({ target }) => {
   emits('onInput', parseFloat(target.value))
 }
 
-defineExpose({ hint })
+defineExpose({ hint, errors })
 </script>
