@@ -22,8 +22,8 @@ const { field, model } = toRefs(props)
 Id of the field, computed based on the `idPrefix` set within the FormGenerator component and `name` property of the 
 field. 
 
-### `formGenerator` <Badge type="info" text="Component"/>
-FormGenerator component.
+### `formOptions` <Badge type="info" text="Object"/>
+An object of global options for the current form.
 
 ### `field` <Badge type="info" text="Object"/> <Badge type="danger" text="required"/>
 Field object as set in the schema.
