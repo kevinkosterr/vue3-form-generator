@@ -30,9 +30,18 @@ Field schema object, as returned by the props
 
 ### `validate` <Badge type="info" text="Function"/>
 > Validates the field, existing fields typically use this in an `onBlur()`
+- Arguments: 
+  - `currentModelValue: any` - the current value of the field.
 - Returns: `Promise<string[]>` - an array of error messages, or empty array if no errors have been found.
 ```javascript
-validate().then((validationErrors) => {
+validate(currentModelValue.value).then((validationErrors) => {
   //... 
 }) 
 ```
+
+### `errors` <Badge type="info" text="string[]" />
+> An array of errors that have been found when validating the current value against all validators
+ 
+::: warning
+If you want your component to work properly with validation, you'll have to expose this value.
+:::
