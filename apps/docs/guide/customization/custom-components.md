@@ -85,6 +85,12 @@ const onFieldValueChanged = ({ target }) => {
 ### Advanced example
 For a more advanced example, you can take a look at the [`FieldSelect`](/guide/fields/FieldSelect) ([source](https://github.com/kevinkosterr/vue3-form-generator/blob/69cb6aeb8e8c82926ec3598e7d73be2d1146a3f2/src/fields/core/FieldSelect.vue)) component.
 
+## Compatibility with validation
+::: info
+If you want your component to be compatible with validation, you'll need to expose the `errors` value that is returned
+by [`useFieldValidate`](/guide/composables/useFieldValidate)
+:::
+
 ## Registering your component
 To use your component inside the form generator, your component must be globally available throughout your app. You do this
 by simply registering it in your `main.js` file. Names <strong>must</strong> start with `Field`.
