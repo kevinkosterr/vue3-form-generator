@@ -49,12 +49,12 @@ export function generateSchemaSingleField (
 /**
  * Generate props for a single field component
  * @param {Object} formSchema - entire form schema object
- * @returns {{field: *, model, id: string, formGenerator: {}}}
+ * @returns {{field: *, model, id: string, formOptions: {}}}
  */
 export function generatePropsSingleField (formSchema) {
   return {
     id: formSchema.name + '_test_id',
-    formGenerator: {},
+    formOptions: {},
     field: { ...formSchema.schema.fields[0] },
     model: { ...formSchema.model }
   }

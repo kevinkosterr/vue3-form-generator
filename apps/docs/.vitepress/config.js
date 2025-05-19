@@ -58,6 +58,7 @@ export default defineConfig({
           { text: 'FieldColor', link: '/guide/fields/FieldColor' },
           { text: 'FieldMask', link: '/guide/fields/FieldMask' },
           { text: 'FieldNumber', link: '/guide/fields/FieldNumber' },
+          { text: 'FieldObject', link: '/guide/fields/FieldObject' },
           { text: 'FieldPassword', link: '/guide/fields/FieldPassword' },
           { text: 'FieldRadio', link: '/guide/fields/FieldRadio' },
           { text: 'FieldReset', link: '/guide/fields/FieldReset' },

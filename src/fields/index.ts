@@ -13,6 +13,7 @@ import FieldTextarea from '@/fields/core/FieldTextarea.vue'
 import FieldMask from '@/fields/core/FieldMask.vue'
 import FieldChecklist from '@/fields/core/FieldChecklist.vue'
 import FieldCheckbox from '@/fields/core/FieldCheckbox.vue'
+import FieldObject from '@/fields/core/FieldObject.vue'
 
 import FieldSubmit from '@/fields/core/FieldSubmit.vue'
 import FieldReset from '@/fields/core/FieldReset.vue'
@@ -22,7 +23,7 @@ import FieldButton from '@/fields/core/FieldButton.vue'
 const fieldComponents = {
   FieldColor, FieldText, FieldCheckBox, FieldPassword, FieldSelect, FieldSelectNative, FieldRadio,
   FieldNumber, FieldSubmit, FieldReset, FieldButton, FieldSwitch, FieldTextarea, FieldMask, FieldChecklist,
-  FieldCheckbox
+  FieldCheckbox, FieldObject
 } as const
 
 type FieldComponentNames = keyof typeof fieldComponents
