@@ -3,7 +3,7 @@ import { computed, ref } from 'vue'
 import { resetObjectProperties, toUniqueArray } from '@/helpers'
 import FormGroup from './FormGroup.vue'
 
-const emits = defineEmits([ 'submit' ])
+const emits = defineEmits([ 'submit', 'field-validated' ])
 
 const props = defineProps({
   id: {
@@ -55,6 +55,7 @@ const updateGeneratorModel = ({ model, value }) => {
  * @param field field schema object that has been validated.
  */
 const onFieldValidated = ({ fieldErrors, field }) => {
+  emits('field-validated', { fieldErrors, field })
   if (!fieldErrors.length) {
     if (!(field.model in formErrors.value)) return
     else {
@@ -82,7 +83,7 @@ const onReset = () => {
   props.model = resetObjectProperties(props.model)
 }
 
-defineExpose({ hasErrors })
+defineExpose({ hasErrors, formErrors })
 </script>
 
 <template>
