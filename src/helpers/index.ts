@@ -1,4 +1,4 @@
-import { Field } from '@/resources/types/fields'
+import type { Field } from '@/resources/types/field/fields'
 
 /**
  * Determine if value is of type Function.

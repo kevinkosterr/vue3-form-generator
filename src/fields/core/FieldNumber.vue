@@ -16,20 +16,20 @@
   >
 </template>
 
-<script setup>
+<script setup lang="ts">
 import { toRefs } from 'vue'
+import type { NumberField, FieldProps, FieldPropRefs } from '@/resources/types/field/fields'
 import {
   useFormModel,
   useFieldAttributes,
   useFieldValidate,
-  useFieldEmits,
-  useFieldProps
-} from '@/composables/index.ts'
+  useFieldEmits
+} from '@/composables'
 
-const props = defineProps(useFieldProps())
+const props = defineProps<FieldProps<NumberField>>()
 const emits = defineEmits(useFieldEmits())
 
-const { field, model } = toRefs(props)
+const { field, model }: FieldPropRefs<NumberField> = toRefs(props)
 
 const { isDisabled, isRequired, hint } = useFieldAttributes(model.value, field.value)
 const { currentModelValue } = useFormModel(model.value, field.value)
@@ -51,7 +51,8 @@ const onBlur = () => {
   })
 }
 
-const onFieldValueChanged = ({ target }) => {
+const onFieldValueChanged = (event: Event) => {
+  const target = event.target as HTMLInputElement
   errors.value = []
   const step = field.value.step ?? 1
   const isDecimalStep = step.toString().split('.')[1]

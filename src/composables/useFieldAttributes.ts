@@ -1,9 +1,10 @@
 import { computed, ComputedRef } from 'vue'
-import { type Field } from '@/resources/types/fields'
+import type { Field } from '@/resources/types/field/fields'
 import { TDynamicAttributeBooleanFunction, TDynamicAttributeStringFunction } from '@/resources/types/functions'
+import type { FormModel } from '@/resources/types/fieldAttributes'
 
 export function useFieldAttributes (
-  model: Record<string, any>,
+  model: FormModel,
   field: Field
 ) {
 

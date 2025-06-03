@@ -10,18 +10,20 @@
   </div>
 </template>
 
-<script setup>
+<script setup lang="ts">
 import FormGenerator from '@/FormGenerator.vue'
-import { useFieldProps, useFieldEmits, useFormModel } from '@/composables'
-import { toRefs, useTemplateRef, computed } from 'vue'
+import type { FieldProps, FieldPropRefs, ObjectField } from '@/resources/types/field/fields'
+import { useFieldEmits, useFormModel } from '@/composables'
+import { toRefs, useTemplateRef, computed, type ComputedRef } from 'vue'
+import { FieldValidation } from '@/resources/types/generic'
 
 const emits = defineEmits(useFieldEmits())
-const props = defineProps(useFieldProps())
+const props = defineProps<FieldProps<ObjectField>>()
 
 const formGenerator = useTemplateRef('formGenerator')
-const hasErrors = computed(() => formGenerator.value?.hasErrors ?? false)
+const hasErrors: ComputedRef<boolean> = computed(() => formGenerator.value?.hasErrors ?? false)
 
-const { field, model } = toRefs(props)
+const { field, model }: FieldPropRefs<ObjectField> = toRefs(props)
 
 const { currentModelValue } = useFormModel(model.value, field.value)
 
@@ -29,7 +31,7 @@ const { currentModelValue } = useFormModel(model.value, field.value)
  * Emits the validated event
  * @param validation
  */
-const onFieldValidated = (validation) => {
+const onFieldValidated = (validation: FieldValidation) => {
   const key = `${field.value.model}.${validation.field.model}`
   emits(
     'validated',

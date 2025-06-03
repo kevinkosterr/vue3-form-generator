@@ -3,7 +3,8 @@ import { getMessage } from '@/validators/messages'
 import { isFunction, isString, toUniqueArray } from '@/helpers'
 import { TValidatorFunction } from '@/resources/types/functions'
 import { ValidatorMap } from '@/resources/types/generic'
-import { Field } from '@/resources/types/fields'
+import type { FormModel } from '@/resources/types/fieldAttributes'
+import type { Field } from '@/resources/types/field/fields'
 import validators from '@/validators'
 
 /**
@@ -27,7 +28,7 @@ function getValidator (validator: string | TValidatorFunction | undefined): TVal
 }
 
 export function useFieldValidate (
-  model: Record<string, any>,
+  model: FormModel,
   field: Field,
   isDisabled: boolean = false,
   isRequired: boolean = false,

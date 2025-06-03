@@ -1,6 +1,6 @@
 <template>
   <textarea
-    :id="id"
+    :id="props.id"
     :style="field.resizable ? '' : 'resize: none;'"
     class="field-textarea"
     :name="field.name"
@@ -15,22 +15,21 @@
   />
 </template>
 
-<script setup>
+<script setup lang="ts">
 import { toRefs } from 'vue'
-
+import type { FieldProps, FieldPropRefs, TextAreaField } from '@/resources/types/field/fields'
 import {
   useFieldEmits,
   useFieldValidate,
   useFieldAttributes,
-  useFieldProps,
   useFormModel
-} from '@/composables/index.ts'
+} from '@/composables'
 
 
-const props = defineProps(useFieldProps())
+const props = defineProps<FieldProps<TextAreaField>>()
 const emits = defineEmits(useFieldEmits())
 
-const { field, model } = toRefs(props)
+const { field, model }: FieldPropRefs<TextAreaField> = toRefs(props)
 
 const { isRequired, isDisabled, isReadonly, hint } = useFieldAttributes(model.value, field.value)
 const { currentModelValue } = useFormModel(model.value, field.value)
@@ -46,9 +45,9 @@ const onBlur = () => {
   })
 }
 
-const onFieldValueChanged = (event) => {
+const onFieldValueChanged = (event: Event) => {
   errors.value = []
-  emits('onInput', event.target.value)
+  emits('onInput', (event.target as HTMLTextAreaElement).value)
 }
 
 defineExpose({ hint, errors })

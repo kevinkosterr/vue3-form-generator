@@ -17,28 +17,27 @@
   </select>
 </template>
 
-<script setup>
+<script setup lang="ts">
 import { toRefs } from 'vue'
-
+import type { FieldPropRefs, FieldProps, SelectNativeField } from '@/resources/types/field/fields'
 import {
   useFieldEmits,
   useFieldValidate,
   useFieldAttributes,
-  useFieldProps,
   useFormModel
-} from '@/composables/index.ts'
+} from '@/composables'
 
-const props = defineProps(useFieldProps())
+const props = defineProps<FieldProps<SelectNativeField>>()
 const emits = defineEmits(useFieldEmits())
 
-const { field, model } = toRefs(props)
+const { field, model }: FieldPropRefs<SelectNativeField> = toRefs(props)
 
 const { isRequired, isDisabled, hint } = useFieldAttributes(model.value, field.value)
 const { currentModelValue } = useFormModel(model.value, field.value)
 const { validate } = useFieldValidate(model.value, field.value)
 
 const onBlur = () => {
-  validate().then((validationErrors) => {
+  validate(currentModelValue.value).then((validationErrors) => {
     emits('validated',
       validationErrors.length === 0,
       validationErrors,
@@ -47,8 +46,8 @@ const onBlur = () => {
   })
 }
 
-const onFieldValueChanged = (event) => {
-  emits('onInput', event.target.value)
+const onFieldValueChanged = (event: Event) => {
+  emits('onInput', (event.target as HTMLSelectElement).value)
 }
 
 defineExpose({ hint })

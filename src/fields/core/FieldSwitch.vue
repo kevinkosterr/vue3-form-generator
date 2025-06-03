@@ -11,26 +11,25 @@
   </label>
 </template>
 
-<script setup>
+<script setup lang="ts">
 import { toRefs } from 'vue'
-
+import type { SwitchField, FieldPropRefs, FieldProps } from '@/resources/types/field/fields.js'
 import {
   useFieldEmits,
   useFieldAttributes,
-  useFieldProps,
   useFormModel
-} from '@/composables/index.ts'
+} from '@/composables'
 
 
-const props = defineProps(useFieldProps())
+const props = defineProps<FieldProps<SwitchField>>()
 const emits = defineEmits(useFieldEmits())
 
-const { field, model } = toRefs(props)
+const { field, model }: FieldPropRefs<SwitchField> = toRefs(props)
 
 const { isDisabled } = useFieldAttributes(model.value, field.value)
 const { currentModelValue } = useFormModel(model.value, field.value)
 
-const onFieldValueChanged = ({ target }) => {
-  emits('onInput', target.checked)
+const onFieldValueChanged = (event: Event) => {
+  emits('onInput', (event.target as HTMLInputElement).checked)
 }
 </script>

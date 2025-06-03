@@ -23,22 +23,23 @@
   </div>
 </template>
 
-<script setup>
+<script setup lang="ts">
 import validators from '@/validators'
 import { toRefs, onBeforeMount } from 'vue'
 import {
   useFormModel,
   useFieldAttributes,
   useFieldValidate,
-  useFieldProps,
   useFieldEmits
-} from '@/composables/index.ts'
+} from '@/composables'
 import { vMaska } from 'maska/vue'
+import type { ColorField, FieldPropRefs, FieldProps } from '@/resources/types/field/fields'
+import type { MaskOptions } from 'maska'
 
 const emits = defineEmits(useFieldEmits())
-const props = defineProps(useFieldProps())
+const props = defineProps<FieldProps<ColorField>>()
 
-const maskOptions = {
+const maskOptions: Readonly<MaskOptions> = {
   mask: '!#HHHHHH',
   tokens: {
     H: {
@@ -47,7 +48,7 @@ const maskOptions = {
   }
 }
 
-const { field, model } = toRefs(props)
+const { field, model }: FieldPropRefs<ColorField> = toRefs(props)
 
 const { currentModelValue } = useFormModel(model.value, field.value)
 const { isRequired, isVisible, hint } = useFieldAttributes(model.value, field.value)
@@ -56,8 +57,7 @@ const { errors, validate } = useFieldValidate(
   field.value,
   false,
   isRequired.value,
-  false,
-  currentModelValue.value
+  false
 )
 
 const onBlur = () => {
@@ -70,15 +70,17 @@ const onBlur = () => {
   })
 }
 
-const onFieldValueChanged = ({ target }) => {
+const onFieldValueChanged = (event: Event) => {
+  const target = event.target as HTMLInputElement
   errors.value = []
-  // Ensure a change doesn't emit twice, we need this because both inputs might trigger this function at once.
+  // Ensure a change doesn't emit twice; we need this because both inputs might trigger this function at once.
   if (target.value !== currentModelValue.value) {
     emits('onInput', target.value)
   }
 }
 
 onBeforeMount(() => {
+  // Only add validators when the extra text input is enabled.
   if (field.value.withInput) {
     const fieldValidators = []
     if (Array.isArray(field.value.validator)) {

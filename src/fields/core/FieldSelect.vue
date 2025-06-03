@@ -64,39 +64,43 @@
   </div>
 </template>
 
-<script setup>
+<script setup lang="ts">
 import { useMagicKeys } from '@vueuse/core'
-import { onClickOutside as vOnClickOutside } from '@/directives/onClickOutside.ts'
-import { ref, toRefs, computed } from 'vue'
+import { onClickOutside as vOnClickOutside } from '@/directives/onClickOutside'
+import { ref, toRefs, computed, type ComputedRef, type Ref } from 'vue'
+import type { FieldProps, FieldPropRefs, SelectField } from '@/resources/types/field/fields'
 import {
   useFieldAttributes,
   useFieldEmits,
-  useFieldProps,
   useFormModel
-} from '@/composables/index.ts'
+} from '@/composables'
+import { FieldOption } from '@/resources/types/fieldAttributes'
 
-const props = defineProps(useFieldProps())
+const props = defineProps<FieldProps<SelectField>>()
 const emits = defineEmits(useFieldEmits())
 const { controlLeft, metaLeft } = useMagicKeys()
 
-const isOpened = ref(false)
-const { field, model } = toRefs(props)
+const isOpened: Ref<boolean> = ref(false)
+const { field, model }: FieldPropRefs<SelectField> = toRefs(props)
 const { hint } = useFieldAttributes(model.value, field.value)
 
 /** Names of the selected values */
-const selectedNames = computed(() => {
+const selectedNames: ComputedRef<string[]> = computed(() => {
   if (!currentModelValue.value) return []
+
+  const findOptionName = (option: FieldOption) => field.value.options.find(o => o.value === option.value)?.name ?? ''
+
   if (Array.isArray(currentModelValue.value) && field.value.multiple) {
-    return currentModelValue.value.map(val => field.value.options.find(o => o.value === val)?.name)
+    return currentModelValue.value.map(o => findOptionName(o))
   } else {
-    return [ field.value.options.find(o => o.value === currentModelValue.value).name ]
+    return [ field.value.options.find(o => o.value === currentModelValue.value)?.name ?? '' ]
   }
 })
 
 /** Whether the field has a value */
-const hasValue = computed(() => field.value.multiple ? currentModelValue.value.length : currentModelValue.value)
+const hasValue: ComputedRef<boolean> = computed(() => field.value.multiple ? currentModelValue.value.length : currentModelValue.value)
 /** Whether the user is pressing a modifier key (CMD or left CTRL) */
-const isPressingModifierKey = computed(() => metaLeft.value || controlLeft.value)
+const isPressingModifierKey: ComputedRef<boolean> = computed(() => metaLeft.value || controlLeft.value)
 
 const { currentModelValue } = useFormModel(model.value, field.value)
 
@@ -105,22 +109,22 @@ const onClickInput = () => isOpened.value = !isOpened.value
 /** Unselect all items. */
 const resetSelection = () => emits('onInput', field.value.multiple ? [] : '')
 
-/** Determine whether an option is currently selected by the user */
-function isSelected (option) {
+/** Determine whether the user currently selects an option */
+function isSelected (option: FieldOption) {
   if (!field.value.multiple) return currentModelValue.value === option.value
   return currentModelValue.value?.includes(option.value) ?? false
 }
 
-function handleClickOutside (event) {
+function handleClickOutside (event: Event) {
   if (
     (!field.value.multiple && !isPressingModifierKey.value) ||
-      !event.target.id.startsWith(props.id + 'vfg-select')
+      !(event.target as HTMLElement).id.startsWith(props.id + 'vfg-select')
   ) {
     isOpened.value = false
   }
 }
 
-function selectOption (option) {
+function selectOption (option: FieldOption) {
   const optionSelected = isSelected(option)
 
   if (!field.value.multiple) {

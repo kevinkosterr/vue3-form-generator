@@ -13,15 +13,15 @@
 
 <script setup lang="ts">
 import { toRefs, computed, ComputedRef, ref, onBeforeMount } from 'vue'
-import { FieldProps, IMaskField } from '@/resources/types/fields'
+import type { FieldPropRefs, FieldProps, MaskField } from '@/resources/types/field/fields'
 import type { MaskInputOptions } from 'maska'
 import { Mask } from 'maska'
 import { vMaska } from 'maska/vue'
 import { useFormModel, useFieldAttributes, useFieldEmits, useFieldValidate } from '@/composables'
 
 const emits = defineEmits(useFieldEmits())
-const props = defineProps<FieldProps<IMaskField>>()
-const { field, model } = toRefs(props)
+const props = defineProps<FieldProps<MaskField>>()
+const { field, model }: FieldPropRefs<MaskField> = toRefs(props)
 
 const unmaskedValue = ref('')
 const inputDefaultValue = ref('')

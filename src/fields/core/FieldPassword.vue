@@ -15,23 +15,23 @@
   </div>
 </template>
 
-<script setup>
-import { computed, toRefs } from 'vue'
+<script setup lang="ts">
+import { computed, type ComputedRef, toRefs } from 'vue'
 import {
   useFormModel,
   useFieldValidate,
   useFieldAttributes,
-  useFieldProps,
   useFieldEmits
-} from '@/composables/index.ts'
+} from '@/composables'
+import type { PasswordField, FieldProps, FieldPropRefs } from '@/resources/types/field/fields'
 
 const mediumRegex = new RegExp('^(((?=.*[a-z])(?=.*[A-Z]))|((?=.*[a-z])(?=.*[0-9]))|((?=.*[A-Z])(?=.*[0-9])))(?=.{6,})')
 const strongRegex = new RegExp('^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.{8,})')
 
-const props = defineProps(useFieldProps())
+const props = defineProps<FieldProps<PasswordField>>()
 const emits = defineEmits(useFieldEmits())
 
-const { model, field } = toRefs(props)
+const { model, field }: FieldPropRefs<PasswordField> = toRefs(props)
 const { isRequired, isDisabled, hint } = useFieldAttributes(model.value, field.value)
 const { currentModelValue } = useFormModel(model.value, field.value)
 
@@ -44,7 +44,7 @@ const { errors, validate } = useFieldValidate(
 )
 
 /** Roughly determine the strength level of the password */
-const passwordStrength = computed(() => {
+const passwordStrength: ComputedRef<number> = computed(() => {
   if (strongRegex.test(currentModelValue.value)) {
     return 3
   } else if (mediumRegex.test(currentModelValue.value)) {
@@ -55,18 +55,18 @@ const passwordStrength = computed(() => {
   return 0
 })
 
-const meterStyle = computed(() => {
+const meterStyle: ComputedRef<string> = computed(() => {
   return {
     0: '',
     1: 'width:15%;background:red;',
     2: 'width:50%;background:orange;',
     3: 'width:100%;background:green;'
-  }[passwordStrength.value]
+  }[passwordStrength.value] ?? ''
 })
 
-const onFieldValueChanged = ({ target }) => {
+const onFieldValueChanged = (event: Event) => {
   errors.value = []
-  emits('onInput', target.value)
+  emits('onInput', (event.target as HTMLInputElement).value)
 }
 
 const onBlur = () => {

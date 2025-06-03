@@ -1,5 +1,6 @@
 import { isNotEmpty, isString } from '@/helpers'
-import { Field, FieldValue } from '@/resources/types/fields'
+import type { Field, FieldValue } from '@/resources/types/field/fields'
+import type { FormModel } from '@/resources/types/fieldAttributes'
 
 export default {
 
@@ -8,7 +9,7 @@ export default {
    * @returns {boolean} - Returns 'true' if the field is required and the value is not empty, otherwise false.
    */
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  required (value: FieldValue, field: Field, model: Record<string, any>): boolean {
+  required (value: FieldValue, field: Field, model: FormModel): boolean {
     return isNotEmpty(value)
   },
 
@@ -17,7 +18,7 @@ export default {
    * @returns {boolean} - Returns 'true' if the field is required and the value is not empty, otherwise false.
    */
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  min (value: FieldValue, field: Field, model: Record<string, any>): boolean {
+  min (value: FieldValue, field: Field, model: FormModel): boolean {
     if (!('min' in field) || !field.min || !value) return true
 
     if (typeof value === 'number'){
@@ -36,7 +37,7 @@ export default {
    * @returns {boolean} - Returns 'true' if the field is required and the value is not empty, otherwise false.
    */
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  max (value: FieldValue, field: Field, model: Record<string, any>): boolean {
+  max (value: FieldValue, field: Field, model: FormModel): boolean {
     if (!('max' in field) || !value || !field.max) return true
 
     if (typeof value === 'number'){
@@ -55,7 +56,7 @@ export default {
    * @returns {boolean} - Returns 'true' if the field is required and the value is not empty, otherwise false.
    */
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  string (value: FieldValue, field: Field, model: Record<string, any>): boolean {
+  string (value: FieldValue, field: Field, model: FormModel): boolean {
     return isString(value)
   },
 
@@ -64,7 +65,7 @@ export default {
    * @returns {boolean} - Returns 'true' if the field is a number.
    */
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  number (value: FieldValue, field: Field, model: Record<string, any>): boolean {
+  number (value: FieldValue, field: Field, model: FormModel): boolean {
     return Number.isNaN(value)
   },
 
@@ -73,7 +74,7 @@ export default {
    * @returns {boolean} - Returns 'true' if the field's format is a valid email format, otherwise false.
    */
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  email (value: FieldValue, field: Field, model: Record<string, any>): boolean {
+  email (value: FieldValue, field: Field, model: FormModel): boolean {
     if (typeof value !== 'string') return false
     const regex = new RegExp('^([^<>()\\[\\]\\\\.,;:\\s@"]+(?:\\.[^<>()\\[\\]\\\\.,;:\\s@"]+)*|".+")@(\\[[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}]|(?:[a-zA-Z\\-0-9]+\\.)+[a-zA-Z]{2,})$', 'i')
     return Boolean(value.match(regex))
@@ -84,7 +85,7 @@ export default {
    * @returns {boolean} - Returns 'true' if value matches the format, otherwise false.
    */
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  phoneNumberE164andE123 (value: FieldValue, field: Field, model: Record<string, any>): boolean {
+  phoneNumberE164andE123 (value: FieldValue, field: Field, model: FormModel): boolean {
     if (typeof value !== 'string') return false
 
     const regex = new RegExp(
@@ -99,7 +100,7 @@ export default {
    * @returns {boolean} - Returns 'true' if value matches the format, otherwise false.
    */
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  mobilePhoneNL (value: FieldValue, field: Field, model: Record<string, any>): boolean {
+  mobilePhoneNL (value: FieldValue, field: Field, model: FormModel): boolean {
     if (typeof value !== 'string') return false
 
     const regex = new RegExp('(\\+316[0-9]{8})|(06[0-9]{8})', 'i')
@@ -111,7 +112,7 @@ export default {
    * @returns {boolean} - Returns `true` if value matches the format, otherwise false.
    */
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  hexColorValue (value: FieldValue, field: Field, model: Record<string, any>): boolean {
+  hexColorValue (value: FieldValue, field: Field, model: FormModel): boolean {
     if (typeof value !== 'string') return false
 
     const regex = new RegExp('^\#([a-f0-9]{3}|[a-f0-9]{6})$', 'i')

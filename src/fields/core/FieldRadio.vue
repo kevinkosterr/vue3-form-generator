@@ -15,26 +15,26 @@
   </template>
 </template>
 
-<script setup>
+<script setup lang="ts">
 import { toRefs } from 'vue'
 import {
   useFieldEmits,
-  useFieldProps,
   useFormModel,
   useFieldAttributes
-} from '@/composables/index.ts'
+} from '@/composables'
+import type { RadioField, FieldProps, FieldPropRefs } from '@/resources/types/field/fields'
 
-const props = defineProps(useFieldProps())
+const props = defineProps<FieldProps<RadioField>>()
 const emits = defineEmits(useFieldEmits())
 
-const { field, model } = toRefs(props)
+const { field, model }: FieldPropRefs<RadioField> = toRefs(props)
 const { isRequired, hint } = useFieldAttributes(model.value, field.value)
 const { currentModelValue } = useFormModel(model.value, field.value)
 
-const getFieldId = (optionName) => `${field.value.name}_${optionName}`
+const getFieldId = (optionName: string) => `${field.value.name}_${optionName}`
 
-const onFieldValueChanged = ({ target }) => {
-  emits('onInput', target.value)
+const onFieldValueChanged = (event: Event) => {
+  emits('onInput', (event.target as HTMLInputElement).value)
 }
 
 defineExpose({ hint })

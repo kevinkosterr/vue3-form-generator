@@ -1,27 +1,30 @@
 <template>
   <input
-    :id="id"
+    :id="props.id"
     class="field-input"
     type="text"
     :name="field.name"
     :required="isRequired"
     :disabled="isDisabled"
     :placeholder="field.placeholder"
-    :autocomplete="field.autocomplete || 'off'"
+    :autocomplete="autoCompleteState"
     :value="currentModelValue"
     @input="onFieldValueChanged"
     @blur="onBlur"
   >
 </template>
 
-<script setup>
-import { toRefs } from 'vue'
-import { useFormModel, useFieldAttributes, useFieldValidate, useFieldProps, useFieldEmits } from '@/composables/index.ts'
+<script setup lang="ts">
+import { toRefs, computed, type ComputedRef } from 'vue'
+import type { FieldPropRefs, FieldProps, TextField } from '@/resources/types/field/fields'
+import { useFormModel, useFieldAttributes, useFieldValidate, useFieldEmits } from '@/composables'
 
 const emits = defineEmits(useFieldEmits())
-const props = defineProps(useFieldProps())
+const props = defineProps<FieldProps<TextField>>()
 
-const { field, model } = toRefs(props)
+const { field, model }: FieldPropRefs<TextField> = toRefs(props)
+
+const autoCompleteState: ComputedRef<string> = computed(() => field.value.autocomplete ? 'on' : 'off')
 
 const { currentModelValue } = useFormModel(model.value, field.value)
 const { isRequired, isDisabled, hint } = useFieldAttributes(model.value, field.value)
@@ -43,9 +46,9 @@ const onBlur = () => {
   })
 }
 
-const onFieldValueChanged = ({ target }) => {
+const onFieldValueChanged = (event: Event) => {
   errors.value = []
-  emits('onInput', target.value)
+  emits('onInput', (event.target as HTMLInputElement).value)
 }
 
 defineExpose({ errors, hint })
