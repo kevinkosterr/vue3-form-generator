@@ -1,4 +1,4 @@
-# Vue 3 Form Generator
+# <img width="50" src="https://github.com/user-attachments/assets/1b793612-8ee9-46bf-bcd3-b233fec4b338">  Vue 3 Form Generator
 A schema-based form generator component for Vue 3, based on the original 
 [`vue-form-generator`](https://github.com/vue-generators/vue-form-generator) library.
 
