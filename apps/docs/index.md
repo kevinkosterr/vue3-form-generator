@@ -4,7 +4,9 @@ layout: home
 hero:
   name: "Vue3 Form Generator"
   text: "A schema-based form generator component"
-  tagline: based on <a href="https://github.com/vue-generators/vue-form-generator">vue-form-generator</a>
+  image:
+    src: '/icon.svg'
+  tagline: based on <a target="_blank" href="https://github.com/vue-generators/vue-form-generator">vue-form-generator</a>
   actions:
     - theme: brand
       text: Getting Started

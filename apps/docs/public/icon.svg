@@ -1,0 +1,26 @@
+<svg width="256" height="256" viewBox="0 0 256 256" xmlns="http://www.w3.org/2000/svg" fill="none">
+    <defs>
+        <filter id="vueLogoShadow" x="-50%" y="-50%" width="200%" height="200%">
+            <feDropShadow dx="4" dy="4" stdDeviation="3" flood-color="#000" flood-opacity="0.6"/>
+        </filter>
+    </defs>
+
+    <!-- Background form sheet -->
+    <rect x="16" y="16" width="224" height="224" rx="24" fill="#FFFFFF" stroke="#333" stroke-width="4"/>
+
+    <!-- Form Title -->
+    <rect x="40" y="40" width="176" height="24" rx="6" fill="#90CAF9"/>
+    <rect x="40" y="72" width="140" height="20" rx="5" fill="#A5D6A7"/>
+    <rect x="40" y="100" width="176" height="20" rx="5" fill="#FFF59D"/>
+    <rect x="40" y="128" width="160" height="20" rx="5" fill="#F48FB1"/>
+    <rect x="40" y="156" width="120" height="20" rx="5" fill="#CE93D8"/>
+
+    <!-- Submit Button (no text) -->
+    <rect x="80" y="192" width="96" height="32" rx="8" fill="#4DB6AC" stroke="#00695C" stroke-width="2"/>
+
+    <!-- Official Vue logo with stronger shadow -->
+    <g transform="translate(130, 150) scale(0.5)" filter="url(#vueLogoShadow)">
+        <path d="M0 0L128 222.8L256 0H192L128 111.4L64 0H0Z" fill="#41B883"/>
+        <path d="M64 0L128 111.4L192 0H144L128 27.6L112 0H64Z" fill="#35495E"/>
+    </g>
+</svg>
