@@ -1,6 +1,6 @@
 import { Directive, DirectiveBinding } from 'vue'
 
-const onClickOutside: Directive<HTMLElement, string> = {
+const onClickOutside: Directive<HTMLElement, never> = {
   beforeMount(el: HTMLElement, binding: DirectiveBinding): void {
     el.clickOutsideEvent = (event: Event) => {
       if (!(el === event.target || el.contains(<Node>event.target))) {

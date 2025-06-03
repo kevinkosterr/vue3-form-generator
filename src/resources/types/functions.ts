@@ -1,7 +1,8 @@
-import { Field, FieldValue } from '@/resources/types/fields'
+import type { Field, FieldValue } from '@/resources/types/field/fields'
+import { FormModel } from '@/resources/types/fieldAttributes'
 
-export type TDynamicAttributeBooleanFunction = (model: Record<string, any>, field: Field) => boolean
-export type TDynamicAttributeStringFunction = (model: Record<string, any>, field: Field) => string
+export type TDynamicAttributeBooleanFunction = (model: FormModel, field: Field) => boolean
+export type TDynamicAttributeStringFunction = (model: FormModel, field: Field) => string
 
-export type TValidatorFunction = (value: FieldValue, field: Field, model: Record<string, any>) => boolean
-export type TOnValidatedFunction = (model: Record<string, any>, errors: string[], field: Field) => void
+export type TValidatorFunction = (value: FieldValue, field: Field, model: FormModel) => boolean
+export type TOnValidatedFunction = (model: FormModel, errors: string[], field: Field) => void

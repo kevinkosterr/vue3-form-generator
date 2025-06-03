@@ -9,7 +9,7 @@
   "main": "./dist/vue3-form-generator.js",
   "scripts": {
     "dev": "vite",
-    "dev:sass": "sass --watch src/scss/themes:playground/css/",
+    "dev:sass": "sass --watch src/scss/themes:apps/playground/css/",
     "test": "vitest",
     "build": "vite build && sass src/scss/themes/:dist/themes/",
     "preview": "vite preview",

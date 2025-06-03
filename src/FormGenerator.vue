@@ -1,50 +1,31 @@
-<script setup>
+<script setup lang="ts">
+import type { FieldValidation, FormGeneratorProps, FormOptions } from '@/resources/types/generic'
+import type { Field } from '@/resources/types/field/fields'
+import type { ComponentPublicInstance, ComputedRef, Ref } from 'vue'
 import { computed, ref } from 'vue'
 import { resetObjectProperties, toUniqueArray } from '@/helpers'
 import FormGroup from './FormGroup.vue'
 
-const emits = defineEmits([ 'submit' ])
+const emits = defineEmits([ 'submit', 'field-validated' ])
 
-const props = defineProps({
-  id: {
-    type: String,
-    required: false,
-    default: ''
-  },
-  idPrefix: {
-    type: String,
-    required: false,
-    default: ''
-  },
-  options: {
-    type: Object,
-    default: () => ({})
-  },
-  schema: {
-    type: Object,
-    required: true
-  },
-  model: {
-    type: Object,
-    required: true
-  },
-  enctype: {
-    type: String,
-    default: 'application/x-www-form-urlencoded'
-  }
+const props = withDefaults(defineProps<FormGeneratorProps>(), {
+  enctype: 'application/x-www-form-urlencoded',
+  id: '',
+  idPrefix: ''
 })
 
+type FormGroupInstance = ComponentPublicInstance<InstanceType<typeof FormGroup>>
 /** Data / Refs */
-const fieldElements = ref([])
-const formErrors = ref({})
-const formOptions = computed(() => ({ ...props.options, idPrefix: props.idPrefix }))
+const fieldElements: Ref<FormGroupInstance[]> = ref([])
+const formErrors: Ref<Record<string, any>> = ref({})
+const formOptions: ComputedRef<FormOptions> = computed(() => ({ ...props.options, idPrefix: props.idPrefix }))
 
 /**
  * Update form model key with its new value.
  * @param {String} model model key to update.
  * @param {any} value value to set.
  */
-const updateGeneratorModel = ({ model, value }) => {
+const updateGeneratorModel = ({ model, value }: { model: string, value: any }) => {
   // eslint-disable-next-line vue/no-mutating-props
   props.model[model] = value
 }
@@ -54,7 +35,8 @@ const updateGeneratorModel = ({ model, value }) => {
  * @param fieldErrors errors discovered during validation of the field.
  * @param field field schema object that has been validated.
  */
-const onFieldValidated = ({ fieldErrors, field }) => {
+const onFieldValidated = ({ fieldErrors, field }: FieldValidation) => {
+  emits('field-validated', { fieldErrors, field })
   if (!fieldErrors.length) {
     if (!(field.model in formErrors.value)) return
     else {
@@ -67,22 +49,23 @@ const onFieldValidated = ({ fieldErrors, field }) => {
 
 /** Compute if the form has errors */
 const hasErrors = computed(() => {
-  return Boolean(Object.values(formErrors.value).map(e => Boolean(e.length)).filter(e => e === true).length)
+  return Boolean(Object.values(formErrors.value).map(e => Boolean(e.length)).filter(e => e).length)
 })
 
 /**
  * Handle the submit event from the form element.
  */
 const onSubmit = () => {
-  if (hasErrors.value === false) emits('submit')
+  if (!hasErrors.value) emits('submit')
 }
 
 const onReset = () => {
-  // eslint-disable-next-line vue/no-mutating-props
-  props.model = resetObjectProperties(props.model)
+  // Hideous hack to update the model, without TypeScript crying about mutation of props. And yes, I know it isn't
+  // recommended to update the props.
+  (props as any).model = resetObjectProperties(props.model)
 }
 
-defineExpose({ hasErrors })
+defineExpose({ hasErrors, formErrors })
 </script>
 
 <template>
@@ -95,8 +78,8 @@ defineExpose({ hasErrors })
   >
     <fieldset v-if="props.schema.fields">
       <template v-for="field in props.schema.fields" :key="field">
-        <form-group
-          :ref="el => fieldElements.push(el)"
+        <FormGroup
+          :ref="el => (el && '$el' in el) ? fieldElements.push((el as FormGroupInstance)) : null"
           :form-options="formOptions"
           :field="field"
           :model="props.model"
@@ -110,8 +93,8 @@ defineExpose({ hasErrors })
             {{ group.legend }}
           </legend>
           <template v-for="field in group.fields" :key="field">
-            <form-group
-              :ref="el => fieldElements.push(el)"
+            <FormGroup
+              :ref="el => (el && '$el' in el) ? fieldElements.push((el as FormGroupInstance)) : null"
               :form-options="formOptions"
               :field="field"
               :model="props.model"

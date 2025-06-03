@@ -19,25 +19,27 @@
   </div>
 </template>
 
-<script setup>
+<script setup lang="ts">
 // This component is heavily inspired by https://github.com/shwld/vfg-field-checkboxlist/
 import {
-  useFieldProps,
   useFieldEmits,
   useFieldValidate,
-  useFormModel, useFieldAttributes
+  useFormModel,
+  useFieldAttributes
 } from '@/composables'
-import { toRefs } from 'vue'
+import type { FieldProps, FieldPropRefs, ChecklistField } from '@/resources/types/field/fields'
+import { type Ref, toRefs } from 'vue'
 
 const emits = defineEmits(useFieldEmits())
-const props = defineProps(useFieldProps())
+const props = defineProps<FieldProps<ChecklistField>>()
 
-const { field, model } = toRefs(props)
+const { field, model }: FieldPropRefs<ChecklistField> = toRefs(props)
 const { hint } = useFieldAttributes(model.value, field.value)
-const { currentModelValue } = useFormModel(model.value, field.value)
+const { currentModelValue }: { currentModelValue: Ref<any[]> } = useFormModel(model.value, field.value)
 const { validate, errors } = useFieldValidate(model.value, field.value)
 
-const onFieldValueChanged = ({ target }) => {
+const onFieldValueChanged = (event: Event) => {
+  const target = event.target as HTMLInputElement
   errors.value = []
   let newValue
   const valueAlreadyChecked = currentModelValue.value.includes(target.value)

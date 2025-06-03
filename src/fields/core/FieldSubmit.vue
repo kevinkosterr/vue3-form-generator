@@ -8,13 +8,14 @@
   >
 </template>
 
-<script setup>
+<script setup lang="ts">
 import { toRefs } from 'vue'
-import { useFieldProps, useFieldAttributes } from '@/composables/index.ts'
+import type { FieldProps, FieldPropRefs, SubmitField } from '@/resources/types/field/fields'
+import { useFieldAttributes } from '@/composables'
 
-const props = defineProps(useFieldProps())
+const props = defineProps<FieldProps<SubmitField>>()
 
-const { model, field } = toRefs(props)
+const { model, field }: FieldPropRefs<SubmitField> = toRefs(props)
 
 const { isDisabled } = useFieldAttributes(model.value, field.value)
 

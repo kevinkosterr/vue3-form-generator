@@ -1,16 +1,20 @@
 <template>
-  <button type="button" :class="field.buttonClasses" @click.prevent="field.onClick(model, field)">
+  <button type="button" :class="field.buttonClasses" @click.prevent="onClick">
     {{ field.buttonText }}
   </button>
 </template>
 
-<script setup>
+<script setup lang="ts">
 import { toRefs } from 'vue'
-import { useFieldProps } from '@/composables/index.ts'
+import type { ButtonField, FieldPropRefs, FieldProps } from '@/resources/types/field/fields'
 
-const props = defineProps(useFieldProps())
+const props = defineProps<FieldProps<ButtonField>>()
 
-const { model, field } = toRefs(props)
+const { model, field }: FieldPropRefs<ButtonField> = toRefs(props)
+
+const onClick = () => {
+  return field.value.onClick !== undefined ? field.value.onClick(model.value, field.value) : undefined
+}
 
 defineExpose({ noLabel: true })
 </script>
