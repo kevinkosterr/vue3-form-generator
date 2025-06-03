@@ -7,12 +7,14 @@ export default defineConfig({
   base: '/vue3-form-generator/',
   title: 'Vue3 Form Generator',
   description: 'Documentation for vue3-form-generator',
+  head: [ [ 'link', { rel: 'icon', type: 'image/png', href: '/vue3-form-generator/favicon.png' } ] ],
   markdown: {
     config(md) {
       md.use(groupIconMdPlugin)
     }
   },
   themeConfig: {
+    logo: '/icon.svg',
     nav: [
       { text: 'Home', link: '/' }
     ],
