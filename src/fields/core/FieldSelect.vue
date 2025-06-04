@@ -88,12 +88,13 @@ const { hint } = useFieldAttributes(model.value, field.value)
 const selectedNames: ComputedRef<string[]> = computed(() => {
   if (!currentModelValue.value) return []
 
-  const findOptionName = (option: FieldOption) => field.value.options.find(o => o.value === option.value)?.name ?? ''
+  const findOptionName = (value: string) => field.value.options.find(o => o.value === value)?.name ?? false
 
   if (Array.isArray(currentModelValue.value) && field.value.multiple) {
-    return currentModelValue.value.map(o => findOptionName(o))
+    return currentModelValue.value.map(findOptionName).filter(o => o !== false)
   } else {
-    return [ field.value.options.find(o => o.value === currentModelValue.value)?.name ?? '' ]
+    const optionName = findOptionName(currentModelValue.value)
+    return optionName ? [ optionName ] : []
   }
 })
 

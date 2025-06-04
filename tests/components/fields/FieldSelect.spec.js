@@ -82,10 +82,13 @@ describe('FieldSelect', () => {
     await fieldSelect.vm.$nextTick()
     await fieldSelect.find('.vfg-select-option').trigger('click')
     expect(formWrapper.vm.model.selectModel.length).toBe(1)
+    expect(fieldSelect.find('.vfg-select-label').find('span').element.innerHTML).toContain('Test 1')
 
     await fieldSelect.find('.vfg-select-label').trigger('click')
     await fieldSelect.vm.$nextTick()
     await fieldSelect.findAll('.vfg-select-option')[2].trigger('click')
+    await fieldSelect.vm.$nextTick()
+    expect(fieldSelect.find('.vfg-select-label').find('span').element.innerHTML).toContain('Test 3')
     expect(formWrapper.vm.model.selectModel.length).toBe(2)
   })
 
