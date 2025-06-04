@@ -1,7 +1,7 @@
 import { App, Component } from 'vue'
+import type { FieldPluginOptions } from '@/resources/types/generic'
 
 import FieldText from '@/fields/core/FieldText.vue'
-import FieldCheckBox from '@/fields/core/FieldCheckbox.vue'
 import FieldPassword from '@/fields/core/FieldPassword.vue'
 import FieldSelect from '@/fields/core/FieldSelect.vue'
 import FieldSelectNative from '@/fields/core/FieldSelectNative.vue'
@@ -21,20 +21,22 @@ import FieldButton from '@/fields/core/FieldButton.vue'
 
 
 const fieldComponents = {
-  FieldColor, FieldText, FieldCheckBox, FieldPassword, FieldSelect, FieldSelectNative, FieldRadio,
-  FieldNumber, FieldSubmit, FieldReset, FieldButton, FieldSwitch, FieldTextarea, FieldMask, FieldChecklist,
-  FieldCheckbox, FieldObject
+  FieldColor, FieldText, FieldPassword, FieldSelect, FieldSelectNative, FieldRadio, FieldNumber, FieldSubmit,
+  FieldReset, FieldButton, FieldSwitch, FieldTextarea, FieldMask, FieldChecklist, FieldCheckbox, FieldObject
 } as const
 
 type FieldComponentNames = keyof typeof fieldComponents
 
 export default {
-  install (app: App, aliases: Partial<Record<FieldComponentNames, string>>) {
+  install (app: App, options: FieldPluginOptions) {
     const componentEntries = Object.entries(fieldComponents) as [FieldComponentNames, Component][]
+    const isExcluded = (componentName: string) => options.excludedComponents ? options.excludedComponents.includes(componentName) : false
 
     for (const [ name, component ] of componentEntries) {
-      const alias: string | undefined = aliases[name]
-      app.component(alias ?? name, component)
+      if (!isExcluded(name)) {
+        const alias: string | undefined = options.aliases ? options.aliases[name] : undefined
+        app.component(alias ?? name, component)
+      }
     }
   }
 }

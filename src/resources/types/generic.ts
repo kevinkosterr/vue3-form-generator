@@ -14,6 +14,12 @@ export type PluginOptions = {
   aliases?: Record<string, string>;
   messages?: Record<string, string>;
   components?: PluginComponentOption[];
+  excludedComponents?: string[];
+}
+
+export type FieldPluginOptions = {
+  aliases?: PluginOptions['aliases'];
+  excludedComponents?: PluginOptions['excludedComponents'];
 }
 
 export type FormGeneratorSchema = {

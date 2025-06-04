@@ -1,5 +1,5 @@
 import { App } from 'vue'
-import { PluginOptions } from '@/resources/types/generic'
+import { FieldPluginOptions, PluginOptions } from '@/resources/types/generic'
 
 import { setMessages } from '@/validators/messages'
 import { isObject } from '@/helpers'
@@ -19,7 +19,10 @@ const VueFormGenerator = {
   install (app: App, options: PluginOptions) {
     if (!options) options = {}
 
-    app.use(FormGeneratorFields, options.aliases ?? {})
+    const fieldOptions: FieldPluginOptions = {
+      aliases: options.aliases, excludedComponents: options.excludedComponents
+    }
+    app.use(FormGeneratorFields, fieldOptions)
     app.component('VueFormGenerator', FormGenerator)
 
     if (options.messages !== undefined && isObject(options.messages)) {

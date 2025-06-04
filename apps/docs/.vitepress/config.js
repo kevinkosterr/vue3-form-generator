@@ -48,7 +48,8 @@ export default defineConfig({
         text: 'Form Generator',
         items: [
           { text: 'Props', link: '/guide/form-generator/props' },
-          { text: 'Events', link: '/guide/form-generator/events' }
+          { text: 'Events', link: '/guide/form-generator/events' },
+          { text: 'Plugin options', link: '/guide/form-generator/plugin-options' }
         ]
       },
       {
