@@ -28,7 +28,7 @@ const props = defineProps<FieldProps<CheckboxField>>()
 const { field, model }: FieldPropRefs<CheckboxField> = toRefs(props)
 
 const { currentModelValue } = useFormModel(model.value, field.value)
-const { isRequired, isDisabled, hint } = useFieldAttributes(model.value, field.value)
+const { isRequired, isDisabled, isVisible, hint } = useFieldAttributes(model.value, field.value)
 const { errors, validate } = useFieldValidate(
   model.value,
   field.value,
@@ -50,5 +50,5 @@ const onFieldValueChanged = (event: Event) => {
   emits('onInput', target.checked)
 }
 
-defineExpose({ hint, noLabel: true, errors })
+defineExpose({ hint, noLabel: true, errors, isVisible })
 </script>

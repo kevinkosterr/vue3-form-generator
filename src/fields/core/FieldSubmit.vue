@@ -17,7 +17,7 @@ const props = defineProps<FieldProps<SubmitField>>()
 
 const { model, field }: FieldPropRefs<SubmitField> = toRefs(props)
 
-const { isDisabled } = useFieldAttributes(model.value, field.value)
+const { isDisabled, isVisible } = useFieldAttributes(model.value, field.value)
 
-defineExpose({ noLabel: true })
+defineExpose({ noLabel: true, isVisible })
 </script>

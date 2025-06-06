@@ -32,7 +32,7 @@ const props = defineProps<FieldProps<PasswordField>>()
 const emits = defineEmits(useFieldEmits())
 
 const { model, field }: FieldPropRefs<PasswordField> = toRefs(props)
-const { isRequired, isDisabled, hint } = useFieldAttributes(model.value, field.value)
+const { isRequired, isDisabled, isVisible, hint } = useFieldAttributes(model.value, field.value)
 const { currentModelValue } = useFormModel(model.value, field.value)
 
 const { errors, validate } = useFieldValidate(
@@ -79,5 +79,5 @@ const onBlur = () => {
   })
 }
 
-defineExpose({ hint, errors })
+defineExpose({ hint, errors, isVisible })
 </script>
