@@ -1,6 +1,45 @@
+<template>
+  <form
+    v-if="props.schema !== undefined" :id="props.id ?? ''"
+    class="vue-form-generator"
+    :enctype="enctype"
+    @submit.prevent="onSubmit"
+    @reset.prevent="onReset"
+  >
+    <fieldset v-if="props.schema.fields">
+      <template v-for="field in props.schema.fields" :key="field">
+        <FormGroup
+          :ref="el => (el && '$el' in el) ? fieldElements.push((el as FormGroupInstance)) : null"
+          :form-options="formOptions"
+          :field="field"
+          :model="props.model"
+          @value-updated="updateGeneratorModel"
+          @validated="onFieldValidated"
+        />
+      </template>
+      <template v-for="group in props.schema.groups" :key="group">
+        <fieldset>
+          <legend v-if="group.legend">
+            {{ group.legend }}
+          </legend>
+          <template v-for="field in group.fields" :key="field">
+            <FormGroup
+              :ref="el => (el && '$el' in el) ? fieldElements.push((el as FormGroupInstance)) : null"
+              :form-options="formOptions"
+              :field="field"
+              :model="props.model"
+              @value-updated="updateGeneratorModel"
+              @validated="onFieldValidated"
+            />
+          </template>
+        </fieldset>
+      </template>
+    </fieldset>
+  </form>
+</template>
+
 <script setup lang="ts">
 import type { FieldValidation, FormGeneratorProps, FormOptions } from '@/resources/types/generic'
-import type { Field } from '@/resources/types/field/fields'
 import type { ComponentPublicInstance, ComputedRef, Ref } from 'vue'
 import { computed, ref } from 'vue'
 import { resetObjectProperties, toUniqueArray } from '@/helpers'
@@ -11,7 +50,8 @@ const emits = defineEmits([ 'submit', 'field-validated' ])
 const props = withDefaults(defineProps<FormGeneratorProps>(), {
   enctype: 'application/x-www-form-urlencoded',
   id: '',
-  idPrefix: ''
+  idPrefix: '', // Kept for compatibility reasons.
+  options: () => ({})
 })
 
 type FormGroupInstance = ComponentPublicInstance<InstanceType<typeof FormGroup>>
@@ -52,9 +92,7 @@ const hasErrors = computed(() => {
   return Boolean(Object.values(formErrors.value).map(e => Boolean(e.length)).filter(e => e).length)
 })
 
-/**
- * Handle the submit event from the form element.
- */
+/** Handle the submit event from the form element. */
 const onSubmit = () => {
   if (!hasErrors.value) emits('submit')
 }
@@ -67,43 +105,3 @@ const onReset = () => {
 
 defineExpose({ hasErrors, formErrors })
 </script>
-
-<template>
-  <form
-    v-if="props.schema !== undefined" :id="props.id ?? ''"
-    class="vue-form-generator"
-    :enctype="enctype"
-    @submit.prevent="onSubmit"
-    @reset.prevent="onReset"
-  >
-    <fieldset v-if="props.schema.fields">
-      <template v-for="field in props.schema.fields" :key="field">
-        <FormGroup
-          :ref="el => (el && '$el' in el) ? fieldElements.push((el as FormGroupInstance)) : null"
-          :form-options="formOptions"
-          :field="field"
-          :model="props.model"
-          @value-updated="updateGeneratorModel"
-          @validated="onFieldValidated"
-        />
-      </template>
-      <template v-for="group in props.schema.groups" :key="group">
-        <fieldset>
-          <legend v-if="group.legend">
-            {{ group.legend }}
-          </legend>
-          <template v-for="field in group.fields" :key="field">
-            <FormGroup
-              :ref="el => (el && '$el' in el) ? fieldElements.push((el as FormGroupInstance)) : null"
-              :form-options="formOptions"
-              :field="field"
-              :model="props.model"
-              @value-updated="updateGeneratorModel"
-              @validated="onFieldValidated"
-            />
-          </template>
-        </fieldset>
-      </template>
-    </fieldset>
-  </form>
-</template>
