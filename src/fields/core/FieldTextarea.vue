@@ -31,7 +31,7 @@ const emits = defineEmits(useFieldEmits())
 
 const { field, model }: FieldPropRefs<TextAreaField> = toRefs(props)
 
-const { isRequired, isDisabled, isReadonly, hint } = useFieldAttributes(model.value, field.value)
+const { isRequired, isDisabled, isReadonly, isVisible, hint } = useFieldAttributes(model.value, field.value)
 const { currentModelValue } = useFormModel(model.value, field.value)
 const { validate, errors } = useFieldValidate(model.value, field.value)
 
@@ -50,5 +50,5 @@ const onFieldValueChanged = (event: Event) => {
   emits('onInput', (event.target as HTMLTextAreaElement).value)
 }
 
-defineExpose({ hint, errors })
+defineExpose({ hint, errors, isVisible })
 </script>

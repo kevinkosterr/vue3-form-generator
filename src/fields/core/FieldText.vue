@@ -6,6 +6,7 @@
     :name="field.name"
     :required="isRequired"
     :disabled="isDisabled"
+    :readonly="isReadonly"
     :placeholder="field.placeholder"
     :autocomplete="autoCompleteState"
     :value="currentModelValue"
@@ -27,7 +28,7 @@ const { field, model }: FieldPropRefs<TextField> = toRefs(props)
 const autoCompleteState: ComputedRef<string> = computed(() => field.value.autocomplete ? 'on' : 'off')
 
 const { currentModelValue } = useFormModel(model.value, field.value)
-const { isRequired, isDisabled, hint } = useFieldAttributes(model.value, field.value)
+const { isRequired, isDisabled, isReadonly, isVisible, hint } = useFieldAttributes(model.value, field.value)
 const { errors, validate } = useFieldValidate(
   model.value,
   field.value,
@@ -51,5 +52,5 @@ const onFieldValueChanged = (event: Event) => {
   emits('onInput', (event.target as HTMLInputElement).value)
 }
 
-defineExpose({ errors, hint })
+defineExpose({ errors, hint, isVisible })
 </script>

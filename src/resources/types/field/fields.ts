@@ -109,8 +109,8 @@ export interface FieldPropRefs<T extends Field=Field> {
 
 export interface FieldProps<T extends Field=Field> {
   id: string;
-  formGenerator: object;
-  formOptions: FormOptions;
+  formGenerator?: object;
+  formOptions?: FormOptions;
   field: T;
   model: Record<string, unknown>;
 }

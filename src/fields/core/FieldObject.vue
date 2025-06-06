@@ -13,7 +13,7 @@
 <script setup lang="ts">
 import FormGenerator from '@/FormGenerator.vue'
 import type { FieldProps, FieldPropRefs, ObjectField } from '@/resources/types/field/fields'
-import { useFieldEmits, useFormModel } from '@/composables'
+import { useFieldEmits, useFormModel, useFieldAttributes } from '@/composables'
 import { toRefs, useTemplateRef, computed, type ComputedRef } from 'vue'
 import { FieldValidation } from '@/resources/types/generic'
 
@@ -26,6 +26,7 @@ const hasErrors: ComputedRef<boolean> = computed(() => formGenerator.value?.hasE
 const { field, model }: FieldPropRefs<ObjectField> = toRefs(props)
 
 const { currentModelValue } = useFormModel(model.value, field.value)
+const { isVisible } = useFieldAttributes(model.value, field.value)
 
 /**
  * Emits the validated event
@@ -41,5 +42,5 @@ const onFieldValidated = (validation: FieldValidation) => {
   )
 }
 
-defineExpose({ hasErrors })
+defineExpose({ hasErrors, isVisible })
 </script>

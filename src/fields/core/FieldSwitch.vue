@@ -17,6 +17,7 @@ import type { SwitchField, FieldPropRefs, FieldProps } from '@/resources/types/f
 import {
   useFieldEmits,
   useFieldAttributes,
+  useFieldValidate,
   useFormModel
 } from '@/composables'
 
@@ -26,10 +27,21 @@ const emits = defineEmits(useFieldEmits())
 
 const { field, model }: FieldPropRefs<SwitchField> = toRefs(props)
 
-const { isDisabled } = useFieldAttributes(model.value, field.value)
+const { isDisabled, isVisible, hint } = useFieldAttributes(model.value, field.value)
 const { currentModelValue } = useFormModel(model.value, field.value)
+const { errors, validate } = useFieldValidate(model.value, field.value)
 
 const onFieldValueChanged = (event: Event) => {
-  emits('onInput', (event.target as HTMLInputElement).checked)
+  const target = event.target as HTMLInputElement
+  emits('onInput', target.checked)
+  validate(target.checked).then(validationErrors => {
+    emits('validated',
+      validationErrors.length === 0,
+      validationErrors,
+      field.value
+    )
+  })
 }
+
+defineExpose({ isVisible, hint, errors })
 </script>

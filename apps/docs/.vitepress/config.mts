@@ -82,7 +82,8 @@ export default defineConfig({
     ],
 
     socialLinks: [
-      { icon: 'github', link: 'https://github.com/kevinkosterr/vue3-form-generator' }
+      { icon: 'github', link: 'https://github.com/kevinkosterr/vue3-form-generator' },
+      { icon: 'npm', link: 'https://www.npmjs.com/package/@kevinkosterr/vue3-form-generator' }
     ]
   },
   vite: {

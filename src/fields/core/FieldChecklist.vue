@@ -34,7 +34,7 @@ const emits = defineEmits(useFieldEmits())
 const props = defineProps<FieldProps<ChecklistField>>()
 
 const { field, model }: FieldPropRefs<ChecklistField> = toRefs(props)
-const { hint } = useFieldAttributes(model.value, field.value)
+const { hint, isVisible } = useFieldAttributes(model.value, field.value)
 const { currentModelValue }: { currentModelValue: Ref<any[]> } = useFormModel(model.value, field.value)
 const { validate, errors } = useFieldValidate(model.value, field.value)
 
@@ -63,5 +63,5 @@ const onFieldValueChanged = (event: Event) => {
   })
 }
 
-defineExpose({ hint, errors })
+defineExpose({ hint, errors, isVisible })
 </script>

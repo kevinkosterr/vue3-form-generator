@@ -13,6 +13,17 @@ export function mountFormGenerator (schema, model) {
 }
 
 /**
+ * Clear all emitted events from a component, used for testing different emit phases in the same
+ * test case.
+ * @param {VueWrapper<any>} wrapper - wrapper to clear emits for.
+ */
+export function clearEmittedEvents (wrapper) {
+  Object.keys(wrapper.emitted()).forEach(key => {
+    wrapper.emitted()[key].length = 0
+  })
+}
+
+/**
  * Generate a form schema for a single field component
  * @param {String} name - name of the field
  * @param {String} model - model key of the field
