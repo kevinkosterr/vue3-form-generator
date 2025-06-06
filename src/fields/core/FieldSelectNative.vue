@@ -32,9 +32,9 @@ const emits = defineEmits(useFieldEmits())
 
 const { field, model }: FieldPropRefs<SelectNativeField> = toRefs(props)
 
-const { isRequired, isDisabled, hint } = useFieldAttributes(model.value, field.value)
+const { isRequired, isDisabled, isVisible, hint } = useFieldAttributes(model.value, field.value)
 const { currentModelValue } = useFormModel(model.value, field.value)
-const { validate } = useFieldValidate(model.value, field.value)
+const { validate, errors } = useFieldValidate(model.value, field.value)
 
 const onBlur = () => {
   validate(currentModelValue.value).then((validationErrors) => {
@@ -47,8 +47,9 @@ const onBlur = () => {
 }
 
 const onFieldValueChanged = (event: Event) => {
+  errors.value = []
   emits('onInput', (event.target as HTMLSelectElement).value)
 }
 
-defineExpose({ hint })
+defineExpose({ hint, isVisible, errors })
 </script>
