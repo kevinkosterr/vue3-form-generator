@@ -72,6 +72,7 @@ import type { FieldProps, FieldPropRefs, SelectField } from '@/resources/types/f
 import {
   useFieldAttributes,
   useFieldEmits,
+  useFieldValidate,
   useFormModel
 } from '@/composables'
 import { FieldOption } from '@/resources/types/fieldAttributes'
@@ -82,7 +83,8 @@ const { controlLeft, metaLeft } = useMagicKeys()
 
 const isOpened: Ref<boolean> = ref(false)
 const { field, model }: FieldPropRefs<SelectField> = toRefs(props)
-const { hint } = useFieldAttributes(model.value, field.value)
+const { hint, isVisible } = useFieldAttributes(model.value, field.value)
+const { errors, validate } = useFieldValidate(model.value, field.value)
 
 /** Names of the selected values */
 const selectedNames: ComputedRef<string[]> = computed(() => {
@@ -126,6 +128,7 @@ function handleClickOutside (event: Event) {
 }
 
 function selectOption (option: FieldOption) {
+  errors.value = []
   const optionSelected = isSelected(option)
 
   if (!field.value.multiple) {
@@ -140,10 +143,19 @@ function selectOption (option: FieldOption) {
     }
 
     emits('onInput', selectedValues)
-    if (metaLeft.value || controlLeft.value) return
   }
-  isOpened.value = false
+  if (!(metaLeft.value || controlLeft.value)) {
+    isOpened.value = false
+  }
+  validate(currentModelValue.value).then(validationErrors => {
+    emits(
+      'validated',
+      validationErrors.length === 0,
+      validationErrors,
+      field.value
+    )
+  })
 }
 
-defineExpose({ hint })
+defineExpose({ hint, isVisible, errors })
 </script>
