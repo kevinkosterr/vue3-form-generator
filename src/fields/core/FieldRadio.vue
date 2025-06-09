@@ -28,7 +28,7 @@ const props = defineProps<FieldProps<RadioField>>()
 const emits = defineEmits(useFieldEmits())
 
 const { field, model }: FieldPropRefs<RadioField> = toRefs(props)
-const { isRequired, hint } = useFieldAttributes(model.value, field.value)
+const { isRequired, isVisible, hint } = useFieldAttributes(model.value, field.value)
 const { currentModelValue } = useFormModel(model.value, field.value)
 
 const getFieldId = (optionName: string) => `${field.value.name}_${optionName}`
@@ -37,5 +37,5 @@ const onFieldValueChanged = (event: Event) => {
   emits('onInput', (event.target as HTMLInputElement).value)
 }
 
-defineExpose({ hint })
+defineExpose({ hint, isVisible })
 </script>

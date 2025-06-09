@@ -1,6 +1,6 @@
 import { TValidatorFunction } from '@/resources/types/functions'
-import { Component } from 'vue'
-import type { Field } from '@/resources/types/field/fields'
+import type { ComponentPublicInstance, Component, Ref } from 'vue'
+import type { Field, FieldProps } from '@/resources/types/field/fields'
 import { FormModel } from '@/resources/types/fieldAttributes'
 
 export type ValidatorMap = Record<string, TValidatorFunction>
@@ -33,6 +33,13 @@ export type FormGeneratorSchema = {
   },
 }
 
+export type FormGroupProps = {
+  formOptions?: FormOptions;
+  model: FormModel;
+  field: Field;
+  errors?: string[];
+}
+
 export type FormGeneratorProps = {
   id?: string;
   idPrefix?: string;
@@ -41,6 +48,19 @@ export type FormGeneratorProps = {
   model: FormGeneratorSchema['model'];
   enctype?: 'application/x-www-form-urlencoded' | 'multipart/form-data' | 'text/plain'
 }
+
+export type FieldExposedValues = {
+  // Whether the field is visible.
+  isVisible: Ref<boolean>;
+  // Errors occurred during validation of this field.
+  errors: Ref<string[]>;
+  // Hint displayed underneath the field.
+  hint?: Ref<string | undefined>;
+  // If true, the field component manages the label or doesn't have a label at all.
+  noLabel?: boolean;
+}
+
+export type FieldComponent = ComponentPublicInstance<FieldProps, FieldExposedValues>
 
 export type FormOptions = {
   idPrefix?: string;

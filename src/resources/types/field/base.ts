@@ -22,6 +22,7 @@ export type FieldBase = {
   hint?: string | TDynamicAttributeStringFunction;
   validator?: TValidatorFunction | TValidatorFunction[],
   onValidated?: TOnValidatedFunction
+  noLabel?: boolean;
 }
 
 /**

@@ -31,7 +31,7 @@ const emits = defineEmits(useFieldEmits())
 
 const { field, model }: FieldPropRefs<NumberField> = toRefs(props)
 
-const { isDisabled, isRequired, hint } = useFieldAttributes(model.value, field.value)
+const { isDisabled, isRequired, isVisible, hint } = useFieldAttributes(model.value, field.value)
 const { currentModelValue } = useFormModel(model.value, field.value)
 const { errors, validate } = useFieldValidate(
   model.value,
@@ -60,5 +60,5 @@ const onFieldValueChanged = (event: Event) => {
   emits('onInput', parseFloat(target.value))
 }
 
-defineExpose({ hint, errors })
+defineExpose({ hint, errors, isVisible })
 </script>
