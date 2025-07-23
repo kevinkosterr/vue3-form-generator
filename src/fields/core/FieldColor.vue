@@ -29,8 +29,7 @@ import { toRefs, onBeforeMount } from 'vue'
 import {
   useFormModel,
   useFieldAttributes,
-  useFieldValidate,
-  useFieldEmits
+  useValidation
 } from '@/composables'
 import { vMaska } from 'maska/vue'
 import type { ColorField, FieldPropRefs, FieldProps } from '@/resources/types/field/fields'
@@ -51,24 +50,17 @@ const maskOptions: Readonly<MaskOptions> = {
 const { field, model }: FieldPropRefs<ColorField> = toRefs(props)
 
 const { currentModelValue } = useFormModel(model.value, field.value)
-const { isRequired, isVisible, hint } = useFieldAttributes(model.value, field.value)
-const { errors, validate } = useFieldValidate(
+const { isRequired, isVisible, isDisabled, isReadonly, hint } = useFieldAttributes(model.value, field.value)
+const { errors, onChanged, onBlur } = useValidation(
   model.value,
   field.value,
-  false,
+  currentModelValue,
+  props.formOptions,
+  emits,
+  isDisabled.value,
   isRequired.value,
-  false
+  isReadonly.value
 )
-
-const onBlur = () => {
-  validate(currentModelValue.value).then((validationErrors) => {
-    emits('validated',
-      validationErrors.length === 0,
-      validationErrors,
-      field.value
-    )
-  })
-}
 
 const onFieldValueChanged = (event: Event) => {
   const target = event.target as HTMLInputElement
@@ -76,6 +68,7 @@ const onFieldValueChanged = (event: Event) => {
   // Ensure a change doesn't emit twice; we need this because both inputs might trigger this function at once.
   if (target.value !== currentModelValue.value) {
     emits('onInput', target.value)
+    onChanged()
   }
 }
 
@@ -88,7 +81,7 @@ onBeforeMount(() => {
     } else if (field.value.validator !== undefined) {
       fieldValidators.push(field.value.validator)
     }
-    // Keep in mind that the native color picker only supports 6 digit hex codes,
+    // Keep in mind that the native color picker only supports 6-digit hex codes,
     // so even though a value might technically be valid, it won't display the right color on the color picker input.
     fieldValidators.push(validators.hexColorValue)
     field.value.validator = fieldValidators

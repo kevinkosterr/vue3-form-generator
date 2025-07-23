@@ -17,6 +17,8 @@ export type PluginOptions = {
   excludedComponents?: string[];
 }
 
+export type ValidationTrigger = 'onChanged' | 'onBlur';
+
 export type FieldPluginOptions = {
   aliases?: PluginOptions['aliases'];
   excludedComponents?: PluginOptions['excludedComponents'];
@@ -34,7 +36,7 @@ export type FormGeneratorSchema = {
 }
 
 export type FormGroupProps = {
-  formOptions?: FormOptions;
+  formOptions: FormOptions;
   model: FormModel;
   field: Field;
   errors?: string[];
@@ -64,6 +66,7 @@ export type FieldComponent = ComponentPublicInstance<FieldProps, FieldExposedVal
 
 export type FormOptions = {
   idPrefix?: string;
+  validate?: ValidationTrigger;
 }
 
 export type FieldValidation = {

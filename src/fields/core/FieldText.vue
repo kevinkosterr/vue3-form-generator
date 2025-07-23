@@ -19,6 +19,7 @@
 import { toRefs, computed, type ComputedRef } from 'vue'
 import type { FieldPropRefs, FieldProps, TextField } from '@/resources/types/field/fields'
 import { useFormModel, useFieldAttributes, useFieldValidate, useFieldEmits } from '@/composables'
+import { useFormModel, useFieldAttributes, useValidation } from '@/composables'
 
 const emits = defineEmits(useFieldEmits())
 const props = defineProps<FieldProps<TextField>>()
@@ -29,27 +30,22 @@ const autoCompleteState: ComputedRef<string> = computed(() => field.value.autoco
 
 const { currentModelValue } = useFormModel(model.value, field.value)
 const { isRequired, isDisabled, isReadonly, isVisible, hint } = useFieldAttributes(model.value, field.value)
-const { errors, validate } = useFieldValidate(
+
+const { errors, onChanged, onBlur } = useValidation(
   model.value,
   field.value,
+  currentModelValue,
+  props.formOptions,
+  emits,
   isDisabled.value,
   isRequired.value,
-  false
+  isReadonly.value
 )
-
-const onBlur = () => {
-  validate(currentModelValue.value).then((validationErrors) => {
-    emits('validated',
-      validationErrors.length === 0,
-      validationErrors,
-      field.value
-    )
-  })
-}
 
 const onFieldValueChanged = (event: Event) => {
   errors.value = []
   emits('onInput', (event.target as HTMLInputElement).value)
+  onChanged()
 }
 
 defineExpose({ errors, hint, isVisible })

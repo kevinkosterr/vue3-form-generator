@@ -19,9 +19,8 @@
 import { computed, type ComputedRef, toRefs } from 'vue'
 import {
   useFormModel,
-  useFieldValidate,
-  useFieldAttributes,
-  useFieldEmits
+  useValidation,
+  useFieldAttributes
 } from '@/composables'
 import type { PasswordField, FieldProps, FieldPropRefs } from '@/resources/types/field/fields'
 
@@ -35,9 +34,12 @@ const { model, field }: FieldPropRefs<PasswordField> = toRefs(props)
 const { isRequired, isDisabled, isVisible, hint } = useFieldAttributes(model.value, field.value)
 const { currentModelValue } = useFormModel(model.value, field.value)
 
-const { errors, validate } = useFieldValidate(
+const { errors, onChanged, onBlur } = useValidation(
   model.value,
   field.value,
+  currentModelValue,
+  props.formOptions,
+  emits,
   isDisabled.value,
   isRequired.value,
   false
@@ -67,16 +69,7 @@ const meterStyle: ComputedRef<string> = computed(() => {
 const onFieldValueChanged = (event: Event) => {
   errors.value = []
   emits('onInput', (event.target as HTMLInputElement).value)
-}
-
-const onBlur = () => {
-  validate(currentModelValue.value).then((validationErrors) => {
-    emits('validated',
-      validationErrors.length === 0,
-      validationErrors,
-      field.value
-    )
-  })
+  onChanged()
 }
 
 defineExpose({ hint, errors, isVisible })

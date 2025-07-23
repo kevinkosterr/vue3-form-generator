@@ -15,9 +15,8 @@
 import { toRefs } from 'vue'
 import type { SwitchField, FieldPropRefs, FieldProps } from '@/resources/types/field/fields.js'
 import {
-  useFieldEmits,
   useFieldAttributes,
-  useFieldValidate,
+  useValidation,
   useFormModel
 } from '@/composables'
 
@@ -29,18 +28,21 @@ const { field, model }: FieldPropRefs<SwitchField> = toRefs(props)
 
 const { isDisabled, isVisible, hint } = useFieldAttributes(model.value, field.value)
 const { currentModelValue } = useFormModel(model.value, field.value)
-const { errors, validate } = useFieldValidate(model.value, field.value)
+const { errors, validate } = useValidation(
+  model.value,
+  field.value,
+  currentModelValue,
+  props.formOptions,
+  emits,
+  isDisabled.value,
+  false,
+  false
+)
 
 const onFieldValueChanged = (event: Event) => {
   const target = event.target as HTMLInputElement
   emits('onInput', target.checked)
-  validate(target.checked).then(validationErrors => {
-    emits('validated',
-      validationErrors.length === 0,
-      validationErrors,
-      field.value
-    )
-  })
+  validate()
 }
 
 defineExpose({ isVisible, hint, errors })

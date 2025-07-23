@@ -128,4 +128,13 @@ describe('FieldPassword', () => {
     expect(errorContainer.find('.error').element.innerHTML).toBe('Field is invalid')
   })
 
+  it('Should validate onChanged, if set', async () => {
+    const schema = { ...form.schema }
+    schema.fields[0].validate = 'onChanged'
+    const formWrapper = mountFormGenerator(schema, form.model)
+    const wrapper = formWrapper.findComponent(FieldPassword)
+    await wrapper.find('input[type=password]').setValue('testpassword')
+    expect(wrapper.emitted()).toHaveProperty('validated')
+  })
+
 })

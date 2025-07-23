@@ -17,37 +17,36 @@
 
 <script setup lang="ts">
 import { toRefs } from 'vue'
-import type { FieldProps, FieldPropRefs, TextAreaField } from '@/resources/types/field/fields'
+import type { FieldProps, FieldEmits, FieldPropRefs, TextAreaField } from '@/resources/types/field/fields'
 import {
-  useFieldEmits,
-  useFieldValidate,
+  useValidation,
   useFieldAttributes,
   useFormModel
 } from '@/composables'
 
 
 const props = defineProps<FieldProps<TextAreaField>>()
-const emits = defineEmits(useFieldEmits())
+const emits = defineEmits<FieldEmits>()
 
 const { field, model }: FieldPropRefs<TextAreaField> = toRefs(props)
 
 const { isRequired, isDisabled, isReadonly, isVisible, hint } = useFieldAttributes(model.value, field.value)
 const { currentModelValue } = useFormModel(model.value, field.value)
-const { validate, errors } = useFieldValidate(model.value, field.value)
-
-const onBlur = () => {
-  validate(currentModelValue.value).then((validationErrors) => {
-    emits('validated',
-      validationErrors.length === 0,
-      validationErrors,
-      field.value
-    )
-  })
-}
+const { onChanged, errors, onBlur } = useValidation(
+  model.value,
+  field.value,
+  currentModelValue,
+  props.formOptions,
+  emits,
+  isDisabled.value,
+  isRequired.value,
+  isReadonly.value
+)
 
 const onFieldValueChanged = (event: Event) => {
   errors.value = []
   emits('onInput', (event.target as HTMLTextAreaElement).value)
+  onChanged()
 }
 
 defineExpose({ hint, errors, isVisible })
