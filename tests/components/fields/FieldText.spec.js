@@ -75,7 +75,6 @@ describe('FieldText', () => {
     const textField = formWrapper.findComponent(FieldText)
     clearEmittedEvents(textField)
     await textField.find('input').setValue('Hello there!')
-    console.log(textField.emitted())
     expect(textField.emitted()).toHaveProperty('validated')
   })
 
