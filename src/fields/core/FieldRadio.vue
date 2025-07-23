@@ -7,6 +7,8 @@
         :name="field.name"
         :value="option.value"
         :required="isRequired"
+        :disabled="isDisabled"
+        :readonly="isReadonly"
         :checked="currentModelValue === option.value"
         @change="onFieldValueChanged"
       >
