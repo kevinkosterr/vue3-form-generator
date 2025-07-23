@@ -7,6 +7,8 @@
         :name="field.name"
         :value="option.value"
         :required="isRequired"
+        :disabled="isDisabled"
+        :readonly="isReadonly"
         :checked="currentModelValue === option.value"
         @change="onFieldValueChanged"
       >
@@ -18,23 +20,36 @@
 <script setup lang="ts">
 import { toRefs } from 'vue'
 import {
-  useFieldEmits,
   useFormModel,
-  useFieldAttributes
+  useFieldAttributes,
+  useValidation
 } from '@/composables'
-import type { RadioField, FieldProps, FieldPropRefs } from '@/resources/types/field/fields'
+import type { RadioField, FieldProps, FieldEmits, FieldPropRefs } from '@/resources/types/field/fields'
 
 const props = defineProps<FieldProps<RadioField>>()
-const emits = defineEmits(useFieldEmits())
+const emits = defineEmits<FieldEmits>()
 
 const { field, model }: FieldPropRefs<RadioField> = toRefs(props)
-const { isRequired, isVisible, hint } = useFieldAttributes(model.value, field.value)
+const { isRequired, isVisible, isDisabled, isReadonly, hint } = useFieldAttributes(model.value, field.value)
 const { currentModelValue } = useFormModel(model.value, field.value)
+
+const { errors, validate } = useValidation(
+  model.value,
+  field.value,
+  currentModelValue,
+  props.formOptions,
+  emits,
+  isDisabled.value,
+  isRequired.value,
+  isReadonly.value
+)
 
 const getFieldId = (optionName: string) => `${field.value.name}_${optionName}`
 
 const onFieldValueChanged = (event: Event) => {
+  errors.value = []
   emits('onInput', (event.target as HTMLInputElement).value)
+  validate()
 }
 
 defineExpose({ hint, isVisible })

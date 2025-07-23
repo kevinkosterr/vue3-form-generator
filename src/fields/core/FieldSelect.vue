@@ -68,23 +68,21 @@
 import { useMagicKeys } from '@vueuse/core'
 import { onClickOutside as vOnClickOutside } from '@/directives/onClickOutside'
 import { ref, toRefs, computed, type ComputedRef, type Ref } from 'vue'
-import type { FieldProps, FieldPropRefs, SelectField } from '@/resources/types/field/fields'
+import type { FieldProps, FieldPropRefs, SelectField, FieldEmits } from '@/resources/types/field/fields'
 import {
   useFieldAttributes,
-  useFieldEmits,
-  useFieldValidate,
+  useValidation,
   useFormModel
 } from '@/composables'
 import { FieldOption } from '@/resources/types/fieldAttributes'
 
 const props = defineProps<FieldProps<SelectField>>()
-const emits = defineEmits(useFieldEmits())
+const emits = defineEmits<FieldEmits>()
 const { controlLeft, metaLeft } = useMagicKeys()
 
 const isOpened: Ref<boolean> = ref(false)
 const { field, model }: FieldPropRefs<SelectField> = toRefs(props)
-const { hint, isVisible } = useFieldAttributes(model.value, field.value)
-const { errors, validate } = useFieldValidate(model.value, field.value)
+const { hint, isVisible, isDisabled, isReadonly, isRequired } = useFieldAttributes(model.value, field.value)
 
 /** Names of the selected values */
 const selectedNames: ComputedRef<string[]> = computed(() => {
@@ -106,6 +104,16 @@ const hasValue: ComputedRef<boolean> = computed(() => field.value.multiple ? cur
 const isPressingModifierKey: ComputedRef<boolean> = computed(() => metaLeft.value || controlLeft.value)
 
 const { currentModelValue } = useFormModel(model.value, field.value)
+const { errors, validate } = useValidation(
+  model.value,
+  field.value,
+  currentModelValue,
+  props.formOptions,
+  emits,
+  isDisabled.value,
+  isRequired.value,
+  isReadonly.value
+)
 
 /** Toggles the isOpened state when the input is clicked. */
 const onClickInput = () => isOpened.value = !isOpened.value
@@ -147,14 +155,7 @@ function selectOption (option: FieldOption) {
   if (!(metaLeft.value || controlLeft.value)) {
     isOpened.value = false
   }
-  validate(currentModelValue.value).then(validationErrors => {
-    emits(
-      'validated',
-      validationErrors.length === 0,
-      validationErrors,
-      field.value
-    )
-  })
+  validate()
 }
 
 defineExpose({ hint, isVisible, errors })

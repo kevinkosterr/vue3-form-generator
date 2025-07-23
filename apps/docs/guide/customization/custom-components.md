@@ -15,35 +15,21 @@ To create a field component you make use of different composables ([?](https://v
 get the behaviour you want the component to have. Different composables handle different functionality inside the field
 component.
 
+:::tabs
+== JavaScript
 Every component must at least use these composables to work properly:
 - [`useFieldEmits`](/guide/composables/useFieldEmits) - returns all events emitted by a field component;
 - [`useFieldProps`](/guide/composables/useFieldProps) - returns all props used by a field component;
 - [`useFormModel`](/guide/composables/useFormModel) - used to get the current model value for this field component.
 
 Optional:
-- [`useFieldValidate`](/guide/composables/useFieldValidate) - used for validation of the field;
+- [`useValidation`](/guide/composables/useValidation) - used for validation of the field;
 - [`useFieldAttributes`](/guide/composables/useFieldAttributes) - holds different dynamic field attributes like `required` and `readonly`.
 
 
 ### Basic example
 ::: code-group
-```vue [template]
-<template>
-  <input
-    :id="id"
-    class="field-input"
-    type="text"
-    :name="field.name"
-    :required="isRequired"
-    :disabled="isDisabled"
-    :placeholder="field.placeholder"
-    :autocomplete="field.autocomplete || 'off'"
-    :value="currentModelValue"
-    @input="onFieldValueChanged"
-    @blur="onBlur"
-  >
-</template>
-```
+<!--@include: @/parts/customization/custom-components-template-example.md-->
 
 ```vue [script setup]
 <script setup>
@@ -79,8 +65,54 @@ const onFieldValueChanged = ({ target }) => {
   errors.value = []
   emits('onInput', target.value)
 }
+<script/>
+```
+
+==TypeScript
+You'll only need one composable to create a custom component:
+- [`useFormModel`](/guide/composables/useFormModel) - used to get the current model value for this field component.
+
+Optional:
+- [`useValidation`](/guide/composables/useValidation) - used for validation of the field;
+- [`useFieldAttributes`](/guide/composables/useFieldAttributes) - holds different dynamic field attributes like `required` and `readonly`.
+
+When using TypeScript you won't need the other composables to define proper emits and props. You'll be able to use types
+for that. 
+
+### Basic example
+:::code-group
+<!--@include: @/parts/customization/custom-components-template-example.md-->
+
+```vue [script setup]
+<script setup lang="ts">
+import { toRefs } from 'vue'
+import type { FieldBase, FieldEmits, FieldProps, FieldPropRefs } from '@kevinkosterr/vue3-form-generator'
+import { useValidation, useFormModel, useFieldAttributes } from '@kevinkosterr/vue3-form-generator'  
+
+type CustomFieldType = FieldBase & {
+  customAttribute: boolean
+}
+
+const props = defineProps<FieldProps<CustomFieldType>>()
+const emits = defineEmits<FieldEmits>()
+const { model, field }: FieldPropRefs<CustomFieldType> = toRefs(props)
+
+const { isDisabled, isRequired, isReadonly } = useFieldAttributes(model.value, field.value)
+const { currentModelValue } = useFormModel(model.value, field.value)
+const { errors, validate, onChanged: onFieldValueChanged, onBlur } = useValidation(
+    model.value,
+    field.value,
+    currentModelValue,
+    props.formOptions,
+    emits,
+    isDisabled.value,
+    isRequired.value,
+    isReadonly.value
+)
+</script>
 ```
 :::
+
 
 ### Advanced example
 For a more advanced example, you can take a look at the [`FieldSelect`](/guide/fields/FieldSelect) ([source](https://github.com/kevinkosterr/vue3-form-generator/blob/69cb6aeb8e8c82926ec3598e7d73be2d1146a3f2/src/fields/core/FieldSelect.vue)) component.
@@ -88,7 +120,7 @@ For a more advanced example, you can take a look at the [`FieldSelect`](/guide/f
 ## Compatibility with validation
 ::: info
 If you want your component to be compatible with validation, you'll need to expose the `errors` value that is returned
-by [`useFieldValidate`](/guide/composables/useFieldValidate)
+by [`useValidation`](/guide/composables/useValidation)
 :::
 
 ## Registering your component

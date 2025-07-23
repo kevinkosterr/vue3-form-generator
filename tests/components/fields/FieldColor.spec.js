@@ -1,4 +1,8 @@
-import { mountFormGenerator, generatePropsSingleField, generateSchemaSingleField } from '@test/_resources/utils.js'
+import {
+  mountFormGenerator,
+  generatePropsSingleField,
+  generateSchemaSingleField
+} from '@test/_resources/utils.js'
 import { mount, config } from '@vue/test-utils'
 import { describe, it, expect, beforeAll } from 'vitest'
 
@@ -80,6 +84,26 @@ describe('FieldColor', () => {
     // Wait for the DOM to update.
     await wrapper.vm.$nextTick()
     expect(wrapper.find('input[type=text]').attributes().value).toBe('#ff0000')
+  })
+
+  it('Should validate onBlur, by default', async () => {
+    const formWrapper = mountFormGenerator(form.schema, form.model)
+    const wrapper = formWrapper.findComponent(FieldColor)
+    await wrapper.find('input[type=color]').trigger('blur')
+    expect(wrapper.emitted()).toHaveProperty('validated')
+  })
+
+  it('Should validate onChanged, if set', async () => {
+    const schema = { ...form.schema }
+    schema.fields[0].validate = 'onChanged'
+    const formWrapper = mountFormGenerator(schema, form.model)
+    const wrapper = formWrapper.findComponent(FieldColor)
+
+    await wrapper.find('input[type=color]').trigger('blur')
+    expect(wrapper.emitted()).not.toHaveProperty('validated')
+
+    await wrapper.find('input[type=text]').setValue('#efefef')
+    expect(wrapper.emitted()).toHaveProperty('validated')
   })
 
 })

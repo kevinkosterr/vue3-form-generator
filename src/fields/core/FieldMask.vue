@@ -13,13 +13,13 @@
 
 <script setup lang="ts">
 import { toRefs, computed, ComputedRef, ref, onBeforeMount } from 'vue'
-import type { FieldPropRefs, FieldProps, MaskField } from '@/resources/types/field/fields'
+import type { FieldEmits, FieldPropRefs, FieldProps, MaskField } from '@/resources/types/field/fields'
 import type { MaskInputOptions } from 'maska'
 import { Mask } from 'maska'
 import { vMaska } from 'maska/vue'
-import { useFormModel, useFieldAttributes, useFieldEmits, useFieldValidate } from '@/composables'
+import { useFormModel, useFieldAttributes, useValidation } from '@/composables'
 
-const emits = defineEmits(useFieldEmits())
+const emits = defineEmits<FieldEmits>()
 const props = defineProps<FieldProps<MaskField>>()
 const { field, model }: FieldPropRefs<MaskField> = toRefs(props)
 
@@ -39,23 +39,16 @@ const maskOptions: ComputedRef<MaskInputOptions> = computed(() => {
 
 const { currentModelValue } = useFormModel(model.value, field.value)
 const { isRequired, isDisabled, isVisible, hint } = useFieldAttributes(model.value, field.value)
-const { errors, validate } = useFieldValidate(
+const { errors, onChanged, onBlur } = useValidation(
   model.value,
   field.value,
+  currentModelValue,
+  props.formOptions,
+  emits,
   isDisabled.value,
   isRequired.value,
   false
 )
-
-const onBlur = () => {
-  validate(currentModelValue.value).then((validationErrors) => {
-    emits('validated',
-      validationErrors.length === 0,
-      validationErrors,
-      field.value
-    )
-  })
-}
 
 const onFieldValueChanged = (event: Event): void => {
   errors.value = []
@@ -64,6 +57,7 @@ const onFieldValueChanged = (event: Event): void => {
   } else if (event.target) {
     emits('onInput', (event.target as HTMLInputElement).value)
   }
+  onChanged()
 }
 
 onBeforeMount(() => {

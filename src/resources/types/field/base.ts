@@ -5,6 +5,7 @@ import type {
   TValidatorFunction
 } from '@/resources/types/functions'
 import type { FieldOption } from '@/resources/types/fieldAttributes'
+import type { ValidationTrigger } from '@/resources/types/generic'
 
 /**
  * The base of every field type.
@@ -20,8 +21,9 @@ export type FieldBase = {
   readonly?: boolean | TDynamicAttributeBooleanFunction;
   disabled?: boolean | TDynamicAttributeBooleanFunction;
   hint?: string | TDynamicAttributeStringFunction;
-  validator?: TValidatorFunction | TValidatorFunction[],
-  onValidated?: TOnValidatedFunction
+  validator?: TValidatorFunction | TValidatorFunction[];
+  onValidated?: TOnValidatedFunction;
+  validate?: ValidationTrigger;
   noLabel?: boolean;
 }
 

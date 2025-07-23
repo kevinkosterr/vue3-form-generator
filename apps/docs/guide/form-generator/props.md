@@ -12,9 +12,10 @@ outline: [ 2,3 ]
 | `idPrefix`    | `string` | Prefix for all the generated ids in the form         |
 
 ## `formOptions`
-| Property          | Type     | Description                                          |
-|---------------|----------|------------------------------------------------------|
-| `idPrefix` | `string` | Prefix for all the generated ids in the form |
+| Property   | Type                     | Default | Description                                                                                         |
+|------------|--------------------------|--------|-----------------------------------------------------------------------------------------------------|
+| `idPrefix` | `string`                 |        | Prefix for all the generated ids in the form                                                        |
+| `validate` | `'onChanged'` \| `'onBlur'` | `onBlur` | Method of validation, can be overwritten by individual fields. Can be either `onChanged` or `onBlur` |
 
 ## `model`
 Type: `Object`

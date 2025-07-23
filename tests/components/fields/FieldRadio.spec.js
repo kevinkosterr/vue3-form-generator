@@ -83,4 +83,11 @@ describe('FieldRadio', () => {
     expect(formWrapper.vm.model.radioModel).toBe('value_2')
   })
 
+  it('Should validate onChanged, by default', async () => {
+    const formWrapper = mountFormGenerator(form.schema, form.model)
+    const wrapper = formWrapper.findComponent(FieldRadio)
+    await wrapper.find('input[type=radio]').setChecked()
+    expect(wrapper.emitted()).toHaveProperty('validated')
+  })
+
 })

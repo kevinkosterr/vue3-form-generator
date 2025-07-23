@@ -13,6 +13,15 @@ const emits = defineEmits(useFieldEmits())
 </script>
 ```
 
+## TypeScript alternative
+```vue
+<script setup lang="ts">
+import type { FieldEmits } from '@kevinkosterr/vue3-form-generator'
+  
+const emits = defineEmits<FieldEmits>()
+</script>
+```
+
 ## Emits
 
 ### `onInput`

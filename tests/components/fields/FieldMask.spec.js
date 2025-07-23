@@ -1,4 +1,8 @@
-import { mountFormGenerator, generatePropsSingleField, generateSchemaSingleField } from '@test/_resources/utils'
+import {
+  mountFormGenerator,
+  generatePropsSingleField,
+  generateSchemaSingleField
+} from '@test/_resources/utils'
 import { mount, config } from '@vue/test-utils'
 import { describe, it, expect, beforeAll } from 'vitest'
 
@@ -66,6 +70,24 @@ describe('FieldMask', () => {
     expect(textField.exists()).toBeTruthy()
     await textField.find('input').setValue('1234 1234 1234 1234')
     expect(formWrapper.vm.model.maskModel).toBe('1234123412341234')
+  })
+
+  it('Should validate onBlur, by default', async () => {
+    const formWrapper = mountFormGenerator(form.schema, form.model)
+
+    const textField = formWrapper.findComponent(FieldMask)
+    await textField.find('input').trigger('blur')
+    expect(textField.emitted()).toHaveProperty('validated')
+  })
+
+  it('Should validate onChanged, if set', async () => {
+    const schema = { ...form.schema }
+    schema.fields[0].validate = 'onChanged'
+    const formWrapper = mountFormGenerator(form.schema, form.model)
+
+    const textField = formWrapper.findComponent(FieldMask)
+    await textField.find('input').setValue('1234 1234 1234 1234')
+    expect(textField.emitted()).toHaveProperty('validated')
   })
 
 })

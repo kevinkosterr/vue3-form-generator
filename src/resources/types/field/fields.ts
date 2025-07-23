@@ -100,17 +100,22 @@ export type TextAreaField = FieldBase & PlaceholderField & {
 export type Field = TextField | RadioField | ChecklistField | SelectField | MaskField | PasswordField | ButtonField |
   NumberField | ColorField | CheckboxField | ObjectField | ResetField | SelectNativeField | SubmitField | SwitchField |
   TextAreaField
-export type FieldValue = number | string | number[] | string[]
+export type FieldValue = number | string | number[] | string[] | boolean | boolean[]
 
 export interface FieldPropRefs<T extends Field=Field> {
   field: Ref<T>,
   model: Ref<FormModel>
 }
 
+export type FieldEmits = {
+  validated: [isValid: boolean, errors: string[], field: Field];
+  onInput: [value: FieldValue];
+}
+
 export interface FieldProps<T extends Field=Field> {
   id: string;
   formGenerator?: object;
-  formOptions?: FormOptions;
+  formOptions: FormOptions;
   field: T;
   model: Record<string, unknown>;
 }
