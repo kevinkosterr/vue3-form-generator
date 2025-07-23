@@ -16,6 +16,20 @@ const { field, model } = toRefs(props)
 </script>
 ```
 
+## TypeScript alternative
+```vue
+<script setup lang="ts">
+import { toRefs } from 'vue'
+import type { FieldProps, FieldBase, FieldPropRefs } from '@kevinkosterr/vue3-form-generator'
+
+type CustomField = FieldBase & {}
+
+const props = defineProps<FieldProps<CustomField>>()
+  
+const { field, model }: FieldPropRefs<CustomField> = toRefs(props)
+</script>
+```
+
 ## Props
 
 ### `id` <Badge type="info" text="String"/>
