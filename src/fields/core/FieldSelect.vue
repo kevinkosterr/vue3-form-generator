@@ -68,7 +68,7 @@
 import { useMagicKeys } from '@vueuse/core'
 import { onClickOutside as vOnClickOutside } from '@/directives/onClickOutside'
 import { ref, toRefs, computed, type ComputedRef, type Ref } from 'vue'
-import type { FieldProps, FieldPropRefs, SelectField } from '@/resources/types/field/fields'
+import type { FieldProps, FieldPropRefs, SelectField, FieldEmits } from '@/resources/types/field/fields'
 import {
   useFieldAttributes,
   useValidation,
@@ -77,7 +77,7 @@ import {
 import { FieldOption } from '@/resources/types/fieldAttributes'
 
 const props = defineProps<FieldProps<SelectField>>()
-const emits = defineEmits(useFieldEmits())
+const emits = defineEmits<FieldEmits>()
 const { controlLeft, metaLeft } = useMagicKeys()
 
 const isOpened: Ref<boolean> = ref(false)

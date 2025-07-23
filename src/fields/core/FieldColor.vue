@@ -32,10 +32,10 @@ import {
   useValidation
 } from '@/composables'
 import { vMaska } from 'maska/vue'
-import type { ColorField, FieldPropRefs, FieldProps } from '@/resources/types/field/fields'
+import type { ColorField, FieldEmits, FieldPropRefs, FieldProps } from '@/resources/types/field/fields'
 import type { MaskOptions } from 'maska'
 
-const emits = defineEmits(useFieldEmits())
+const emits = defineEmits<FieldEmits>()
 const props = defineProps<FieldProps<ColorField>>()
 
 const maskOptions: Readonly<MaskOptions> = {

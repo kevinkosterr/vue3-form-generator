@@ -17,11 +17,10 @@
 
 <script setup lang="ts">
 import { toRefs, computed, type ComputedRef } from 'vue'
-import type { FieldPropRefs, FieldProps, TextField } from '@/resources/types/field/fields'
-import { useFormModel, useFieldAttributes, useFieldValidate, useFieldEmits } from '@/composables'
+import type { FieldPropRefs, FieldProps, FieldEmits, TextField } from '@/resources/types/field/fields'
 import { useFormModel, useFieldAttributes, useValidation } from '@/composables'
 
-const emits = defineEmits(useFieldEmits())
+const emits = defineEmits<FieldEmits>()
 const props = defineProps<FieldProps<TextField>>()
 
 const { field, model }: FieldPropRefs<TextField> = toRefs(props)

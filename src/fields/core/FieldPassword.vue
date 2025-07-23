@@ -22,13 +22,13 @@ import {
   useValidation,
   useFieldAttributes
 } from '@/composables'
-import type { PasswordField, FieldProps, FieldPropRefs } from '@/resources/types/field/fields'
+import type { PasswordField, FieldProps, FieldPropRefs, FieldEmits } from '@/resources/types/field/fields'
 
 const mediumRegex = new RegExp('^(((?=.*[a-z])(?=.*[A-Z]))|((?=.*[a-z])(?=.*[0-9]))|((?=.*[A-Z])(?=.*[0-9])))(?=.{6,})')
 const strongRegex = new RegExp('^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.{8,})')
 
 const props = defineProps<FieldProps<PasswordField>>()
-const emits = defineEmits(useFieldEmits())
+const emits = defineEmits<FieldEmits>()
 
 const { model, field }: FieldPropRefs<PasswordField> = toRefs(props)
 const { isRequired, isDisabled, isVisible, hint } = useFieldAttributes(model.value, field.value)

@@ -13,7 +13,7 @@
 
 <script setup lang="ts">
 import { toRefs } from 'vue'
-import type { SwitchField, FieldPropRefs, FieldProps } from '@/resources/types/field/fields.js'
+import type { SwitchField, FieldEmits, FieldPropRefs, FieldProps } from '@/resources/types/field/fields.js'
 import {
   useFieldAttributes,
   useValidation,
@@ -22,7 +22,7 @@ import {
 
 
 const props = defineProps<FieldProps<SwitchField>>()
-const emits = defineEmits(useFieldEmits())
+const emits = defineEmits<FieldEmits>()
 
 const { field, model }: FieldPropRefs<SwitchField> = toRefs(props)
 

@@ -107,6 +107,11 @@ export interface FieldPropRefs<T extends Field=Field> {
   model: Ref<FormModel>
 }
 
+export type FieldEmits = {
+  validated: [isValid: boolean, errors: string[], field: Field];
+  onInput: [value: FieldValue];
+}
+
 export interface FieldProps<T extends Field=Field> {
   id: string;
   formGenerator?: object;

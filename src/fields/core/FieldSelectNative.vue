@@ -18,7 +18,7 @@
 
 <script setup lang="ts">
 import { toRefs } from 'vue'
-import type { FieldPropRefs, FieldProps, SelectNativeField } from '@/resources/types/field/fields'
+import type { FieldPropRefs, FieldEmits, FieldProps, SelectNativeField } from '@/resources/types/field/fields'
 import {
   useFieldAttributes,
   useFormModel,
@@ -26,7 +26,7 @@ import {
 } from '@/composables'
 
 const props = defineProps<FieldProps<SelectNativeField>>()
-const emits = defineEmits(useFieldEmits())
+const emits = defineEmits<FieldEmits>()
 
 const { field, model }: FieldPropRefs<SelectNativeField> = toRefs(props)
 

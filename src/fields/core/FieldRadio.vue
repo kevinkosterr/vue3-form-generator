@@ -25,7 +25,7 @@ import {
 import type { RadioField, FieldProps, FieldEmits, FieldPropRefs } from '@/resources/types/field/fields'
 
 const props = defineProps<FieldProps<RadioField>>()
-const emits = defineEmits(useFieldEmits())
+const emits = defineEmits<FieldEmits>()
 
 const { field, model }: FieldPropRefs<RadioField> = toRefs(props)
 const { isRequired, isVisible, isDisabled, isReadonly, hint } = useFieldAttributes(model.value, field.value)

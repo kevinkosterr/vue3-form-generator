@@ -18,7 +18,7 @@
 
 <script setup lang="ts">
 import { toRefs } from 'vue'
-import type { NumberField, FieldProps, FieldPropRefs } from '@/resources/types/field/fields'
+import type { NumberField, FieldProps, FieldEmits, FieldPropRefs } from '@/resources/types/field/fields'
 import {
   useFormModel,
   useFieldAttributes,
@@ -26,7 +26,7 @@ import {
 } from '@/composables'
 
 const props = defineProps<FieldProps<NumberField>>()
-const emits = defineEmits(useFieldEmits())
+const emits = defineEmits<FieldEmits>()
 
 const { field, model }: FieldPropRefs<NumberField> = toRefs(props)
 
