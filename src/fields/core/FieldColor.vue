@@ -7,6 +7,9 @@
       type="text"
       :value="currentModelValue"
       placeholder="#ffffff"
+      :required="isRequired"
+      :readonly="isReadonly"
+      :disabled="isDisabled"
       @input="onFieldValueChanged"
       @blur="onBlur"
     >
@@ -17,6 +20,8 @@
       :name="props.field.name"
       :value="currentModelValue"
       :required="isRequired"
+      :readonly="isReadonly"
+      :disabled="isDisabled"
       @input="onFieldValueChanged"
       @blur="onBlur"
     >
