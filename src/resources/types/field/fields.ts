@@ -86,7 +86,9 @@ export type ButtonField = ButtonFieldBase & {
   onClick?: (model: FormModel, field: Field) => void;
 }
 
-export type SwitchField = FieldBase
+export type SwitchField = FieldBase & {
+  type: 'switch';
+}
 
 export type ResetField = ButtonFieldBase & {
   type: 'reset';
