@@ -26,7 +26,8 @@ import {
   useFieldAttributes,
   useValidation,
   useFieldEmits,
-  useFieldProps
+  useFieldProps,
+  useLabelIcon
 } from '@/composables'
 
 import FormGenerator from '@/FormGenerator.vue'
@@ -62,6 +63,7 @@ export {
   useFieldEmits,
   useFieldAttributes,
   useFieldValidate,
+  useLabelIcon,
   useValidation,
   validators
 }
