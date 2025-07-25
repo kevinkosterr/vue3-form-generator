@@ -32,6 +32,8 @@ import {
 
 import FormGenerator from '@/FormGenerator.vue'
 import FormGeneratorFields from '@/fields'
+import FormLabel from '@/components/FormLabel.vue'
+
 import validators from '@/validators'
 
 const VueFormGenerator = {
@@ -65,6 +67,7 @@ export {
   useFieldValidate,
   useLabelIcon,
   useValidation,
+  FormLabel,
   validators
 }
 
