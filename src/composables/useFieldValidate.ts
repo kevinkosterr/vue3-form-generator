@@ -1,32 +1,14 @@
 import { ref, Ref, computed, ComputedRef } from 'vue'
 import { getMessage } from '@/validators/messages'
-import { isFunction, isString, toUniqueArray } from '@/helpers'
+import { isFunction, toUniqueArray, getValidator } from '@/helpers'
 import { TValidatorFunction } from '@/resources/types/functions'
-import { ValidatorMap } from '@/resources/types/generic'
 import type { FormModel } from '@/resources/types/fieldAttributes'
 import type { Field } from '@/resources/types/field/fields'
 import validators from '@/validators'
 
 /**
- * Get the corresponding validator function for a given string, or function. If a function is passed, the function is
- * assumed to be the validator to use and thus return. If no argument is passed, we'll just return a function that
- * will always return true, thus assuming the value is always valid.
- * @param validator
+ * @deprecated will be removed in 3.0.0, use `useValidation` instead.
  */
-function getValidator (validator: string | TValidatorFunction | undefined): TValidatorFunction {
-  if (validator === undefined) return (): boolean => true
-
-  if (isFunction(validator)) return <TValidatorFunction>validator
-
-  if (isString(validator)) {
-    if ((validators as ValidatorMap)[<string>validator] === undefined) {
-      throw new Error('Invalid validator: ' + validator)
-    }
-    return (validators as ValidatorMap)[<string>validator]
-  }
-  return (): boolean => true
-}
-
 export function useFieldValidate (
   model: FormModel,
   field: Field,

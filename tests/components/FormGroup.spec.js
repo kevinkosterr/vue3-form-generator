@@ -4,7 +4,7 @@ import FieldText from '@/fields/core/FieldText.vue'
 import FormGroup from '@/FormGroup.vue'
 import { generateSchemaSingleField } from '@test/_resources/utils.js'
 
-const mountFormGroup = (props) => mount(FormGroup, { props })
+const mountFormGroup = (props, extras = {}) => mount(FormGroup, { props, ...extras })
 
 beforeAll(() => {
   config.global.components = { FieldText }
@@ -38,6 +38,41 @@ describe('FormGroup', () => {
     const textField = wrapper.findComponent(FieldText)
     expect(textField.exists()).toBeTruthy()
     expect(wrapper.vm.fieldStyle).toHaveProperty('display', 'none')
+  })
+
+  it('Should render label icon as string', async () => {
+    const localField = { ...field, labelIcon: 'mdi mdi-account' }
+    const wrapper = mountFormGroup({ field: localField, model })
+    const labelIcon = wrapper.find('label i')
+    expect(labelIcon.exists()).toBeTruthy()
+    expect(labelIcon.attributes().class).toContain('mdi-account')
+    expect(labelIcon.attributes().class).toContain('label-icon')
+  })
+
+  it('Should render label icon as component', async () => {
+    const AccountIconMock = {
+      name: 'MockIconComponent',
+      template: '<i class="mdi mdi-account"></i>'
+    }
+
+    const localField = { ...field, labelIcon: AccountIconMock }
+    const wrapper = mountFormGroup(
+      { field: localField, model },
+      { global: { components: { AccountIconMock } } }
+    )
+    const labelIcon = wrapper.findComponent(AccountIconMock)
+    expect(labelIcon.exists()).toBeTruthy()
+    expect(labelIcon.attributes().class).toContain('mdi-account')
+    expect(labelIcon.attributes().class).toContain('label-icon')
+  })
+
+  it('Should render label icon as object', async () => {
+    const localField = { ...field, labelIcon: { icon: 'mdi mdi-account', position: 'left' } }
+    const wrapper = mountFormGroup(
+      { field: localField, model }
+    )
+    const labelIcon = wrapper.find('label i')
+    expect(labelIcon.exists()).toBeTruthy()
   })
 
   it('Should not render label when field schema or component tells it not to render', async () => {

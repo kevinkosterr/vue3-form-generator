@@ -1,8 +1,12 @@
 <template>
   <div class="form-group" :style="fieldStyle">
-    <label v-if="shouldHaveLabel" :for="fieldId">
-      <span> {{ props.field.label }}</span>
-    </label>
+    <FormLabel
+      v-if="shouldHaveLabel"
+      :label="props.field.label"
+      :field-id="fieldId"
+      :label-icon="labelIcon"
+      :label-icon-position="labelIconPosition"
+    />
 
     <div class="field-wrap">
       <component
@@ -35,6 +39,9 @@ import type { FieldComponent, FormGroupProps } from '@/resources/types/generic'
 import type { Field } from '@/resources/types/field/fields'
 import { computed, useTemplateRef } from 'vue'
 import { getFieldComponentName } from '@/helpers'
+import { useLabelIcon } from '@/composables/useLabelIcon'
+
+import FormLabel from '@/components/FormLabel.vue'
 
 const fieldComponent = useTemplateRef('fieldComponent') as Readonly<ShallowRef<FieldComponent | undefined>>
 
@@ -43,6 +50,8 @@ const props = withDefaults(defineProps<FormGroupProps>(), {
   errors: () => []
 })
 const emit = defineEmits([ 'value-updated', 'validated' ])
+
+const { labelIcon, labelIconPosition } = useLabelIcon(props.field.labelIcon)
 
 function onInput (value: any) {
   emit('value-updated', { model: props.field.model, value })

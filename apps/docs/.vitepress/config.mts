@@ -1,5 +1,6 @@
 import { defineConfig } from 'vitepress'
 import { groupIconMdPlugin, groupIconVitePlugin } from 'vitepress-plugin-group-icons'
+import { tabsMarkdownPlugin } from 'vitepress-plugin-tabs'
 import path from 'path'
 
 // https://vitepress.dev/reference/site-config
@@ -11,6 +12,7 @@ export default defineConfig({
   markdown: {
     config(md) {
       md.use(groupIconMdPlugin)
+      md.use(tabsMarkdownPlugin)
     }
   },
   themeConfig: {
@@ -35,13 +37,21 @@ export default defineConfig({
         ]
       },
       {
+        text: 'Components',
+        items: [
+          { text: 'FormLabel', link: '/guide/components/FormLabel' },
+        ]
+      },
+      {
         text: 'Composables',
         items: [
           { text: 'useFieldAttributes', link: '/guide/composables/useFieldAttributes' },
           { text: 'useFieldEmits', link: '/guide/composables/useFieldEmits' },
           { text: 'useFieldProps', link: '/guide/composables/useFieldProps' },
           { text: 'useFieldValidate', link: '/guide/composables/useFieldValidate' },
-          { text: 'useFormModel', link: '/guide/composables/useFormModel' }
+          { text: 'useFormModel', link: '/guide/composables/useFormModel' },
+          { text: 'useLabelIcon', link: '/guide/composables/useLabelIcon' },
+          { text: 'useValidation', link: '/guide/composables/useValidation' }
         ]
       },
       {

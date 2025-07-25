@@ -51,7 +51,9 @@ const props = withDefaults(defineProps<FormGeneratorProps>(), {
   enctype: 'application/x-www-form-urlencoded',
   id: '',
   idPrefix: '', // Kept for compatibility reasons.
-  options: () => ({})
+  options: () => ({
+    validate: 'onBlur' // Always validate onBlur by default.
+  })
 })
 
 type FormGroupInstance = ComponentPublicInstance<InstanceType<typeof FormGroup>>

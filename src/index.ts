@@ -1,5 +1,22 @@
 import { App } from 'vue'
-import { FieldPluginOptions, PluginOptions } from '@/resources/types/generic'
+import type { FieldPluginOptions, PluginOptions } from '@/resources/types/generic'
+import type { FieldProps, FieldPropRefs, FieldEmits } from '@/resources/types/field/fields'
+import type { FieldBase } from '@/resources/types/field/base'
+import type { FieldOption, FormModel } from '@/resources/types/fieldAttributes'
+import type {
+  TDynamicAttributeBooleanFunction,
+  TDynamicAttributeStringFunction,
+  TValidatorFunction,
+  TOnValidatedFunction
+} from '@/resources/types/functions'
+import type {
+  ValidationTrigger,
+  FormGeneratorSchema,
+  FieldExposedValues,
+  FieldComponent,
+  FormOptions,
+  FieldValidation
+} from '@/resources/types/generic'
 
 import { setMessages } from '@/validators/messages'
 import { isObject } from '@/helpers'
@@ -7,12 +24,16 @@ import {
   useFieldValidate,
   useFormModel,
   useFieldAttributes,
+  useValidation,
   useFieldEmits,
-  useFieldProps
+  useFieldProps,
+  useLabelIcon
 } from '@/composables'
 
 import FormGenerator from '@/FormGenerator.vue'
 import FormGeneratorFields from '@/fields'
+import FormLabel from '@/components/FormLabel.vue'
+
 import validators from '@/validators'
 
 const VueFormGenerator = {
@@ -44,5 +65,29 @@ export {
   useFieldEmits,
   useFieldAttributes,
   useFieldValidate,
+  useLabelIcon,
+  useValidation,
+  FormLabel,
   validators
+}
+
+export type {
+  FieldProps,
+  FieldEmits,
+  FieldPropRefs,
+  FieldPluginOptions,
+  PluginOptions,
+  FieldBase,
+  FieldOption,
+  FormModel,
+  TDynamicAttributeBooleanFunction,
+  TDynamicAttributeStringFunction,
+  TValidatorFunction,
+  TOnValidatedFunction,
+  ValidationTrigger,
+  FormGeneratorSchema,
+  FieldExposedValues,
+  FieldComponent,
+  FormOptions,
+  FieldValidation
 }

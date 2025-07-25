@@ -55,4 +55,20 @@ describe('FieldTextarea', () => {
     expect(formWrapper.vm.model.textModel).toBe('I have the high ground')
   })
 
+  it('Should validate onBlur, by default', async () => {
+    const formWrapper = mountFormGenerator(form.schema, form.model)
+    const textAreaField = formWrapper.findComponent(FieldTextarea)
+    await textAreaField.find('textarea').trigger('blur')
+    expect(textAreaField.emitted()).toHaveProperty('validated')
+  })
+
+  it('Should validate onChanged, if set', async () => {
+    const schema = { ...form.schema }
+    schema.fields[0].validate = 'onChanged'
+    const formWrapper = mountFormGenerator(schema, form.model)
+    const textAreaField = formWrapper.findComponent(FieldTextarea)
+    await textAreaField.find('textarea').setValue('Hello!')
+    expect(textAreaField.emitted()).toHaveProperty('validated')
+  })
+
 })

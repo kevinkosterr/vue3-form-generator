@@ -1,8 +1,11 @@
 ---
 outline: [2,3]
 ---
-# useFieldValidate <Badge type="tip" text="2.0.0+"/>
-> Used to validate a field against validators defined in a fields schema
+# useFieldValidate <Badge type="tip" text="2.0.0+"/> <Badge type="warning" text="deprecated"/>
+> Used to validate a field against validators defined in a field's schema
+::: warning
+This composable is deprecated, please use [`useValidation`](/guide/composables/useValidation) instead
+:::
 
 ## Usage
 ```vue

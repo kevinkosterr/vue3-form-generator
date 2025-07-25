@@ -1,4 +1,4 @@
-import { generateSchemaSingleField, generatePropsSingleField, mountFormGenerator } from '@test/_resources/utils.js'
+import { generateSchemaSingleField, generatePropsSingleField, mountFormGenerator, clearEmittedEvents } from '@test/_resources/utils.js'
 import { mount, config } from '@vue/test-utils'
 import { describe, it, expect } from 'vitest'
 
@@ -58,6 +58,24 @@ describe('FieldText', () => {
     expect(textField.exists()).toBeTruthy()
     await textField.find('input').setValue('I have the high ground')
     expect(formWrapper.vm.model.modelText).toBe('I have the high ground')
+  })
+
+  it('Should validate onBlur, by default', async () => {
+    const formWrapper = mountFormGenerator(form.schema, form.model)
+    const textField = formWrapper.findComponent(FieldText)
+    await textField.find('input').trigger('blur')
+    expect(textField.emitted()).toHaveProperty('validated')
+  })
+
+  it('Should validate onChanged, if set', async () => {
+    const schema = { ...form.schema }
+    schema.fields[0].validate = 'onChanged'
+    schema.fields[0].validator = (v) => v === 'Hello there!'
+    const formWrapper = mountFormGenerator(schema, form.model)
+    const textField = formWrapper.findComponent(FieldText)
+    clearEmittedEvents(textField)
+    await textField.find('input').setValue('Hello there!')
+    expect(textField.emitted()).toHaveProperty('validated')
   })
 
 })
