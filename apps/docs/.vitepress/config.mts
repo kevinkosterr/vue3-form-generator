@@ -44,6 +44,7 @@ export default defineConfig({
           { text: 'useFieldProps', link: '/guide/composables/useFieldProps' },
           { text: 'useFieldValidate', link: '/guide/composables/useFieldValidate' },
           { text: 'useFormModel', link: '/guide/composables/useFormModel' },
+          { text: 'useLabelIcon', link: '/guide/composables/useLabelIcon' },
           { text: 'useValidation', link: '/guide/composables/useValidation' }
         ]
       },

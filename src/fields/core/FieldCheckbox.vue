@@ -9,29 +9,42 @@
     :checked="currentModelValue"
     @change="onFieldValueChanged"
   >
-  <label v-if="field.label" style="margin-left: .4em" :for="props.id"> {{ field.label }}</label>
+  <FormLabel
+    v-if="field.label"
+    style="margin-left: .4em"
+    :field-id="props.id"
+    :label-icon-position="labelIconPosition"
+    :label-icon="labelIcon"
+    :label="field.label"
+  />
 </template>
 
 <script setup lang="ts">
 import { toRefs } from 'vue'
-import type { CheckboxField, FieldPropRefs, FieldProps } from '@/resources/types/field/fields'
+import type { CheckboxField, FieldPropRefs, FieldProps, FieldEmits } from '@/resources/types/field/fields'
 import {
   useFormModel,
   useFieldAttributes,
-  useFieldValidate,
-  useFieldEmits
+  useValidation
 } from '@/composables'
+import { useLabelIcon } from '@/composables/useLabelIcon'
 
-const emits = defineEmits(useFieldEmits())
+import FormLabel from '@/components/FormLabel.vue'
+
+const emits = defineEmits<FieldEmits>()
 const props = defineProps<FieldProps<CheckboxField>>()
 
 const { field, model }: FieldPropRefs<CheckboxField> = toRefs(props)
+const { labelIcon, labelIconPosition } = useLabelIcon(field.value.labelIcon)
 
 const { currentModelValue } = useFormModel(model.value, field.value)
 const { isRequired, isDisabled, isVisible, hint } = useFieldAttributes(model.value, field.value)
-const { errors, validate } = useFieldValidate(
+const { errors, onChanged } = useValidation(
   model.value,
   field.value,
+  currentModelValue,
+  props.formOptions,
+  emits,
   isDisabled.value,
   isRequired.value,
   false
@@ -40,14 +53,8 @@ const { errors, validate } = useFieldValidate(
 const onFieldValueChanged = (event: Event) => {
   const target = event.target as HTMLInputElement
   errors.value = []
-  validate(currentModelValue.value).then((validationErrors) => {
-    emits('validated',
-      validationErrors.length === 0,
-      validationErrors,
-      field.value
-    )
-  })
   emits('onInput', target.checked)
+  onChanged()
 }
 
 defineExpose({ hint, noLabel: true, errors, isVisible })

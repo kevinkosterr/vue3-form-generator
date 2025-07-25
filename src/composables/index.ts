@@ -5,6 +5,7 @@ import { useFieldProps } from '@/composables/useFieldProps'
 import { useFieldEmits } from '@/composables/useFieldEmits'
 import { useValidationWrapper } from '@/composables/useValidationWrapper'
 import { useValidation } from '@/composables/useValidation'
+import { useLabelIcon } from '@/composables/useLabelIcon'
 
 export {
   useFormModel,
@@ -13,5 +14,6 @@ export {
   useFieldProps,
   useFieldEmits,
   useValidationWrapper,
-  useValidation
+  useValidation,
+  useLabelIcon
 }
