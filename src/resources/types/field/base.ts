@@ -4,8 +4,14 @@ import type {
   TOnValidatedFunction,
   TValidatorFunction
 } from '@/resources/types/functions'
+import type { ComponentPublicInstance } from 'vue'
 import type { FieldOption } from '@/resources/types/fieldAttributes'
 import type { ValidationTrigger } from '@/resources/types/generic'
+
+export type LabelIconDefinition = {
+  icon: string | ComponentPublicInstance;
+  position: 'left' | 'right';
+}
 
 /**
  * The base of every field type.
@@ -15,6 +21,7 @@ export type FieldBase = {
   name: string;
   model: string;
   label?: string;
+  labelIcon?: string | ComponentPublicInstance | LabelIconDefinition;
   type: string;
   visible?: boolean | TDynamicAttributeBooleanFunction;
   required?: boolean | TDynamicAttributeBooleanFunction;
