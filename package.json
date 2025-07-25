@@ -32,15 +32,7 @@
     ],
     "tagFormat": "${version}",
     "plugins": [
-      ["@semantic-release/commit-analyzer", {
-        "preset": "angular",
-        "releaseRules": [
-          {
-            "message": "*DEPRECATED*",
-            "release": "patch"
-          }
-        ]
-      }],
+      "@semantic-release/commit-analyzer",
       "@semantic-release/release-notes-generator",
       "@semantic-release/npm",
       "@semantic-release/github"
