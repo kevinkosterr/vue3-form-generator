@@ -24,6 +24,7 @@ import {
   useFieldValidate,
   useFormModel,
   useFieldAttributes,
+  useValidation,
   useFieldEmits,
   useFieldProps
 } from '@/composables'
@@ -61,6 +62,7 @@ export {
   useFieldEmits,
   useFieldAttributes,
   useFieldValidate,
+  useValidation,
   validators
 }
 
