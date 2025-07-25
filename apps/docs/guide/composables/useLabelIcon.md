@@ -1,7 +1,7 @@
 ---
 outline: [2,3]
 ---
-# useLabelIcon <Badge type="tip" text="2.7.0+" />
+# useLabelIcon <Badge type="tip" text=">=2.7.0" />
 > Determines which icon to display and the position to display it in
 
 ## Usage
