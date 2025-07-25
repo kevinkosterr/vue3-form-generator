@@ -37,6 +37,12 @@ export default defineConfig({
         ]
       },
       {
+        text: 'Components',
+        items: [
+          { text: 'FormLabel', link: '/guide/components/FormLabel' },
+        ]
+      },
+      {
         text: 'Composables',
         items: [
           { text: 'useFieldAttributes', link: '/guide/composables/useFieldAttributes' },
