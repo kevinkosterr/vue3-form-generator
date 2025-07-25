@@ -13,6 +13,18 @@ const { labelIcon, labelIconPosition } = useLabelIcon(props.field.labelIcon)
 </script>
 ```
 
+## Arguments
+### `iconDefinition` <Badge type="info" text="string | ComponentPublicInstance | LabelIconDefinition" />
+::: details LabelIconDefinition type
+```ts
+type LabelIconDefinition = {
+  icon: string | ComponentPublicInstance;
+  position: 'left' | 'right';
+}
+```
+:::
+Either a string webfont class, a component or `LabelIconDefinition`.
+
 ## Returns
 
 ### `labelIcon` <Badge type="info" text="ComputedRef<string | ComponentPublicInstance | null>" />
