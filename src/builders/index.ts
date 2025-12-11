@@ -3,6 +3,7 @@ import { SchemaBuilder } from '@/builders/schema'
 import { BaseFieldBuilder } from '@/builders/base'
 
 import TextFieldBuilder from '@/builders/fields/TextFieldBuilder'
+import CheckboxFieldBuilder from '@/builders/fields/CheckboxFieldBuilder'
 
 import type { FormModel } from '@/resources/types/fieldAttributes'
 
@@ -89,16 +90,24 @@ export const f = {
    */
   schema,
   /**
-   *
-   *
    * @example
    *  // As builder
-   *  f.text('modelKey').placeholder('Field placeholder')
+   *  f.text('fieldName', 'modelKey').placeholder('Field placeholder')
    *  // As JSON
-   *  f.text('modelKey').placeholder('Field placeholder').build()
+   *  f.text('fieldName', 'modelKey').placeholder('Field placeholder').build()
+   * @param name
    * @param model
    * @returns A text field builder instance.
    */
-  text: (model: string): TextFieldBuilder => new TextFieldBuilder(model)
+  text: (name: string, model: string): TextFieldBuilder => new TextFieldBuilder(name, model),
+  /**
+   * @example
+   *  // As builder
+   *  f.checkbox('fieldName', 'modelKey').label('Checkbox label')
+   * @param name
+   * @param model
+   * @returns A checkbox field builder instance.
+   */
+  checkbox: (name: string, model: string): CheckboxFieldBuilder => new CheckboxFieldBuilder(name, model)
 }
 

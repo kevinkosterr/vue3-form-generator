@@ -3,8 +3,6 @@ import type { FieldBase } from '@/resources/types/field/base'
 
 export interface IBaseBuilder<T extends Field = Field> {
   __data__ (): Partial<T>
-  name (value: string): this
-  model(value: string): this
   extend (properties: Record<string, any>): this
   build (): T
 }
@@ -16,9 +14,10 @@ export abstract class BaseBuilder<T extends Field = Field> implements IBaseBuild
 
   protected data: Partial<T> = {}
 
-  protected constructor (type: string, model: string) {
-    this.data.type = type
-    this.data.model = model
+  protected constructor (type: string, name: string, model: string) {
+    this.data = {
+      type, name, model
+    } as Partial<T>
   }
 
   __data__ (): Partial<T> { return this.data }
@@ -31,24 +30,6 @@ export abstract class BaseBuilder<T extends Field = Field> implements IBaseBuild
    */
   protected getRequiredKeys (): (keyof T)[] {
     return [ 'type', 'model' ] as (keyof T)[]
-  }
-
-  /**
-   * Set `name` property of the field.
-   * @param value
-   */
-  name (value: string): this {
-    this.data.name = value
-    return this
-  }
-
-  /**
-   * Set `model` property of the field.
-   * @param value
-   */
-  model(value: string): this {
-    this.data.model = value
-    return this
   }
 
   /**

@@ -4,13 +4,13 @@ import { FieldBase } from '@/resources/types/field/base'
 
 type TestField = FieldBase & { [key: string]: any }
 class TestBaseBuilder extends BaseBuilder<TestField> {
-  constructor(model: string) {
-    super('test', model)
+  constructor(name: string, model: string) {
+    super('test', name, model)
   }
 }
 
 function getBuilder () {
-  return new TestBaseBuilder('testName')
+  return new TestBaseBuilder('testName', 'testModel')
 }
 
 describe('BaseBuilder', () => {
@@ -35,12 +35,10 @@ describe('BaseBuilder', () => {
 
     it('Should contain all properties as set by the builder', () => {
       const field = getBuilder()
-        .name('name')
-        .model('model')
         .build()
 
-      expect(field.name).toBe('name')
-      expect(field.model).toBe('model')
+      expect(field.name).toBe('testName')
+      expect(field.model).toBe('testModel')
     })
 
     it('Should return regular JSON object', () => {

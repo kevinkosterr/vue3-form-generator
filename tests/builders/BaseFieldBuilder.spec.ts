@@ -9,9 +9,8 @@ type TestField = FieldBase & {
 }
 
 class TestBaseFieldBuilder extends BaseFieldBuilder<TestField> {
-  constructor(model: string, name?: string) {
-    super('test', model)
-    if (name) this.name(name)
+  constructor(name: string, model: string) {
+    super('test', name, model)
   }
 
   testKey (value: string): this {
@@ -27,7 +26,7 @@ class TestBaseFieldBuilder extends BaseFieldBuilder<TestField> {
 }
 
 function testField (name: string, model: string): TestBaseFieldBuilder {
-  return new TestBaseFieldBuilder(model, name)
+  return new TestBaseFieldBuilder(name, model)
 }
 
 function getBuilder (): TestBaseFieldBuilder {
@@ -45,25 +44,6 @@ describe('BaseFieldBuilder', () => {
       expect(field.name).toBe('testField')
       expect(field.testKey).toBe('test')
       expect(field.model).toBe('testModel')
-    })
-
-    it('Should initialize without name and model', () => {
-      const builder = new TestBaseFieldBuilder('testName').testKey('test')
-      expect(builder.__data__().type).toBeDefined()
-      expect(builder.__data__().name).toBeUndefined()
-
-      builder.name('testField').model('testModel')
-      expect(builder.__data__().name).toBe('testField')
-      expect(builder.__data__().model).toBe('testModel')
-      expect(() => {
-        builder.build()
-      }).not.toThrowError()
-    })
-
-    it('Should not initialize without model', () => {
-      expect(() => {
-        new TestBaseFieldBuilder().build()
-      }).toThrowError()
     })
 
     it('Should initialize data as partial object', () => {
