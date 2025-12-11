@@ -4,6 +4,7 @@ import { BaseFieldBuilder } from '@/builders/base'
 
 import TextFieldBuilder from '@/builders/fields/TextFieldBuilder'
 import CheckboxFieldBuilder from '@/builders/fields/CheckboxFieldBuilder'
+import ChecklistFieldBuilder from '@/builders/fields/ChecklistFieldBuilder'
 
 import type { FormModel } from '@/resources/types/fieldAttributes'
 
@@ -90,6 +91,8 @@ export const f = {
    */
   schema,
   /**
+   * Create a text field builder instance.
+   *
    * @example
    *  // As builder
    *  f.text('fieldName', 'modelKey').placeholder('Field placeholder')
@@ -101,6 +104,7 @@ export const f = {
    */
   text: (name: string, model: string): TextFieldBuilder => new TextFieldBuilder(name, model),
   /**
+   * Create a checkbox field builder instance.
    * @example
    *  // As builder
    *  f.checkbox('fieldName', 'modelKey').label('Checkbox label')
@@ -108,6 +112,21 @@ export const f = {
    * @param model
    * @returns A checkbox field builder instance.
    */
-  checkbox: (name: string, model: string): CheckboxFieldBuilder => new CheckboxFieldBuilder(name, model)
+  checkbox: (name: string, model: string): CheckboxFieldBuilder => new CheckboxFieldBuilder(name, model),
+  /**
+   * Create a checklist field builder instance.
+   * @example
+   *  // As builder
+   *  f.checklist('fieldName', 'modelKey').options([
+   *    { name: 'All', value: 'all' },
+   *    { name: 'Supervisor', value: 'supervisor' }
+   *  ])
+   *  // Or...
+   *  f.checklist('fieldName', 'modelKey').option('All', 'all').option('Supervisor', 'supervisor')
+   * @param name
+   * @param model
+   * @returns A checkbox field builder instance.
+   */
+  checklist: (name: string, model: string): ChecklistFieldBuilder => new ChecklistFieldBuilder(name, model)
 }
 

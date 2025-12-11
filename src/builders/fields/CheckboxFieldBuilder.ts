@@ -1,10 +1,11 @@
-import { BaseFieldBuilder } from '@/builders/base'
 import type { CheckboxField } from '@/resources/types/field/fields'
+import BaseInputBuilder from '@/builders/base/BaseInput'
 
-export default class CheckboxFieldBuilder extends BaseFieldBuilder<CheckboxField> {
+export default class CheckboxFieldBuilder extends BaseInputBuilder<CheckboxField> {
 
   constructor(name: string, model: string) {
-    super('checkbox', name, model)
+    super(name, model)
+    this.data.inputType = 'checkbox'
   }
 
 }

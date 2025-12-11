@@ -1,5 +1,6 @@
-import { BaseFieldBuilder, IBaseFieldBuilder } from '@/builders/base'
+import { IBaseFieldBuilder } from '@/builders/base'
 import type { TextField } from '@/resources/types/field/fields'
+import BaseInputBuilder from '@/builders/base/BaseInput'
 
 export interface ITextFieldBuilder extends IBaseFieldBuilder<TextField> {
   placeholder (value: string): this
@@ -9,10 +10,10 @@ export interface ITextFieldBuilder extends IBaseFieldBuilder<TextField> {
 /**
  * Field builder for the text field.
  */
-export default class TextFieldBuilder extends BaseFieldBuilder<TextField> implements ITextFieldBuilder {
+export default class TextFieldBuilder extends BaseInputBuilder<TextField> implements ITextFieldBuilder {
 
   constructor(name: string, model: string) {
-    super('input', name, model)
+    super(name, model)
     this.data.inputType = 'text'
   }
 
@@ -34,10 +35,5 @@ export default class TextFieldBuilder extends BaseFieldBuilder<TextField> implem
     this.data.autocomplete = value
     return this
   }
-
-  protected getRequiredKeys(): (keyof TextField)[] {
-    return [ ...super.getRequiredKeys(), 'inputType' ]
-  }
-
 
 }

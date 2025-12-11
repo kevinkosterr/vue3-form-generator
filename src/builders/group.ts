@@ -1,14 +1,17 @@
 import { BaseFieldBuilder } from '@/builders/base'
 import { FormGeneratorGroup } from '@/resources/types/generic'
 
+export interface IGroupBuilder {
+  build (): FormGeneratorGroup
+}
 
-export class GroupBuilder {
+export default class GroupBuilder implements IGroupBuilder {
   protected legend?: string = undefined
-  protected fields: BaseFieldBuilder[] = []
+  protected fields: BaseFieldBuilder<any>[] = []
 
-  constructor(fields: BaseFieldBuilder[], legend?: string) {
+  constructor(fields: BaseFieldBuilder<any>[], legend?: string) {
     this.fields = fields
-    this.legend = legend
+    if (this.legend) this.legend = legend
   }
 
   build (): FormGeneratorGroup {
