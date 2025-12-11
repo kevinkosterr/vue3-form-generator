@@ -13,11 +13,11 @@
 </template>
 
 <script setup lang="ts">
-import { ComponentPublicInstance } from 'vue'
+import type { Component } from 'vue'
 import { LabelIconDefinition } from '@/resources/types/field/base'
 
 const props = defineProps<{
-  labelIcon: string | ComponentPublicInstance | null,
+  labelIcon: string | Component | null,
   labelIconPosition?: LabelIconDefinition['position'] | null,
   label?: string,
   fieldId: string
