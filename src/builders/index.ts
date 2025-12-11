@@ -99,6 +99,6 @@ export const f = {
    * @param model
    * @returns A text field builder instance.
    */
-  text: (model?: string): TextFieldBuilder => new TextFieldBuilder(model)
+  text: (model: string): TextFieldBuilder => new TextFieldBuilder(model)
 }
 
