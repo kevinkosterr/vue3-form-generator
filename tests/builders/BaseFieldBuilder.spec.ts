@@ -1,7 +1,7 @@
 import { describe, it, expect } from 'vitest'
 import { BaseFieldBuilder } from '@/builders/base'
 import type { FieldBase } from '@/resources/types/field/base'
-import FieldButton from '@/fields/core/FieldButton.vue'
+import FieldButton from '@/fields/FieldButton.vue'
 
 type TestField = FieldBase & {
   type: 'test',

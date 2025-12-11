@@ -6,10 +6,13 @@ export interface ITextFieldBuilder extends IBaseFieldBuilder<TextField> {
   autoComplete (value?: boolean): this
 }
 
+/**
+ * Field builder for the text field.
+ */
 export default class TextFieldBuilder extends BaseFieldBuilder<TextField> implements ITextFieldBuilder {
 
-  constructor(name: string, model?: string) {
-    super('input', name, model)
+  constructor(model: string) {
+    super('input', model)
     this.data.inputType = 'text'
   }
 
