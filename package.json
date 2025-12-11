@@ -13,7 +13,7 @@
     "test": "vitest",
     "test:ui": "vitest --ui",
     "lint": "eslint",
-    "build": "vite build && sass src/scss/themes/:dist/themes/",
+    "build": "tsc --noEmit && vite build && sass src/scss/themes/:dist/themes/",
     "preview": "vite preview",
     "docs:dev": "vitepress dev apps/docs",
     "docs:build": "vitepress build apps/docs",
