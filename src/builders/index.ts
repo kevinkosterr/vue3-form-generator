@@ -1,4 +1,4 @@
-import { GroupBuilder } from '@/builders/group'
+import GroupBuilder from '@/builders/group'
 import { SchemaBuilder } from '@/builders/schema'
 import { BaseFieldBuilder } from '@/builders/base'
 

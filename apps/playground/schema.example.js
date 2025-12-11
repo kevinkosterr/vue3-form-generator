@@ -1,40 +1,12 @@
-export default {
-  form: {
-    model: {
-      name: '',
-      surname: '',
-      terms: false
-    },
-    schema: {
-      fields: [
-        {
-          name: 'name',
-          label: 'Name',
-          type: 'input',
-          inputType: 'text',
-          model: 'name',
-          placeholder: 'Write name...',
-          readonly: false,
-          required: true
-        },
-        {
-          name: 'surname',
-          label: 'Surname',
-          type: 'input',
-          inputType: 'text',
-          model: 'surname',
-          placeholder: 'Write surname...',
-          readonly: false,
-          required: true
-        },
-        {
-          name: 'terms',
-          label: 'Accept terms and conditions',
-          type: 'input',
-          inputType: 'checkbox',
-          model: 'terms'
-        }
-      ]
-    }
-  }
-}
+import { f } from '@/index.ts'
+
+export default f.schema(
+  {
+    name: '',
+    surname: '',
+    terms: false
+  },
+  f.text('Name', 'name').label('Name').placeholder('Write name....').readonly(false).required(),
+  f.text('Surname', 'surname').label('Surname').placeholder('Write surname....').required(),
+  f.checkbox('Terms', 'terms').label('I accept terms and conditions')
+).toRef()

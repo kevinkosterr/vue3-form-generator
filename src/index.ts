@@ -71,6 +71,8 @@ export {
   validators
 }
 
+export { f } from '@/builders/index'
+
 export type {
   FieldProps,
   FieldEmits,
