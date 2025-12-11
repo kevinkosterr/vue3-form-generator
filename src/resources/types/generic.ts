@@ -24,14 +24,16 @@ export type FieldPluginOptions = {
   excludedComponents?: PluginOptions['excludedComponents'];
 }
 
+export type FormGeneratorGroup = {
+  legend?: string;
+  fields: Field[];
+}
+
 export type FormGeneratorSchema = {
   model: FormModel;
   schema: {
     fields?: Field[];
-    groups?: {
-      legend: string;
-      fields: Field[];
-    }[]
+    groups?: FormGeneratorGroup[];
   },
 }
 
