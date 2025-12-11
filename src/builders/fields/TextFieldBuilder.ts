@@ -8,7 +8,7 @@ export interface ITextFieldBuilder extends IBaseFieldBuilder<TextField> {
 
 export default class TextFieldBuilder extends BaseFieldBuilder<TextField> implements ITextFieldBuilder {
 
-  constructor(name: string, model: string) {
+  constructor(name: string, model?: string) {
     super('input', name, model)
     this.data.inputType = 'text'
   }

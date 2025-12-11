@@ -89,14 +89,16 @@ export const f = {
    */
   schema,
   /**
+   *
+   *
    * @example
    *  // As builder
-   *  f.text('fieldName', 'fieldModelKey').placeholder('Field placeholder')
+   *  f.text('modelKey').placeholder('Field placeholder')
    *  // As JSON
-   *  f.text('fieldName', 'fieldModelKey').placeholder('Field placeholder').build()
-   * @param name
+   *  f.text('modelKey').placeholder('Field placeholder').build()
    * @param model
+   * @returns A text field builder instance.
    */
-  text: (name: string, model: string): TextFieldBuilder => new TextFieldBuilder(name, model)
+  text: (model?: string): TextFieldBuilder => new TextFieldBuilder(model)
 }
 

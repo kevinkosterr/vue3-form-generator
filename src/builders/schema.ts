@@ -1,6 +1,7 @@
 import { BaseFieldBuilder } from '@/builders/base'
 import { FormGeneratorSchema } from '@/resources/types/generic'
 import { GroupBuilder } from '@/builders/group'
+import { type Ref, ref } from 'vue'
 
 /**
  * Form schema builder
@@ -17,6 +18,10 @@ export class SchemaBuilder {
     this.model = model
     this.fields = fields
     this.groups = groups
+  }
+
+  toRef (): Ref<FormGeneratorSchema> {
+    return ref(this.build())
   }
 
   build (): FormGeneratorSchema {

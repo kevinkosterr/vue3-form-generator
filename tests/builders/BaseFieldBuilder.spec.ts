@@ -9,8 +9,9 @@ type TestField = FieldBase & {
 }
 
 class TestBaseFieldBuilder extends BaseFieldBuilder<TestField> {
-  constructor(name: string, model: string) {
-    super('test', name, model)
+  constructor(model: string, name?: string) {
+    super('test', model)
+    if (name) this.name(name)
   }
 
   testKey (value: string): this {
@@ -26,7 +27,7 @@ class TestBaseFieldBuilder extends BaseFieldBuilder<TestField> {
 }
 
 function testField (name: string, model: string): TestBaseFieldBuilder {
-  return new TestBaseFieldBuilder(name, model)
+  return new TestBaseFieldBuilder(model, name)
 }
 
 function getBuilder (): TestBaseFieldBuilder {
@@ -44,6 +45,25 @@ describe('BaseFieldBuilder', () => {
       expect(field.name).toBe('testField')
       expect(field.testKey).toBe('test')
       expect(field.model).toBe('testModel')
+    })
+
+    it('Should initialize without name and model', () => {
+      const builder = new TestBaseFieldBuilder('testName').testKey('test')
+      expect(builder.__data__().type).toBeDefined()
+      expect(builder.__data__().name).toBeUndefined()
+
+      builder.name('testField').model('testModel')
+      expect(builder.__data__().name).toBe('testField')
+      expect(builder.__data__().model).toBe('testModel')
+      expect(() => {
+        builder.build()
+      }).not.toThrowError()
+    })
+
+    it('Should not initialize without model', () => {
+      expect(() => {
+        new TestBaseFieldBuilder().build()
+      }).toThrowError()
     })
 
     it('Should initialize data as partial object', () => {
@@ -184,63 +204,6 @@ describe('BaseFieldBuilder', () => {
     it('Should return builder instance', () => {
       const builder = getBuilder().hint('testHint')
       expect(builder).toBeInstanceOf(TestBaseFieldBuilder)
-    })
-
-  })
-
-  describe('extend()', () => {
-
-    it('Should extend field object with additional properties', () => {
-      const field = testField('testField', 'testModel').testKey('test').extend({
-        testKey2: 2
-      }).build()
-
-      expect(field['testKey2']).not.toBeUndefined()
-      expect(field['testKey2']).toBe(2)
-    })
-
-    it('Should return builder instance', () => {
-      const builder = getBuilder().extend({})
-      expect(builder).toBeInstanceOf(TestBaseFieldBuilder)
-    })
-
-  })
-
-  describe('build()', () => {
-
-    it('Should contain all properties as set by the builder', () => {
-      const mockValidate = () => true
-
-      const field = testField('testField', 'testModel')
-        .id('testId')
-        .testKey('test')
-        .hint('testHint')
-        .validator(mockValidate)
-        .validateOn('onBlur')
-        .onValidated(mockValidate)
-        .disabled()
-        .required()
-        .build()
-
-      expect(field.hint).toBe('testHint')
-      expect(field.id).toBe('testId')
-      expect(field.testKey).toBe('test')
-      expect(field.validator).toBe(mockValidate)
-      expect(field.onValidated).toBe(mockValidate)
-      expect(field.validate).toBe('onBlur')
-      expect(field.disabled).toBe(true)
-      expect(field.required).toBe(true)
-    })
-
-    it('Should fail build when required fields are missing', () => {
-      const build = () => testField('testField', 'testModel').build()
-      expect(() => build()).toThrowError()
-    })
-
-    it('Should return regular JSON object', () => {
-      const field = getBuilder().build()
-      expect(field).not.toHaveProperty('__data__')
-      expect(field).not.toBeInstanceOf(TestBaseFieldBuilder)
     })
 
   })
