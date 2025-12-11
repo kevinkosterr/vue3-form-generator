@@ -12,6 +12,7 @@
     "dev:sass": "sass --watch src/scss/themes:apps/playground/css/",
     "test": "vitest",
     "test:ui": "vitest --ui",
+    "lint": "eslint",
     "build": "vite build && sass src/scss/themes/:dist/themes/",
     "preview": "vite preview",
     "docs:dev": "vitepress dev apps/docs",
