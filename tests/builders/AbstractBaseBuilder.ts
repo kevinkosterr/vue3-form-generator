@@ -1,9 +1,9 @@
 import { describe, it, expect } from 'vitest'
-import { BaseBuilder } from '@/builders/base'
+import { AbstractBaseBuilder } from '@/builders/base'
 import { FieldBase } from '@/resources/types/field/base'
 
 type TestField = FieldBase & { [key: string]: any }
-class TestBaseBuilder extends BaseBuilder<TestField> {
+class TestBaseBuilder extends AbstractBaseBuilder<TestField> {
   constructor(name: string) {
     super('test', name)
   }
@@ -13,7 +13,7 @@ function getBuilder () {
   return new TestBaseBuilder('testName').model('testModel')
 }
 
-describe('BaseBuilder', () => {
+describe('AbstractBaseBuilder', () => {
 
   describe('extend()', () => {
 

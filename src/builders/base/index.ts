@@ -1,16 +1,21 @@
 import type { Field } from '@/resources/types/field/fields'
 import type { FieldBase } from '@/resources/types/field/base'
 
-export interface IBaseBuilder<T extends Field = Field> {
+export interface IAbstractBaseBuilder<T extends Field = Field> {
   __data__ (): Partial<T>
   extend (properties: Record<string, any>): this
   build (): T
+  model (key: string): this
+  default (value: any): this
+  getInitialValue (): any
 }
 
 /**
- * The base class for every builder.
+ * The base class for every builder. Contains the absolute basics for every field builder.
  */
-export abstract class BaseBuilder<T extends Field = Field> implements IBaseBuilder<T> {
+export abstract class AbstractBaseBuilder<T extends Field = Field> implements IAbstractBaseBuilder<T> {
+  protected __default__: any = null
+
   protected data: Partial<T> = {}
 
   protected constructor (type: string, name: string) {
@@ -29,6 +34,30 @@ export abstract class BaseBuilder<T extends Field = Field> implements IBaseBuild
    */
   protected getRequiredKeys (): (keyof T)[] {
     return [ 'type', 'model' ] as (keyof T)[]
+  }
+
+  /**
+   * Explicitly set the model key of the field.
+   * @param key
+   */
+  model (key: string): this {
+    this.data.model = key
+    return this
+  }
+
+  /**
+   * Get the initial value of the field.
+   */
+  getInitialValue (): any {
+    return this.__default__
+  }
+
+  /**
+   * Set the initial value of the field.
+   */
+  default (value: any): this {
+    this.__default__ = value
+    return this
   }
 
   /**
@@ -59,7 +88,7 @@ export abstract class BaseBuilder<T extends Field = Field> implements IBaseBuild
 
 }
 
-export interface IBaseFieldBuilder<T extends Field = Field> extends IBaseBuilder<T> {
+export interface IBaseFieldBuilder<T extends Field = Field> extends IAbstractBaseBuilder<T> {
   id (value: NonNullable<FieldBase['id']>): this
   label(value: NonNullable<FieldBase['label']>): this
   labelIcon (value: NonNullable<FieldBase['labelIcon']>): this
@@ -72,16 +101,12 @@ export interface IBaseFieldBuilder<T extends Field = Field> extends IBaseBuilder
   validator (value?: NonNullable<FieldBase['validator']>): this
   onValidated (value: NonNullable<FieldBase['onValidated']>): this
   validateOn (value: NonNullable<FieldBase['validate']>): this
-  model (key: string): this
-  default (value: any): this
-  getInitialValue (): any
 }
 
 /**
  * Base class for most FieldBuilder classes.
  */
-export abstract class BaseFieldBuilder<T extends Field = Field> extends BaseBuilder<T> implements IBaseFieldBuilder<T> {
-  protected __default__: any = null
+export abstract class BaseFieldBuilder<T extends Field = Field> extends AbstractBaseBuilder<T> implements IBaseFieldBuilder<T> {
 
   /**
    * Set the id property of the field.
@@ -194,30 +219,6 @@ export abstract class BaseFieldBuilder<T extends Field = Field> extends BaseBuil
    */
   onValidated (value: NonNullable<FieldBase['onValidated']>) : this {
     this.data.onValidated = value
-    return this
-  }
-
-  /**
-   * Explicitly set the model key of the field.
-   * @param key
-   */
-  model (key: string): this {
-    this.data.model = key
-    return this
-  }
-
-  /**
-   * Get the initial value of the field.
-   */
-  getInitialValue (): any {
-    return this.__default__
-  }
-
-  /**
-   * Set the initial value of the field.
-   */
-  default (value: any): this {
-    this.__default__ = value
     return this
   }
 
