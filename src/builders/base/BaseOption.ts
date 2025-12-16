@@ -15,8 +15,8 @@ export default class BaseOptionFieldBuilder<T extends Field & OptionField = Fiel
   extends BaseFieldBuilder<T> implements IBaseOptionFieldBuilder
 {
 
-  constructor(type:string, name: string, model: string) {
-    super(type, name, model)
+  constructor(type:string, name: string) {
+    super(type, name)
     this.data.options = []
   }
 

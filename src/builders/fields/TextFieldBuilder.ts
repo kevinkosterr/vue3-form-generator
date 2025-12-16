@@ -11,9 +11,10 @@ export interface ITextFieldBuilder extends IBaseFieldBuilder<TextField> {
  * Field builder for the text field.
  */
 export default class TextFieldBuilder extends BaseInputBuilder<TextField> implements ITextFieldBuilder {
+  protected __default__: string = ''
 
-  constructor(name: string, model: string) {
-    super(name, model)
+  constructor(name: string) {
+    super(name)
     this.data.inputType = 'text'
   }
 

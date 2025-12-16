@@ -4,13 +4,13 @@ import { FieldBase } from '@/resources/types/field/base'
 
 type TestField = FieldBase & { [key: string]: any }
 class TestBaseBuilder extends BaseBuilder<TestField> {
-  constructor(name: string, model: string) {
-    super('test', name, model)
+  constructor(name: string) {
+    super('test', name)
   }
 }
 
 function getBuilder () {
-  return new TestBaseBuilder('testName', 'testModel')
+  return new TestBaseBuilder('testName').model('testModel')
 }
 
 describe('BaseBuilder', () => {

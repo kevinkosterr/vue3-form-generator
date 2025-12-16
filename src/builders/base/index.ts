@@ -11,12 +11,11 @@ export interface IBaseBuilder<T extends Field = Field> {
  * The base class for every builder.
  */
 export abstract class BaseBuilder<T extends Field = Field> implements IBaseBuilder<T> {
-
   protected data: Partial<T> = {}
 
-  protected constructor (type: string, name: string, model: string) {
+  protected constructor (type: string, name: string) {
     this.data = {
-      type, name, model
+      type, name
     } as Partial<T>
   }
 
@@ -70,12 +69,19 @@ export interface IBaseFieldBuilder<T extends Field = Field> extends IBaseBuilder
   visible (value?: FieldBase['visible']): this
   readonly (value?: FieldBase['readonly']): this
   disabled (value?: FieldBase['disabled']): this
+  validator (value?: NonNullable<FieldBase['validator']>): this
+  onValidated (value: NonNullable<FieldBase['onValidated']>): this
+  validateOn (value: NonNullable<FieldBase['validate']>): this
+  model (key: string): this
+  default (value: any): this
+  getInitialValue (): any
 }
 
 /**
  * Base class for most FieldBuilder classes.
  */
 export abstract class BaseFieldBuilder<T extends Field = Field> extends BaseBuilder<T> implements IBaseFieldBuilder<T> {
+  protected __default__: any = null
 
   /**
    * Set the id property of the field.
@@ -188,6 +194,30 @@ export abstract class BaseFieldBuilder<T extends Field = Field> extends BaseBuil
    */
   onValidated (value: NonNullable<FieldBase['onValidated']>) : this {
     this.data.onValidated = value
+    return this
+  }
+
+  /**
+   * Explicitly set the model key of the field.
+   * @param key
+   */
+  model (key: string): this {
+    this.data.model = key
+    return this
+  }
+
+  /**
+   * Get the initial value of the field.
+   */
+  getInitialValue (): any {
+    return this.__default__
+  }
+
+  /**
+   * Set the initial value of the field.
+   */
+  default (value: any): this {
+    this.__default__ = value
     return this
   }
 

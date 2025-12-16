@@ -71,6 +71,7 @@ export {
   validators
 }
 
+export { BaseFieldBuilder, type IBaseFieldBuilder } from '@/builders/base'
 export { f } from '@/builders/index'
 
 export type {

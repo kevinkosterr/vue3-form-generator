@@ -2,9 +2,10 @@ import BaseOptionFieldBuilder from '@/builders/base/BaseOption'
 import { ChecklistField } from '@/resources/types/field/fields'
 
 export default class ChecklistFieldBuilder extends BaseOptionFieldBuilder<ChecklistField> {
+  protected __default__: string[] = []
 
-  constructor(name: string, model: string) {
-    super('checklist', name, model)
+  constructor(name: string) {
+    super('checklist', name)
   }
 
 

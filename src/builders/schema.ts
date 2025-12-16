@@ -1,23 +1,31 @@
 import { BaseFieldBuilder } from '@/builders/base'
 import { FormGeneratorSchema } from '@/resources/types/generic'
-import GroupBuilder from '@/builders/group'
 import { type Ref, ref } from 'vue'
 
 /**
  * Form schema builder
- * @param model - Initial model object.
- * @param fields - Array of field builders.
- * @param groups - Array of group builders.
+ * @param schema - An object containing field builders. The key of the object is the model key of the field, the value is the field builder instance.
  */
-export class SchemaBuilder {
+export class SchemaBuilder <S extends Record<string, BaseFieldBuilder<any>>> {
   protected model: Record<string, any> = {}
   protected fields: BaseFieldBuilder<any>[] = []
-  protected groups: GroupBuilder[] = []
 
-  constructor(model: Record<string, any>, fields?: BaseFieldBuilder<any>[], groups?: GroupBuilder[]) {
-    this.model = model
-    if (fields) this.fields = fields
-    if (groups) this.groups = groups
+  constructor(schema: S, defaults?: Partial<Record<keyof S, unknown>>) {
+    for (const [ modelKey, field ] of Object.entries(schema) ) {
+      try {
+        this.model[modelKey] = field.getInitialValue()
+        const addField = field.model(modelKey)
+        if (defaults && defaults[modelKey]) {
+          addField.default(defaults[modelKey])
+        }
+        this.field(addField)
+      } catch (e) {
+        if (typeof field.getInitialValue !== 'function') {
+          throw new Error(`Error initializing field ${modelKey}: Field might not be a field builder instance.`)
+        }
+        throw new Error(`Error initializing field ${modelKey}: ${e}`)
+      }
+    }
   }
 
   /**
@@ -29,29 +37,11 @@ export class SchemaBuilder {
   }
 
   /**
-   * Get an array of all groups
-   * @returns A array of groups.
-   */
-  getGroups (): GroupBuilder[] {
-    return this.groups
-  }
-
-  /**
    * Add a field to the schema.
    * @param field - Field builder instance of the field that needs to be added.
    */
-  field (field: BaseFieldBuilder<any>): SchemaBuilder {
+  field (field: BaseFieldBuilder<any>): SchemaBuilder<S> {
     this.fields.push(field)
-    return this
-  }
-
-  /**
-   * Add a group to the schema.
-   * @param legend - Optional legend for the group.
-   * @param fields - Array of field builders that need to be added to the group.
-   */
-  group (legend?: string, ...fields: BaseFieldBuilder<any>[]): SchemaBuilder {
-    this.groups.push(new GroupBuilder(fields, legend))
     return this
   }
 
@@ -71,8 +61,7 @@ export class SchemaBuilder {
     return {
       model: this.model,
       schema: {
-        fields: this.fields?.map((field: BaseFieldBuilder<any>) => field.build()) ?? undefined,
-        groups: this.groups?.map((group: GroupBuilder) => group.build()) ?? undefined
+        fields: this.fields?.map((field: BaseFieldBuilder<any>) => field.build()) ?? undefined
       }
     }
   }

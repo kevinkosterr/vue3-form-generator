@@ -9,8 +9,8 @@ type TestField = FieldBase & {
 }
 
 class TestBaseFieldBuilder extends BaseFieldBuilder<TestField> {
-  constructor(name: string, model: string) {
-    super('test', name, model)
+  constructor(name: string) {
+    super('test', name)
   }
 
   testKey (value: string): this {
@@ -26,11 +26,11 @@ class TestBaseFieldBuilder extends BaseFieldBuilder<TestField> {
 }
 
 function testField (name: string, model: string): TestBaseFieldBuilder {
-  return new TestBaseFieldBuilder(name, model)
+  return new TestBaseFieldBuilder(name).model(model)
 }
 
 function getBuilder (): TestBaseFieldBuilder {
-  return new TestBaseFieldBuilder('testField', 'testModel').testKey('test')
+  return new TestBaseFieldBuilder('testField').model('testModel').testKey('test')
 }
 
 describe('BaseFieldBuilder', () => {

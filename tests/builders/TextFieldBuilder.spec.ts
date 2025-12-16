@@ -1,20 +1,20 @@
 import { it, expect, describe } from 'vitest'
 import TextFieldBuilder from '@/builders/fields/TextFieldBuilder'
 
-const getBuilder = () => new TextFieldBuilder('fieldName', 'fieldModel')
+const getBuilder = () => new TextFieldBuilder('fieldName').model('fieldModel')
 
 describe('TextFieldBuilder', () => {
 
   describe('constructor', () => {
 
     it('Should instantiate with name and model', () => {
-      const builder = new TextFieldBuilder('testField', 'testModel')
+      const builder = new TextFieldBuilder('testField').model('testModel')
       expect(builder.__data__().name).toBe('testField')
       expect(builder.__data__().model).toBe('testModel')
     })
 
     it('Should instantiate with the right types', () => {
-      const builder = new TextFieldBuilder('testField', 'testModel')
+      const builder = new TextFieldBuilder('testField').model('testModel')
       expect(builder.__data__().type).toBe('input')
       expect(builder.__data__().inputType).toBe('text')
     })

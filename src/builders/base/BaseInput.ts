@@ -7,8 +7,8 @@ import { BaseFieldBuilder } from '@/builders/base'
  */
 export default class BaseInputBuilder<T extends Field = Field> extends BaseFieldBuilder<T> {
 
-  constructor(name: string, model: string) {
-    super('input', name, model)
+  constructor(name: string) {
+    super('input', name)
   }
 
   getRequiredKeys(): (keyof T)[] {
