@@ -4,9 +4,7 @@ import schema from './schema.js'
 export default {
   name: 'App',
   data () {
-    return {
-      ...schema
-    }
+    return { schema }
   }
 }
 </script>
@@ -23,11 +21,13 @@ export default {
     </div>
     <div class="card mt-4">
       <div class="card-side">
-        <VueFormGenerator :schema="form.schema" :model="form.model" />
+        <VueFormGenerator :schema="schema.schema" :model="schema.model" />
       </div>
       <div class="card-side">
         <JsonViewer
-          :value="form.model" copyable boxed
+          :value="schema.model"
+          copyable
+          boxed
           preview-mode
           theme="jv-dark"
         />

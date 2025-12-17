@@ -71,6 +71,10 @@ export {
   validators
 }
 
+export { NoValueError } from '@/exceptions'
+export { BaseFieldBuilder, type IBaseFieldBuilder } from '@/builders/base'
+export { f } from '@/builders/index'
+
 export type {
   FieldProps,
   FieldEmits,

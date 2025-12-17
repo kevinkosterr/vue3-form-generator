@@ -2,7 +2,7 @@ import { generatePropsSingleField, generateSchemaSingleField, mountFormGenerator
 import { describe, it, expect, beforeAll } from 'vitest'
 import { mount, config } from '@vue/test-utils'
 
-import FieldCheckbox from '@/fields/core/FieldCheckbox.vue'
+import FieldCheckbox from '@/fields/FieldCheckbox.vue'
 
 const form = generateSchemaSingleField(
   'checkboxTestName',

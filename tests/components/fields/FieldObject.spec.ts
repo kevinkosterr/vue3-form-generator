@@ -2,9 +2,9 @@ import { generatePropsSingleField, mountFormGenerator } from '@test/_resources/u
 import { expect, it, describe, beforeAll } from 'vitest'
 import { config, mount } from '@vue/test-utils'
 
-import FieldObject from '@/fields/core/FieldObject.vue'
-import FieldNumber from '@/fields/core/FieldNumber.vue'
-import FieldText from '@/fields/core/FieldText.vue'
+import FieldObject from '@/fields/FieldObject.vue'
+import FieldNumber from '@/fields/FieldNumber.vue'
+import FieldText from '@/fields/FieldText.vue'
 import FormGenerator from '@/FormGenerator.vue'
 
 beforeAll(() => {
