@@ -1,16 +1,14 @@
-import GroupBuilder from '@/builders/group'
-import { SchemaBuilder } from '@/builders/schema'
+import { SchemaBuilder, SchemaModel } from '@/builders/schema'
 import { BaseFieldBuilder } from '@/builders/base'
 
 import TextFieldBuilder from '@/builders/fields/TextFieldBuilder'
 import CheckboxFieldBuilder from '@/builders/fields/CheckboxFieldBuilder'
 import ChecklistFieldBuilder from '@/builders/fields/ChecklistFieldBuilder'
+import ButtonFieldBuilder from '@/builders/fields/ButtonFieldBuilder'
+import NumberFieldBuilder from '@/builders/fields/NumberFieldBuilder'
 
 
 export const f = {
-  group: (legend?: string, ...fields: BaseFieldBuilder[])=> {
-    return new GroupBuilder(fields, legend)
-  },
   /**
    * Returns a form schema builder instance.
    * Takes a model object as the first argument. Takes field builders and group builders as the rest of the arguments.
@@ -38,7 +36,7 @@ export const f = {
    */
   schema: <S extends Record<string, BaseFieldBuilder<any>>>(
     schema: S,
-    defaults?: Partial<Record<keyof S, unknown>>
+    defaults?: Partial<SchemaModel<S>>
   ): SchemaBuilder<S> => new SchemaBuilder<S>(schema, defaults),
   /**
    * Create a text field builder instance.
@@ -53,6 +51,13 @@ export const f = {
    */
   text: (name: string): TextFieldBuilder => {
     return new TextFieldBuilder(name)
+  },
+  /**
+   * Create a button field builder instance.
+   * @param name - Name of the button.
+   */
+  button: (name: string): ButtonFieldBuilder => {
+    return new ButtonFieldBuilder(name)
   },
   /**
    * Create a checkbox field builder instance.
@@ -79,6 +84,6 @@ export const f = {
    * @param name
    * @returns A checkbox field builder instance.
    */
-  checklist: (name: string): ChecklistFieldBuilder => new ChecklistFieldBuilder(name)
+  checklist: (name: string): ChecklistFieldBuilder => new ChecklistFieldBuilder(name),
+  number: (name: string): NumberFieldBuilder => new NumberFieldBuilder(name)
 }
-

@@ -16,23 +16,10 @@ describe('SchemaBuilder', () => {
       const builder = new SchemaBuilder({
         testField: new TextFieldBuilder('testField'),
         testField2: new TextFieldBuilder('testField2')
-      }
-      )
+      })
       expect(builder.getFields()).toHaveLength(2)
       const onlyBuilders = builder.getFields().filter(field => field instanceof TextFieldBuilder)
       expect(onlyBuilders).toHaveLength(2)
-    })
-
-  })
-
-  describe('field()', () => {
-
-    it('Should add a field builder to the schema', () => {
-      const builder = getBuilderNoGroups()
-      expect(builder.getFields().length).toBe(1)
-      builder.field(new TextFieldBuilder('name2').model('model2'))
-      expect(builder.getFields().length).toBe(2)
-      expect(builder.getFields()[1].__data__().name).toBe('name2')
     })
 
   })

@@ -2,7 +2,7 @@ import { IBaseFieldBuilder } from '@/builders/base'
 import type { TextField } from '@/resources/types/field/fields'
 import BaseInputBuilder from '@/builders/base/BaseInput'
 
-export interface ITextFieldBuilder extends IBaseFieldBuilder<TextField> {
+export interface ITextFieldBuilder extends IBaseFieldBuilder<TextField, string> {
   placeholder (value: string): this
   autoComplete (value?: boolean): this
 }
@@ -10,8 +10,8 @@ export interface ITextFieldBuilder extends IBaseFieldBuilder<TextField> {
 /**
  * Field builder for the text field.
  */
-export default class TextFieldBuilder extends BaseInputBuilder<TextField> implements ITextFieldBuilder {
-  protected __default__: string = ''
+export default class TextFieldBuilder extends BaseInputBuilder<TextField, string> implements ITextFieldBuilder {
+  __default__: string = ''
 
   constructor(name: string) {
     super(name)

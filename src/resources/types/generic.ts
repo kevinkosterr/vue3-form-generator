@@ -29,11 +29,15 @@ export type FormGeneratorGroup = {
   fields: Field[];
 }
 
-export type FormGeneratorSchema = {
-  model: FormModel;
+export type FormGeneratorSchema<
+  M extends FormModel = FormModel,
+  F extends Field = Field,
+  G extends FormGeneratorGroup = FormGeneratorGroup
+> = {
+  model: M;
   schema: {
-    fields?: Field[];
-    groups?: FormGeneratorGroup[];
+    fields?: F[];
+    groups?: G[];
   },
 }
 

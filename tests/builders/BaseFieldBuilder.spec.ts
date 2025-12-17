@@ -8,7 +8,9 @@ type TestField = FieldBase & {
   testKey: string
 }
 
-class TestBaseFieldBuilder extends BaseFieldBuilder<TestField> {
+class TestBaseFieldBuilder extends BaseFieldBuilder<TestField, string> {
+  __default__: string = ''
+
   constructor(name: string) {
     super('test', name)
   }

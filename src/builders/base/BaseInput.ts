@@ -5,7 +5,7 @@ import { BaseFieldBuilder } from '@/builders/base'
 /**
  * Base class for all input field builders e.g., TextFieldBuilder or CheckboxFieldBuilder.
  */
-export default class BaseInputBuilder<T extends Field = Field> extends BaseFieldBuilder<T> {
+export default class BaseInputBuilder<T extends Field = Field, V = unknown> extends BaseFieldBuilder<T, V> {
 
   constructor(name: string) {
     super('input', name)

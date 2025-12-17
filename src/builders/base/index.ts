@@ -1,30 +1,31 @@
 import type { Field } from '@/resources/types/field/fields'
 import type { FieldBase } from '@/resources/types/field/base'
 
-export interface IAbstractBaseBuilder<T extends Field = Field> {
-  __data__ (): Partial<T>
+export interface IAbstractBaseBuilder<F extends Field = Field, V = unknown> {
+  __default__: V
+  __data__ (): Partial<F>
   extend (properties: Record<string, any>): this
-  build (): T
+  build (): F
   model (key: string): this
   default (value: any): this
-  getInitialValue (): any
+  getDefaultValue (): this['__default__']
 }
 
 /**
  * The base class for every builder. Contains the absolute basics for every field builder.
  */
-export abstract class AbstractBaseBuilder<T extends Field = Field> implements IAbstractBaseBuilder<T> {
-  protected __default__: any = null
+export abstract class AbstractBaseBuilder<F extends Field = Field, V = unknown> implements IAbstractBaseBuilder<F, V> {
+  __default__!: V
 
-  protected data: Partial<T> = {}
+  protected data: Partial<F> = {}
 
   protected constructor (type: string, name: string) {
     this.data = {
       type, name
-    } as Partial<T>
+    } as Partial<F>
   }
 
-  __data__ (): Partial<T> { return this.data }
+  __data__ (): Partial<F> { return this.data }
 
   /**
    * Gets the keys required for this field.
@@ -32,8 +33,8 @@ export abstract class AbstractBaseBuilder<T extends Field = Field> implements IA
    *
    * @protected
    */
-  protected getRequiredKeys (): (keyof T)[] {
-    return [ 'type', 'model' ] as (keyof T)[]
+  protected getRequiredKeys (): (keyof F)[] {
+    return [ 'type', 'model' ] as (keyof F)[]
   }
 
   /**
@@ -46,9 +47,9 @@ export abstract class AbstractBaseBuilder<T extends Field = Field> implements IA
   }
 
   /**
-   * Get the initial value of the field.
+   * Get the default value of the field.
    */
-  getInitialValue (): any {
+  getDefaultValue (): this['__default__'] {
     return this.__default__
   }
 
@@ -73,9 +74,9 @@ export abstract class AbstractBaseBuilder<T extends Field = Field> implements IA
    * Build and validate the field object.
    * Ensures all required properties are present.
    */
-  build (): T {
-    const requiredKeys: (keyof T)[] = this.getRequiredKeys()
-    const missingKeys: (keyof T)[] = requiredKeys.filter((key: keyof T) => {
+  build (): F {
+    const requiredKeys: (keyof F)[] = this.getRequiredKeys()
+    const missingKeys: (keyof F)[] = requiredKeys.filter((key: keyof F) => {
       return !(key in this.data) && (this.data[key] === undefined || this.data[key] === null || this.data[key] === '')
     })
 
@@ -83,12 +84,12 @@ export abstract class AbstractBaseBuilder<T extends Field = Field> implements IA
       throw new Error(`Failed to build field. Missing required keys: ${missingKeys.join(', ')}`)
     }
 
-    return this.data as T
+    return this.data as F
   }
 
 }
 
-export interface IBaseFieldBuilder<T extends Field = Field> extends IAbstractBaseBuilder<T> {
+export interface IBaseFieldBuilder<F extends Field = Field, V = unknown> extends IAbstractBaseBuilder<F, V> {
   id (value: NonNullable<FieldBase['id']>): this
   label(value: NonNullable<FieldBase['label']>): this
   labelIcon (value: NonNullable<FieldBase['labelIcon']>): this
@@ -106,7 +107,7 @@ export interface IBaseFieldBuilder<T extends Field = Field> extends IAbstractBas
 /**
  * Base class for most FieldBuilder classes.
  */
-export abstract class BaseFieldBuilder<T extends Field = Field> extends AbstractBaseBuilder<T> implements IBaseFieldBuilder<T> {
+export abstract class BaseFieldBuilder<F extends Field = Field, V = unknown> extends AbstractBaseBuilder<F, V> implements IBaseFieldBuilder<F, V> {
 
   /**
    * Set the id property of the field.

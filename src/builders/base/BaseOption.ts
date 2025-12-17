@@ -3,7 +3,7 @@ import type { FieldOption } from '@/resources/types/fieldAttributes'
 import { Field } from '@/resources/types/field/fields'
 import type { OptionField } from '@/resources/types/field/base'
 
-interface IBaseOptionFieldBuilder extends IBaseFieldBuilder<Field & OptionField> {
+interface IBaseOptionFieldBuilder<V = unknown> extends IBaseFieldBuilder<Field & OptionField, V> {
   option (name: FieldOption['name'], value: FieldOption['value']): this
   options(options: FieldOption[]): this
 }
@@ -11,8 +11,8 @@ interface IBaseOptionFieldBuilder extends IBaseFieldBuilder<Field & OptionField>
 /**
  * Base class for all option field builders e.g., SelectFieldBuilder or RadioFieldBuilder.
  */
-export default class BaseOptionFieldBuilder<T extends Field & OptionField = Field & OptionField>
-  extends BaseFieldBuilder<T> implements IBaseOptionFieldBuilder
+export default class BaseOptionFieldBuilder<F extends Field & OptionField = Field & OptionField, V = unknown>
+  extends BaseFieldBuilder<F, V> implements IBaseOptionFieldBuilder<V>
 {
 
   constructor(type:string, name: string) {
