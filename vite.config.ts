@@ -18,7 +18,7 @@ export default defineConfig({
       name: 'vue3-form-generator',
       formats: [ 'es' ]
     },
-    rollupOptions: {
+    rolldownOptions: {
       external: [ 'vue', new RegExp('/themes/.*') ],
       output: {
         exports: 'named',
