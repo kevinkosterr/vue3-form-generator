@@ -84,5 +84,6 @@
   "dependencies": {
     "@vueuse/core": "^13.1.0",
     "maska": "^3.1.1"
+    "@vueuse/core": "^14.3.0",
   }
 }
