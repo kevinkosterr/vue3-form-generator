@@ -3,6 +3,7 @@
   "version": "1.0.0",
   "private": false,
   "type": "module",
+  "packageManager": "bun@1.3.14",
   "author": "Kevin Koster (@kevinkoster)",
   "repository": "https://github.com/kevinkosterr/vue3-form-generator",
   "license": "MIT",
@@ -26,18 +27,6 @@
     "./themes/*": "./dist/themes/*"
   },
   "types": "./dist/index.d.ts",
-  "release": {
-    "branches": [
-      "production"
-    ],
-    "tagFormat": "${version}",
-    "plugins": [
-      "@semantic-release/commit-analyzer",
-      "@semantic-release/release-notes-generator",
-      "@semantic-release/npm",
-      "@semantic-release/github"
-    ]
-  },
   "files": [
     "dist"
   ],
@@ -51,35 +40,34 @@
     "vuejs"
   ],
   "devDependencies": {
-    "@semantic-release/github": "^11.0.0",
-    "@semantic-release/npm": "^12.0.1",
-    "@stylistic/eslint-plugin": "^2.8.0",
-    "@typescript-eslint/parser": "^8.13.0",
-    "@vitejs/plugin-vue": "^5.1.3",
+    "@stylistic/eslint-plugin": "^5.10.0",
+    "@types/bun": "latest",
+    "@typescript-eslint/parser": "^8.64.0",
+    "@vitejs/plugin-vue": "^6.0.8",
     "@vitest/ui": "^3.2.4",
-    "@vue/test-utils": "^2.4.6",
+    "@vue/language-core": "^3.3.7",
+    "@vue/test-utils": "^2.4.11",
     "clipboard": "^2.0.11",
-    "eslint": "^9.10.0",
+    "eslint": "^10.7.0",
     "eslint-plugin-import-alias": "^1.2.0",
-    "eslint-plugin-vue": "9.27.0",
+    "eslint-plugin-vue": "^10.9.2",
     "jsdom": "^25.0.1",
     "sass": "^1.79.5",
-    "semantic-release": "^24.1.2",
-    "terser": "^5.33.0",
-    "typescript": "^5.6.3",
-    "typescript-eslint": "^8.13.0",
-    "vite": "^5.4.19",
-    "vite-plugin-dts": "^4.3.0",
-    "vitepress": "^1.6.3",
-    "vitepress-plugin-group-icons": "^1.5.5",
-    "vitepress-plugin-tabs": "^0.7.1",
-    "vitest": "^3.2.4",
-    "vue": "^3.5.6",
-    "vue-eslint-parser": "^9.4.3",
+    "terser": "^5.49.0",
+    "typescript": "^6.0.3",
+    "typescript-eslint": "^8.64.0",
+    "vite": "^8.1.5",
+    "vite-plugin-dts": "^5.0.3",
+    "vitepress": "^1.6.4",
+    "vitepress-plugin-group-icons": "^1.7.5",
+    "vitepress-plugin-tabs": "^0.9.1",
+    "vitest": "^4.1.10",
+    "vue": "^3.5.40",
+    "vue-eslint-parser": "^10.4.1",
     "vue3-json-viewer": "^2.2.2"
   },
   "dependencies": {
-    "@vueuse/core": "^13.1.0",
-    "maska": "^3.1.1"
+    "@vueuse/core": "^14.3.0",
+    "maska": "^3.2.0"
   }
 }
