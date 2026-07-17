@@ -13,6 +13,7 @@ export default defineConfig({
   ],
   build: {
     minify: 'terser',
+    sourcemap: 'hidden',
     lib: {
       entry: 'src/index.ts',
       name: 'vue3-form-generator',
