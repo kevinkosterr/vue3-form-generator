@@ -2,7 +2,7 @@ import { mountFormGenerator, generatePropsSingleField, generateSchemaSingleField
 import { describe, it, expect, beforeAll } from 'vitest'
 import { mount, config } from '@vue/test-utils'
 
-import FieldRadio from '@/fields/core/FieldRadio.vue'
+import FieldRadio from '@/fields/FieldRadio.vue'
 
 const form = generateSchemaSingleField(
   'radioTest',

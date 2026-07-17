@@ -2,9 +2,9 @@ import { mountFormGenerator } from '@test/_resources/utils.js'
 import { describe, it, expect, beforeAll } from 'vitest'
 import { mount, config } from '@vue/test-utils'
 
-import FieldReset from '@/fields/core/FieldReset.vue'
-import FieldCheckbox from '@/fields/core/FieldCheckbox.vue'
-import FieldPassword from '@/fields/core/FieldPassword.vue'
+import FieldReset from '@/fields/FieldReset.vue'
+import FieldCheckbox from '@/fields/FieldCheckbox.vue'
+import FieldPassword from '@/fields/FieldPassword.vue'
 
 const form = {
   model: {
