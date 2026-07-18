@@ -12,8 +12,7 @@ const form = ref({
   schema: {
     fields: [
       {
-        type: 'input',
-        inputType: 'checkbox',
+        type: 'checkbox',
         model: 'checkboxExample'
       },
       {

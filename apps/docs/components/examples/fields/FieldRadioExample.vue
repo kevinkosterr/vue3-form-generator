@@ -16,8 +16,7 @@ const form = ref({
         name: 'radioExample',
         label: 'Select an option',
         model: 'radioModel',
-        type: 'input',
-        inputType: 'radio',
+        type: 'radio',
         options: [
           { name: 'Example 1', value: 'ex_1' },
           { name: 'Example 2', value: 'ex_2' },

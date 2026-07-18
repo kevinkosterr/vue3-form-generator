@@ -54,15 +54,13 @@ Type: `Object`
       name: 'first_name',
       label: 'First name',
       model: 'firstName', // corresponds to `firstName` key in model object.
-      type: 'input',
-      inputType: 'text'
+      type: 'text',
     },
     {
       name: 'last_name',
       label: 'Last name',
       model: 'lastName' // corresponds to `lastName` key in model object.
-      type: 'input',
-      inputType: 'text'
+      type: 'text',
     }
   ],
     groups: [
@@ -73,8 +71,7 @@ Type: `Object`
           name: 'luke_skywalker',
           label: 'I am Luke Skywalker',
           model: 'iAmLukeSkywalker',
-          type: 'input',
-          inputType: 'checkbox'
+          type: 'checkbox',
         },
         {
           buttonText: 'This is me',
@@ -103,16 +100,14 @@ iAmLukeSkywalker: false
       name: 'first_name',
       label: 'First name',
       model: 'firstName', // corresponds to `firstName` key in model object.
-        type: 'input',
-        inputType: 'text'
+        type: 'text',
         
     },
     {
       name: 'last_name',
       label: 'Last name',
       model: 'lastName', // corresponds to `lastName` key in model object.
-        type: 'input',
-        inputType: 'text'
+        type: 'text',
     }
   ],
     groups: [
@@ -123,8 +118,7 @@ iAmLukeSkywalker: false
           name: 'luke_skywalker',
           label: 'I am Luke Skywalker',
           model: 'iAmLukeSkywalker',
-            type: 'input',
-          inputType: 'checkbox'
+            type: 'checkbox',
         },
         {
           buttonText: 'This is me',

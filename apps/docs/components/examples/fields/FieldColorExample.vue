@@ -15,8 +15,7 @@ const form = ref({
         name: 'choiceColor',
         label: 'Choose a color',
         model: 'colorChoice',
-        type: 'input',
-        inputType: 'color'
+        type: 'color',
       }
     ]
   }

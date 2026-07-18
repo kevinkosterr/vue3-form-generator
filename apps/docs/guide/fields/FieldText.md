@@ -1,8 +1,7 @@
 # FieldText
 FieldText is an input field of type `text`
 
-### type `input`
-### inputType `text`
+### type `text`
 
 <script setup>
 import FieldTextExample from '/components/examples/fields/FieldTextExample.vue'
@@ -15,8 +14,7 @@ import FieldTextExample from '/components/examples/fields/FieldTextExample.vue'
   name: 'inputExample',
   label: 'Name',
   model: 'name',
-  type: 'input',
-  inputType: 'text'
+  type: 'text',
 }
 ```
 :::

@@ -16,8 +16,7 @@ const form = ref({
         name: 'numberName',
         label: 'What is your age?',
         model: 'numberChoice',
-        type: 'input',
-        inputType: 'number'
+        type: 'number',
       }
     ]
   }

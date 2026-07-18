@@ -14,8 +14,7 @@ const form = ref({
   schema: {
     fields: [
       {
-        type: 'input',
-        inputType: 'text',
+        type: 'text',
         model: 'productCode',
         label: 'Redeem product code',
         placeholder: 'xxxx-xxxx-xxxx-xxxx'

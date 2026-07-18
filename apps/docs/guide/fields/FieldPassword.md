@@ -1,8 +1,7 @@
 # FieldPassword
 FieldPassword is a password field that renders an input element of type `password`
 
-### type `input`
-### inputType `password`
+### type `password`
 
 <script setup>
 import FieldPasswordExample from '/components/examples/fields/FieldPasswordExample.vue'
@@ -14,8 +13,7 @@ import FieldPasswordExample from '/components/examples/fields/FieldPasswordExamp
 {
   name: 'passwordExample', 
   model: 'password',
-  type: 'input',
-  inputType: 'password'
+  type: 'password',
 }
 ```
 :::
@@ -29,9 +27,8 @@ You can show a strength indicator by setting `indicator: true`. The strength ind
 {
   name: 'passwordExample', 
   model: 'password',
-  type: 'input',
+  type: 'password',
   indicator: true, // [!code focus]
-  inputType: 'password'
 }
 ```
 :::

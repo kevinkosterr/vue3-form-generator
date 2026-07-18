@@ -33,8 +33,7 @@ import FieldButtonExample from '/components/examples/fields/FieldButtonExample.v
   schema: {
     fields: [
       {
-        type: 'input',
-        inputType: 'checkbox',
+        type: 'checkbox',
         model: 'checkboxExample'
       },
       {

@@ -16,8 +16,7 @@ const form = ref({
         name: 'inputExample',
         label: 'Name',
         model: 'name',
-        type: 'input',
-        inputType: 'text'
+        type: 'text',
       }
     ]
   }

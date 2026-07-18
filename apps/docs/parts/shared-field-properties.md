@@ -4,8 +4,7 @@
 | model       | -         | `string`                                                   | Key of model in the form schema model                                                           |
 | label       | -         | `string`                                                   | Label for the field                                                                             |
 | labelIcon   | -         | `string \| ComponentPublicInstance \| LabelIconDefinition` | Label for the field                                                                             |
-| type        | -         | `string`                                                   | Type of field, generally `input` if the field is an input.                                      |
-| inputType   | -         | `string`                                                   | Type of input, only required when `type === 'input'`                                            |
+| type        | -         | `string`                                                   | Type of field, such as `text`, `number`, `checkbox`, `select`, or `mask`.                       |
 | id          | _computed_ | `string`                                                   | `id` of the field                                                                               |
 | visible     | `true`    | `Boolean \| Function`                                      | Whether the field is visible, method will be passed the `model`, `field` and field component*   |
 | required    | `false`   | `Boolean \| Function`                                      | Whether the field is required, method will be passed the `model`, `field` and field component*  |

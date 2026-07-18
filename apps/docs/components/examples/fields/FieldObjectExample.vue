@@ -26,20 +26,17 @@ const form = ref({
         schema: {
           fields: [
             {
-              type: 'input',
-              inputType: 'text',
+              type: 'text',
               model: 'name',
               label: 'Name'
             },
             {
-              type: 'input',
-              inputType: 'text',
+              type: 'text',
               model: 'surname',
               label: 'Surname'
             },
             {
-              type: 'input',
-              inputType: 'number',
+              type: 'number',
               model: 'age',
               label: 'Age'
             }

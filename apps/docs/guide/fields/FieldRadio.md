@@ -1,7 +1,7 @@
 # FieldRadio
 
 ### type `input`
-### inputType `radio`
+### type `radio`
 
 <script setup>
 import FieldRadioExample from '/components/examples/fields/FieldRadioExample.vue'
@@ -12,8 +12,7 @@ import FieldRadioExample from '/components/examples/fields/FieldRadioExample.vue
 ```javascript
 {
   name: 'radioExample',
-  type: 'input',
-  inputType: 'radio',
+  type: 'radio',
   label: 'Select an option',
   options: [
     { name: 'Example 1', value: 'ex_1' },
@@ -33,4 +32,3 @@ import FieldRadioExample from '/components/examples/fields/FieldRadioExample.vue
 | Property | Default | Type       | Description                                  |
 |----------|---------|------------|----------------------------------------------|
 | options  | -       | `Option[]` | Selectable options                           |
-

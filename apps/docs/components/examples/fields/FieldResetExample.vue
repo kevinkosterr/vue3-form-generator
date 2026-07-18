@@ -30,8 +30,7 @@ const form = ref({
 onBeforeMount(() => {
   if (props.inAction) {
     form.value.schema.fields.unshift({
-      type: 'input',
-      inputType: 'text',
+      type: 'text',
       model: 'resetTest'
     })
     form.value.model.resetTest = 'reset me!'

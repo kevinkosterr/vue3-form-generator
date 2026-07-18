@@ -20,8 +20,7 @@ const form = ref({
       {
         name: 'passwordExample',
         model: 'password',
-        type: 'input',
-        inputType: 'password'
+        type: 'password',
       }
     ]
   }

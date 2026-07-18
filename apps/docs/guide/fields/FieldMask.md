@@ -2,7 +2,6 @@
 FieldMask is a field that renders an input element that forces its value to be of a certain format.
 
 ### type `mask`
-### inputType `text | search | URL | password | tel `
 
 FieldMask depends on an external library called [`maska`](https://beholdr.github.io/maska/v3/#/). This means it has the
 same features (and limitations) `maska` has. 

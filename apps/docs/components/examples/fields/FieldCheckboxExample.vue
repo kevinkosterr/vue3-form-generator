@@ -16,8 +16,7 @@ const form = ref({
         name: 'tutorialRead',
         label: 'Have you read the tutorial?',
         model: 'readTutorial',
-        type: 'input',
-        inputType: 'checkbox'
+        type: 'checkbox',
       }
     ]
   }

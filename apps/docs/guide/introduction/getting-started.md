@@ -67,8 +67,7 @@ const form = ref({
 				name: 'tutorialRead',
 				label: 'Have you read the tutorial?',
 				model: 'readTutorial', // string reference to key in model
-				type: 'input',
-				inputType: 'checkbox'
+				type: 'checkbox',
 			}
 		]
 	}
@@ -95,8 +94,7 @@ const form = ref({
                 name: 'tutorialRead',
                 label: 'Have you read the tutorial?',
                 model: 'readTutorial', // string reference to key in model
-                type: 'input',
-                inputType: 'checkbox'
+                type: 'checkbox',
               }
             ]
           }
@@ -124,8 +122,7 @@ const form = ref({
 				name: 'tutorialRead',
 				label: 'Have you read the tutorial?',
 				model: 'readTutorial', // string reference to key in model
-				type: 'input',
-				inputType: 'checkbox'
+				type: 'checkbox',
 			}
 		]
 	}

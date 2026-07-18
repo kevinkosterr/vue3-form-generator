@@ -2,7 +2,7 @@
 FieldNumber is a number field that renders an input element of type `number`
 
 ### type `input`
-### inputType `number`
+### type `number`
 
 ## Basic example
 <script setup>
