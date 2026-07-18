@@ -1,7 +1,6 @@
 # FieldColor
 FieldColor is a color field that renders an input element of type `color`
 
-### type `input`
 ### type `color`
 
 ## Basic example

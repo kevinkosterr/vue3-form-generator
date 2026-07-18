@@ -1,6 +1,5 @@
 # FieldRadio
 
-### type `input`
 ### type `radio`
 
 <script setup>

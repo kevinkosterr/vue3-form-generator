@@ -1,7 +1,6 @@
 # FieldCheckbox
 FieldCheckbox is a checkbox field that renders an input element of type `checkbox`
 
-### type `input`
 ### type `checkbox`
 
 ## Basic example

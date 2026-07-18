@@ -1,7 +1,6 @@
 # FieldNumber
 FieldNumber is a number field that renders an input element of type `number`
 
-### type `input`
 ### type `number`
 
 ## Basic example
