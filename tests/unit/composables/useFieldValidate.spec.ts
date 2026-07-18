@@ -7,7 +7,6 @@ import { reactive } from 'vue'
 const schema = generateSchemaSingleField(
   'testField',
   'testFieldModel',
-  'input',
   'text',
   'Test label',
   '',

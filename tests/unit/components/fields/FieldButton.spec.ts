@@ -34,8 +34,7 @@ const form = {
         name: 'passwordTest',
         model: 'password',
         label: 'Password',
-        type: 'input',
-        inputType: 'password'
+        type: 'password'
       }
     ]
   }

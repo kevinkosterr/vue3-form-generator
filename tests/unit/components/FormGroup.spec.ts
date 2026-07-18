@@ -13,7 +13,6 @@ beforeAll(() => {
 const textFieldSchema = generateSchemaSingleField(
   'testField',
   'testFieldModel',
-  'input',
   'text',
   'Test label',
   ''

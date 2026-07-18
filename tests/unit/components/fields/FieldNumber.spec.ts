@@ -7,7 +7,6 @@ import FieldNumber from '@/fields/FieldNumber.vue'
 const form = generateSchemaSingleField(
   'testNumber',
   'numberModel',
-  'input',
   'number',
   'Number input',
   0,

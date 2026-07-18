@@ -12,7 +12,6 @@ const form = generateSchemaSingleField(
   'testMask',
   'maskModel',
   'mask',
-  'text',
   'Masked input',
   '',
   {

@@ -2,13 +2,12 @@ import { generateSchemaSingleField, generatePropsSingleField, mountFormGenerator
 import { mount, config } from '@vue/test-utils'
 import { describe, it, expect } from 'vitest'
 
-import FieldSelect from '@/fields/FieldSelectNative.vue'
+import FieldSelectNative from '@/fields/FieldSelectNative.vue'
 
 const form = generateSchemaSingleField(
   'testSelect',
   'selectModel',
-  'select',
-  null,
+  'select-native',
   'What is this?',
   '',
   {
@@ -26,7 +25,7 @@ const props = generatePropsSingleField(form)
 describe('FieldSelectNative', () => {
 
   it('Should render correctly', async () => {
-    const wrapper = mount(FieldSelect, { props })
+    const wrapper = mount(FieldSelectNative, { props })
     expect(wrapper.find('select').exists()).toBeTruthy()
     expect(wrapper.findAll('option').length).toBe(4)
     // First option should be filled with placeholder and value should be empty
@@ -35,26 +34,26 @@ describe('FieldSelectNative', () => {
   })
 
   it('Should render correctly inside form generator', async () => {
-    config.global.components = { FieldSelect }
+    config.global.components = { FieldSelectNative }
 
     const formWrapper = mountFormGenerator(form.schema, form.model)
 
-    const selectField = formWrapper.findComponent(FieldSelect)
+    const selectField = formWrapper.findComponent(FieldSelectNative)
     expect(selectField.exists()).toBeTruthy()
     expect(selectField.findAll('option').length).toBe(4)
   })
 
   it('Should emit onInput event', async () => {
-    const wrapper = mount(FieldSelect, { props })
+    const wrapper = mount(FieldSelectNative, { props })
     await wrapper.find('select').trigger('change')
     expect(wrapper.emitted()).toHaveProperty('onInput')
   })
 
   it('Should update model value', async () => {
-    config.global.components = { FieldSelect }
+    config.global.components = { FieldSelectNative }
 
     const formWrapper = mountFormGenerator(form.schema, form.model)
-    const selectField = formWrapper.findComponent(FieldSelect)
+    const selectField = formWrapper.findComponent(FieldSelectNative)
     expect(selectField.exists()).toBeTruthy()
 
     await selectField.find('select').setValue('test_2')

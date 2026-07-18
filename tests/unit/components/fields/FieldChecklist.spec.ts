@@ -8,7 +8,6 @@ const form = generateSchemaSingleField(
   'checklistTest',
   'checklistModel',
   'checklist',
-  null,
   'Test label',
   [],
   {

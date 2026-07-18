@@ -16,7 +16,6 @@ beforeAll(() => {
 const textSchema = generateSchemaSingleField(
   'text',
   'textModel',
-  'input',
   'text',
   'Text input label',
   '',
@@ -29,7 +28,6 @@ const textAreaSchema = generateSchemaSingleField(
   'textArea',
   'textAreaModel',
   'textarea',
-  null,
   'Text area label',
   '',
   {}

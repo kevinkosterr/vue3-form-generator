@@ -7,7 +7,6 @@ import FieldText from '@/fields/FieldText.vue'
 const form = generateSchemaSingleField(
   'textTest',
   'modelText',
-  'input',
   'text',
   'A test for text',
   '',

@@ -8,7 +8,6 @@ const form = generateSchemaSingleField(
   'testSelect',
   'selectModel',
   'select',
-  null,
   'What is this?',
   '',
   {

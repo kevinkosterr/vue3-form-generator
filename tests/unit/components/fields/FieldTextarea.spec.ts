@@ -8,7 +8,6 @@ const form = generateSchemaSingleField(
   'textTest',
   'textModel',
   'textarea',
-  null,
   'A test for text',
   '',
   {

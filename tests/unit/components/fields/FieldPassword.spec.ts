@@ -8,7 +8,6 @@ import FieldPassword from '@/fields/FieldPassword.vue'
 const form = generateSchemaSingleField(
   'passwordTest',
   'password',
-  'input',
   'password',
   'Password',
   ''

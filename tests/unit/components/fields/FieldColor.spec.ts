@@ -11,7 +11,6 @@ import FieldColor from '@/fields/FieldColor.vue'
 const form = generateSchemaSingleField(
   'testColor',
   'colorModel',
-  'input',
   'color',
   'Pick a color',
   '',

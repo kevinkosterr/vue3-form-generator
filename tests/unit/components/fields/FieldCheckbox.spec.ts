@@ -7,7 +7,6 @@ import FieldCheckbox from '@/fields/FieldCheckbox.vue'
 const form = generateSchemaSingleField(
   'checkboxTestName',
   'checkboxTestModel',
-  'input',
   'checkbox',
   'Checkbox Test',
   false

@@ -28,17 +28,15 @@ export function clearEmittedEvents (wrapper) {
  * @param {String} name - name of the field
  * @param {String} model - model key of the field
  * @param {String} type - field type
- * @param {String} inputType - field input type, required if `type === 'input'`
  * @param {String} label - field label
  * @param {any} initialValue - initial model value
  * @param {Object} extraFieldProperties - extra field properties to add
- * @returns {{schema: {fields: [{name, model, inputType, label, type}]}, model: {}}}
+ * @returns {{schema: {fields: [{name, model, label, type}]}, model: {}}}
  */
 export function generateSchemaSingleField (
   name,
   model,
   type,
-  inputType,
   label,
   initialValue,
   extraFieldProperties
@@ -50,7 +48,7 @@ export function generateSchemaSingleField (
     schema: {
       fields: [
         {
-          name, model, type, inputType, label, ...extraFieldProperties
+          name, model, type, label, ...extraFieldProperties
         }
       ]
     }

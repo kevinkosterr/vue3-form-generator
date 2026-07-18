@@ -7,7 +7,6 @@ import FieldRadio from '@/fields/FieldRadio.vue'
 const form = generateSchemaSingleField(
   'radioTest',
   'radioModel',
-  'input',
   'radio',
   'Which one?',
   '',

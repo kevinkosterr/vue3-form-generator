@@ -8,7 +8,6 @@ const form = generateSchemaSingleField(
   'switchTest',
   'testToggle',
   'switch',
-  null,
   'Testing',
   false
 )
@@ -54,4 +53,3 @@ describe('FieldSwitch', () => {
   })
 
 })
-
