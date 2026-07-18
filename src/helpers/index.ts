@@ -56,20 +56,14 @@ export function toUniqueArray (arr: any[]): any[] {
  * Determine the field component name based on the field schema.
  */
 export function getFieldComponentName (field: Field): string {
-  const uniqueFieldTypes = [ 'mask' ]
-  const hasType = 'type' in field
-  const isUniqueFieldType = hasType && uniqueFieldTypes.includes(field.type)
+  if (!field.type) throw new Error('No field type specified for ' + field)
 
-  let fieldAttribute
+  const fieldType = field.type
+    .split('-')
+    .map(part => part.charAt(0).toUpperCase() + part.slice(1))
+    .join('')
 
-  if (((!('inputType' in field) || field.inputType == undefined) && 'type' in field) || isUniqueFieldType) {
-    fieldAttribute = field.type
-  } else if ('inputType' in field && !isUniqueFieldType) {
-    fieldAttribute = field.inputType
-  }
-
-  if (!fieldAttribute) throw new Error('No input or input type specified for ' + field)
-  return 'Field' + fieldAttribute.charAt(0).toUpperCase() + fieldAttribute.slice(1)
+  return 'Field' + fieldType
 }
 
 /**

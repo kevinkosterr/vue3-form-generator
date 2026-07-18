@@ -50,14 +50,6 @@ export type OptionField = {
 }
 
 /**
- * A type based on InputField has the `type: 'input'` and an `inputType` property.
- */
-export type InputField = {
-  type: 'input';
-  inputType: string;
-}
-
-/**
  * A type based on PlaceholderField has the `placeholder` property.
  */
 export type PlaceholderField = {

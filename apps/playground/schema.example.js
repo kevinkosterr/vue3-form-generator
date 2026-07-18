@@ -10,8 +10,7 @@ export default {
         {
           name: 'name',
           label: 'Name',
-          type: 'input',
-          inputType: 'text',
+          type: 'text',
           model: 'name',
           placeholder: 'Write name...',
           readonly: false,
@@ -20,8 +19,7 @@ export default {
         {
           name: 'surname',
           label: 'Surname',
-          type: 'input',
-          inputType: 'text',
+          type: 'text',
           model: 'surname',
           placeholder: 'Write surname...',
           readonly: false,
@@ -30,8 +28,7 @@ export default {
         {
           name: 'terms',
           label: 'Accept terms and conditions',
-          type: 'input',
-          inputType: 'checkbox',
+          type: 'checkbox',
           model: 'terms'
         }
       ]

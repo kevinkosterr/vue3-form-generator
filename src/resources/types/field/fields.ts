@@ -1,55 +1,51 @@
 import type { FieldOption, FormModel } from '@/resources/types/fieldAttributes'
-import type { FieldMinMax, FieldBase, InputField, OptionField, PlaceholderField } from '@/resources/types/field/base'
+import type { FieldMinMax, FieldBase, OptionField, PlaceholderField } from '@/resources/types/field/base'
 import type { Ref } from 'vue'
 import { FormGeneratorSchema, FormOptions } from '@/resources/types/generic'
 
-export type NumberField = FieldBase & InputField & FieldMinMax & {
-  inputType: 'number';
+export type NumberField = FieldBase & FieldMinMax & {
+  type: 'number';
   placeholder: string;
   step?: number;
 }
 
-export type TextField = FieldBase & InputField & FieldMinMax & {
-  inputType: 'text';
+export type TextField = FieldBase & FieldMinMax & {
+  type: 'text';
   placeholder?: string;
   autocomplete?: boolean;
 }
 
-export type CheckboxField = FieldBase & InputField & {
-  inputType: 'checkbox';
+export type CheckboxField = FieldBase & {
+  type: 'checkbox';
 }
 
-export type ColorField = FieldBase & InputField & {
-  inputType: 'color';
+export type ColorField = FieldBase & {
+  type: 'color';
   withInput?: boolean;
 }
 
-export type RadioField = FieldBase & InputField & {
-  inputType: 'radio';
+export type RadioField = FieldBase & {
+  type: 'radio';
   options: FieldOption[];
 }
 
 export type ChecklistField = FieldBase & OptionField & {
   type: 'checklist';
-  inputType: undefined;
 }
 
 export type SelectField = FieldBase & OptionField & PlaceholderField & {
   type: 'select';
-  inputType: undefined;
   multiple?: boolean;
 }
 
 export type SelectNativeField = FieldBase & OptionField & {
   type: 'select-native';
-  inputType: undefined;
   multiple?: boolean;
   placeholder?: string;
 }
 
 export type MaskField = FieldBase & PlaceholderField & {
   type: 'mask',
-  inputType: undefined;
   mask: string;
   maskOptions?: {
     eager?: boolean;
@@ -60,19 +56,17 @@ export type MaskField = FieldBase & PlaceholderField & {
 
 export type ObjectField = FieldBase & {
   type: 'object';
-  inputType: undefined;
   model: string;
   schema: FormGeneratorSchema['schema'];
 }
 
-export type PasswordField = FieldBase & InputField & FieldMinMax & {
-  inputType: 'password';
+export type PasswordField = FieldBase & FieldMinMax & {
+  type: 'password';
   placeholder?: string;
   indicator?: boolean;
 }
 
 export type ButtonFieldBase = FieldBase & {
-  inputType: undefined;
   buttonText: string;
   buttonClasses?: string;
 }
@@ -95,6 +89,7 @@ export type ResetField = ButtonFieldBase & {
 }
 
 export type TextAreaField = FieldBase & PlaceholderField & {
+  type: 'textarea';
   maxLength?: string;
   resizable?: boolean;
 }

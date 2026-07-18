@@ -4,7 +4,7 @@
     :value="inputDefaultValue"
     :disabled="isDisabled"
     :required="isRequired"
-    :type="inputType"
+    type="text"
     :placeholder="field.placeholder"
     @input="onFieldValueChanged"
     @blur="onBlur"
@@ -25,11 +25,6 @@ const { field, model }: FieldPropRefs<MaskField> = toRefs(props)
 
 const unmaskedValue = ref('')
 const inputDefaultValue = ref('')
-const allowedInputTypes: Readonly<string[]> = [ 'text', 'search', 'URL', 'password', 'tel' ]
-
-const inputType: ComputedRef<string> = computed(() => {
-  return field.value.inputType || 'text'
-})
 const maskOptions: ComputedRef<MaskInputOptions> = computed(() => {
   return {
     mask: field.value.mask,
@@ -61,9 +56,6 @@ const onFieldValueChanged = (event: Event): void => {
 }
 
 onBeforeMount(() => {
-  if (field.value.inputType && !allowedInputTypes.includes(field.value.inputType)) {
-    throw new Error('Invalid input type for Mask field! Must be one of ' + allowedInputTypes.join(','))
-  }
   /** Mask the default value, if set. */
   if (currentModelValue.value) {
     inputDefaultValue.value = new Mask({ mask: field.value.mask }).masked(currentModelValue.value)
