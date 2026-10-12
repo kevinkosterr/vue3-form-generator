@@ -1,27 +1,42 @@
-import { BaseFieldBuilder, IBaseFieldBuilder } from '@/builders/base/index'
-import type { FieldOption } from '@/resources/types/fieldAttributes'
-import { Field } from '@/resources/types/field/fields'
+import { BaseFieldBuilder } from '@/builders/base'
+import type { Field } from '@/resources/types/field/fields'
 import type { OptionField } from '@/resources/types/field/base'
+import type { FieldOption, FormModel } from '@/resources/types/fieldAttributes'
 
-interface IBaseOptionFieldBuilder<V = unknown> extends IBaseFieldBuilder<Field & OptionField, V> {
-  option (name: FieldOption['name'], value: FieldOption['value']): this
-  options(options: FieldOption[]): this
-}
+/**
+ * Options accepted by `options()`: an array of options, an array of values (used as names too),
+ * or an object mapping values to names.
+ */
+export type OptionsInput = readonly FieldOption[] | readonly string[] | Readonly<Record<string, string>>
+
+/**
+ * Extracts the option values from an `OptionsInput`.
+ */
+export type OptionValues<T extends OptionsInput> =
+  T extends readonly (infer E)[]
+    ? E extends string ? E : E extends { value: infer V extends string } ? V : never
+    : keyof T & string
+
+/**
+ * Value of a single option. Falls back to `string` when the option values are unknown.
+ */
+export type OptionValue<O extends string> = [ O ] extends [ never ] ? string : O
 
 /**
  * Base class for all option field builders e.g., SelectFieldBuilder or RadioFieldBuilder.
+ *
+ * Subclasses expose `option()` and `options()` themselves, so they can narrow the option values (`O`)
+ * of their own type.
  */
-export default class BaseOptionFieldBuilder<F extends Field & OptionField = Field & OptionField, V = unknown>
-  extends BaseFieldBuilder<F, V> implements IBaseOptionFieldBuilder<V>
-{
+export default abstract class BaseOptionFieldBuilder<
+  F extends Field & OptionField = Field & OptionField,
+  V = unknown,
+  M extends object = FormModel
+> extends BaseFieldBuilder<F, V, M> {
 
-  constructor(type:string, name: string) {
+  protected constructor (type: string, name?: string) {
     super(type, name)
     this.data.options = []
-  }
-
-  protected addOption (option: FieldOption): void {
-    this.data.options!.push(option)
   }
 
   /**
@@ -29,18 +44,22 @@ export default class BaseOptionFieldBuilder<F extends Field & OptionField = Fiel
    * @param name - Name/label of the option.
    * @param value - Value/key of the option.
    */
-  option (name: FieldOption['name'], value: FieldOption['value']): this {
-    this.addOption({ name, value })
-    return this
+  protected addOption (name: string, value: string): void {
+    this.data.options = [ ...(this.data.options ?? []), { name, value } ]
   }
 
   /**
-   * Add multiple options to the field, replaces all previously defined options.
-   * @param options - An array of options.
+   * Replaces all options of the field.
+   * @param options - Options in any of the supported formats.
    */
-  options(options: FieldOption[]): this {
-    this.data.options = options
-    return this
+  protected setOptions (options: OptionsInput): void {
+    if (Array.isArray(options)) {
+      this.data.options = options.map((option: string | FieldOption) =>
+        typeof option === 'string' ? { name: option, value: option } : { ...option }
+      )
+    } else {
+      this.data.options = Object.entries(options).map(([ value, name ]) => ({ name, value }))
+    }
   }
 
 }

@@ -48,6 +48,14 @@ import FieldSwitchExample from '/components/examples/fields/FieldSwitchExample.v
 :::
 <FieldSwitchExample include-button/>
 
+## Using the schema builder
+See [Schema builder](/guide/introduction/schema-builder) for more information.
+```typescript
+f.schema({
+  active: f.switch().label('Active')
+})
+```
+
 ## Properties
 ::: details Shared properties
 <!--@include: @/parts/shared-field-properties.md-->

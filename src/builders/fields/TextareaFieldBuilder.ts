@@ -1,19 +1,14 @@
-import { BaseFieldBuilder, type IBaseFieldBuilder } from '@/builders/base'
+import { BaseFieldBuilder } from '@/builders/base'
 import type { TextAreaField } from '@/resources/types/field/fields'
-
-export interface ITextareaFieldBuilder extends IBaseFieldBuilder<TextAreaField, string> {
-  placeholder (value: string): this
-  maxLength (value: number): this
-  resizable (value?: boolean): this
-}
+import type { FormModel } from '@/resources/types/fieldAttributes'
 
 /**
  * Field builder for the textarea field.
  */
-export default class TextareaFieldBuilder extends BaseFieldBuilder<TextAreaField, string> implements ITextareaFieldBuilder {
-  __default__: string = ''
+export default class TextareaFieldBuilder<M extends object = FormModel> extends BaseFieldBuilder<TextAreaField, string, M> {
+  protected defaultValue: string = ''
 
-  constructor(name: string) {
+  constructor (name?: string) {
     super('textarea', name)
   }
 
@@ -22,8 +17,7 @@ export default class TextareaFieldBuilder extends BaseFieldBuilder<TextAreaField
    * @param value
    */
   placeholder (value: string): this {
-    this.data.placeholder = value
-    return this
+    return this.set('placeholder', value)
   }
 
   /**
@@ -31,18 +25,15 @@ export default class TextareaFieldBuilder extends BaseFieldBuilder<TextAreaField
    * @param value - Maximum amount of characters.
    */
   maxLength (value: number): this {
-    this.data.maxLength = String(value)
-    return this
+    return this.set('maxLength', value)
   }
 
   /**
    * Sets the `resizable` property.
-   * @param value
+   * @param value - Defaults to `true`.
    */
-  resizable (value?: boolean): this {
-    if (value === undefined) value = true
-    this.data.resizable = value
-    return this
+  resizable (value: boolean = true): this {
+    return this.set('resizable', value)
   }
 
 }

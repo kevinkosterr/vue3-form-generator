@@ -1,66 +1,124 @@
+import type { Component } from 'vue'
 import type { Field } from '@/resources/types/field/fields'
-import type { FieldBase } from '@/resources/types/field/base'
+import type { LabelIconDefinition } from '@/resources/types/field/base'
+import type { FormModel } from '@/resources/types/fieldAttributes'
+import type { ValidationTrigger } from '@/resources/types/generic'
+import type {
+  TDynamicAttributeBooleanFunction,
+  TDynamicAttributeStringFunction,
+  TOnValidatedFunction,
+  TValidatorFunction
+} from '@/resources/types/functions'
+import { BuilderError } from '@/exceptions'
 
-export interface IAbstractBaseBuilder<F extends Field = Field, V = unknown> {
-  __default__: V
-  __data__ (): Partial<F>
-  extend (properties: Record<string, any>): this
-  build (): F
-  model (key: string): this
-  default (value: V): this
-  getDefaultValue (): this['__default__']
-  id (value: NonNullable<FieldBase['id']>): this
-  visible (value?: FieldBase['visible']): this
-  disabled (value?: FieldBase['disabled']): this
+/**
+ * A boolean, or a function receiving the model and field that returns a boolean.
+ */
+export type DynamicBoolean<M, F> = boolean | TDynamicAttributeBooleanFunction<M, F>
+
+/**
+ * Hints shown in build errors, telling the user how to set a missing required property.
+ */
+const REQUIRED_KEY_HINTS: Record<string, string> = {
+  name: 'pass a name to the builder, or use it inside f.schema()',
+  model: 'call .model(key), or use it inside f.schema()',
+  mask: 'call .mask(pattern)',
+  buttonText: 'call .buttonText(text)',
+  schema: 'pass a schema to f.object()'
 }
+
+const isMissing = (value: unknown): boolean => value === undefined || value === null || value === ''
 
 /**
  * The base class for every builder. Contains the absolute basics for every field builder.
+ *
+ * @typeParam F - Type of the field this builder builds.
+ * @typeParam V - Type of the value this field adds to the model. `never` for fields without a value.
+ * @typeParam M - Type of the form model, passed to callbacks.
  */
-export abstract class AbstractBaseBuilder<F extends Field = Field, V = unknown> implements IAbstractBaseBuilder<F, V> {
-  __default__!: V
+export abstract class AbstractBaseBuilder<F extends Field = Field, V = unknown, M extends object = FormModel> {
+  /** Type-only brand holding the value type of this field. Does not exist at runtime. */
+  declare readonly '~value': V
 
-  protected data: Partial<F> = {}
+  /** @internal Whether this field adds a value to the model. */
+  readonly emitsValue: boolean = true
 
-  protected constructor (type: string, name: string) {
-    this.data = {
-      type, name
-    } as Partial<F>
-  }
+  protected data: Partial<F>
+  protected declare defaultValue: V
 
-  __data__ (): Partial<F> { return this.data }
-
-  /**
-   * Gets the keys required for this field.
-   * Should be overridden by child classes if they have additional required keys.
-   *
-   * @protected
-   */
-  protected getRequiredKeys (): (keyof F)[] {
-    return [ 'type', 'model' ] as (keyof F)[]
+  protected constructor (type: string, name?: string) {
+    this.data = { type } as Partial<F>
+    if (name !== undefined) this.data.name = name
   }
 
   /**
-   * Explicitly set the model key of the field.
-   * @param key
+   * Set a property of the field.
+   * @param key - Name of the property.
+   * @param value - Value of the property.
    */
-  model (key: string): this {
-    this.data.model = key
+  protected set<K extends keyof F> (key: K, value: F[K]): this {
+    this.data[key] = value
     return this
   }
 
   /**
-   * Get the default value of the field.
+   * Gets the keys required for this field.
+   * Should be overridden by child classes if they have additional required keys.
    */
-  getDefaultValue (): this['__default__'] {
-    return this.__default__
+  protected getRequiredKeys (): (keyof F)[] {
+    const keys = [ 'type', 'name' ] as (keyof F)[]
+    if (this.emitsValue) keys.push('model')
+    if (this.data.type === 'input') keys.push('inputType' as keyof F)
+    return keys
+  }
+
+  /** @internal Get the initial value of the field. */
+  getDefaultValue (): V {
+    return this.defaultValue
+  }
+
+  /**
+   * @internal Create a copy of this builder, so changes to the copy don't affect the original.
+   */
+  clone (): this {
+    const copy = Object.assign(Object.create(Object.getPrototypeOf(this)), this) as this
+    copy.data = { ...this.data }
+    return copy
+  }
+
+  /**
+   * @internal Create a copy of this builder bound to a key of a schema. The key is used as model key,
+   * and as name if no name was given.
+   * @param key - Key of the field inside the schema.
+   * @param defaultValue - Overrides the default value of the field, if defined.
+   */
+  bindTo (key: string, defaultValue?: unknown): this {
+    if (this.emitsValue && this.data.model !== undefined && this.data.model !== key) {
+      throw new BuilderError(
+        `Model "${this.data.model}" conflicts with schema key "${key}". Remove .model(), the schema key is used instead.`
+      )
+    }
+    const copy = this.clone()
+    if (copy.data.name === undefined) copy.data.name = key
+    if (copy.emitsValue) copy.data.model = key
+    if (defaultValue !== undefined) copy.defaultValue = defaultValue as V
+    return copy
+  }
+
+  /**
+   * Set the model key of the field. Only needed when using the builder without `f.schema()`,
+   * since the schema uses the key of each field as its model key.
+   * @param key
+   */
+  model (key: string): this {
+    return this.set('model', key)
   }
 
   /**
    * Set the initial value of the field.
    */
   default (value: V): this {
-    this.__default__ = value
+    this.defaultValue = value
     return this
   }
 
@@ -68,36 +126,38 @@ export abstract class AbstractBaseBuilder<F extends Field = Field, V = unknown> 
    * Set the id property of the field.
    * @param value
    */
-  id (value: NonNullable<FieldBase['id']>): this {
-    this.data.id = value
-    return this
+  id (value: string): this {
+    return this.set('id', value)
   }
 
   /**
    * Set the visible property of the field.
-   * @param value
+   * @param value - Defaults to `true`.
    */
-  visible (value?: FieldBase['visible']): this {
-    if (value === undefined) value = true
-    this.data.visible = value
-    return this
+  visible (value: DynamicBoolean<M, F> = true): this {
+    return this.set('visible', value as F['visible'])
+  }
+
+  /**
+   * Hide the field. Shorthand for `.visible(false)`.
+   */
+  hidden (): this {
+    return this.visible(false)
   }
 
   /**
    * Set the disabled property of the field.
-   * @param value
+   * @param value - Defaults to `true`.
    */
-  disabled (value?: FieldBase['disabled']): this {
-    if (value === undefined) value = true
-    this.data.disabled = value
-    return this
+  disabled (value: DynamicBoolean<M, F> = true): this {
+    return this.set('disabled', value as F['disabled'])
   }
 
   /**
    * Extend the current field with additional properties.
    * @param properties
    */
-  extend (properties: Record<string, any>): this {
+  extend (properties: Partial<F> & Record<string, unknown>): this {
     Object.assign(this.data, properties)
     return this
   }
@@ -107,102 +167,91 @@ export abstract class AbstractBaseBuilder<F extends Field = Field, V = unknown> 
    * Ensures all required properties are present.
    */
   build (): F {
-    const requiredKeys: (keyof F)[] = this.getRequiredKeys()
-    const missingKeys: (keyof F)[] = requiredKeys.filter((key: keyof F) => {
-      const value = this.data[key] as unknown
-      return value === undefined || value === null || value === ''
-    })
-
+    const missingKeys = this.getRequiredKeys().filter(key => isMissing(this.data[key]))
     if (missingKeys.length) {
-      throw new Error(`Failed to build field. Missing required keys: ${missingKeys.join(', ')}`)
+      const missing = missingKeys.map(key => {
+        const hint = REQUIRED_KEY_HINTS[key as string]
+        return hint ? `"${String(key)}" (${hint})` : `"${String(key)}"`
+      })
+      throw new BuilderError(`Failed to build ${this.data.type} field, missing required ${missing.join(', ')}.`)
     }
 
-    return this.data as F
+    const field: Record<string, unknown> = {}
+    for (const [ key, value ] of Object.entries(this.data)) {
+      field[key] = Array.isArray(value) ? [ ...value ] : value
+    }
+    return field as F
   }
 
-}
-
-export interface IBaseFieldBuilder<F extends Field = Field, V = unknown> extends IAbstractBaseBuilder<F, V> {
-  label(value: NonNullable<FieldBase['label']>): this
-  labelIcon (value: NonNullable<FieldBase['labelIcon']>): this
-  noLabel (value?: FieldBase['noLabel']): this
-  hint (value: NonNullable<FieldBase['hint']>): this
-  required (value?: NonNullable<FieldBase['required']>): this
-  readonly (value?: FieldBase['readonly']): this
-  validator (value?: NonNullable<FieldBase['validator']>): this
-  onValidated (value: NonNullable<FieldBase['onValidated']>): this
-  validateOn (value: NonNullable<FieldBase['validate']>): this
 }
 
 /**
  * Base class for most FieldBuilder classes.
  */
-export abstract class BaseFieldBuilder<F extends Field = Field, V = unknown> extends AbstractBaseBuilder<F, V> implements IBaseFieldBuilder<F, V> {
+export abstract class BaseFieldBuilder<F extends Field = Field, V = unknown, M extends object = FormModel>
+  extends AbstractBaseBuilder<F, V, M>
+{
 
   /**
    * Set the label property of the field.
    * @param value
    */
-  label(value: NonNullable<FieldBase['label']>): this {
-    this.data.label = value
-    return this
+  label (value: string): this {
+    return this.set('label', value)
   }
 
   /**
    * Set the labelIcon property of the field.
-   * @param value
+   * @param icon - Icon class name(s) or component.
+   * @param position - Position of the icon relative to the label.
    */
-  labelIcon (value: NonNullable<FieldBase['labelIcon']>): this {
-    this.data.labelIcon = value
-    return this
+  labelIcon (icon: string | Component | LabelIconDefinition, position?: LabelIconDefinition['position']): this {
+    if (position !== undefined && (typeof icon === 'string' || !('icon' in icon))) {
+      return this.set('labelIcon', { icon, position })
+    }
+    return this.set('labelIcon', icon)
   }
 
   /**
    * Set the noLabel property of the field.
-   * @param value
+   * @param value - Defaults to `true`.
    */
-  noLabel (value?: FieldBase['noLabel']): this {
-    if (value === undefined) value = true
-    this.data.noLabel = value
-    return this
+  noLabel (value: boolean = true): this {
+    return this.set('noLabel', value)
   }
 
   /**
    * Set the hint property of the field.
    * @param value
    */
-  hint (value: NonNullable<FieldBase['hint']>): this {
-    this.data.hint = value
-    return this
+  hint (value: string | TDynamicAttributeStringFunction<M, F>): this {
+    return this.set('hint', value as F['hint'])
   }
 
   /**
    * Set the required property of the field.
-   * @param value
+   * @param value - Defaults to `true`.
    */
-  required (value?: NonNullable<FieldBase['required']>): this {
-    if (value === undefined) value = true
-    this.data.required = value
-    return this
+  required (value: DynamicBoolean<M, F> = true): this {
+    return this.set('required', value as F['required'])
   }
 
   /**
    * Set the readonly property of the field.
-   * @param value
+   * @param value - Defaults to `true`.
    */
-  readonly (value?: FieldBase['readonly']): this {
-    if (value === undefined) value = true
-    this.data.readonly = value
-    return this
+  readonly (value: DynamicBoolean<M, F> = true): this {
+    return this.set('readonly', value as F['readonly'])
   }
 
   /**
-   * Set the validator property of the field.
-   * @param value
+   * Add one or more validators to the field. Can be called multiple times, validators are appended.
+   * @param validators
    */
-  validator(value: NonNullable<FieldBase['validator']>): this {
-    this.data.validator = value
-    return this
+  validator (...validators: TValidatorFunction<V, F, M>[]): this {
+    const current = this.data.validator
+    const all = [ ...(current === undefined ? [] : Array.isArray(current) ? current : [ current ]), ...validators ]
+    return this.set('validator', (all.length === 1 ? all[0] : all) as F['validator'])
   }
 
   /**
@@ -210,18 +259,16 @@ export abstract class BaseFieldBuilder<F extends Field = Field, V = unknown> ext
    * Defaults to `onBlur`.
    * @param value
    */
-  validateOn (value: NonNullable<FieldBase['validate']>): this {
-    this.data.validate = value
-    return this
+  validateOn (value: ValidationTrigger): this {
+    return this.set('validate', value)
   }
 
   /**
    * Set the onValidated property of the field.
    * @param value
    */
-  onValidated (value: NonNullable<FieldBase['onValidated']>) : this {
-    this.data.onValidated = value
-    return this
+  onValidated (value: TOnValidatedFunction<M, F>): this {
+    return this.set('onValidated', value as F['onValidated'])
   }
 
 }

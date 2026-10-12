@@ -36,6 +36,14 @@ import FieldColorExample from '/components/examples/fields/FieldColorExample.vue
 :::
 <FieldColorExample with-input/>
 
+## Using the schema builder
+See [Schema builder](/guide/introduction/schema-builder) for more information.
+```typescript
+f.schema({
+  color: f.color().label('Favorite color').withInput().default('#ff0000')
+})
+```
+
 ## Properties
 ::: details Shared properties
 <!--@include: @/parts/shared-field-properties.md-->

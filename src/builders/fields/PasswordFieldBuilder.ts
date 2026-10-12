@@ -1,23 +1,15 @@
-import type { IBaseFieldBuilder } from '@/builders/base'
 import type { PasswordField } from '@/resources/types/field/fields'
+import type { FormModel } from '@/resources/types/fieldAttributes'
 import BaseInputBuilder from '@/builders/base/BaseInput'
-
-export interface IPasswordFieldBuilder extends IBaseFieldBuilder<PasswordField, string> {
-  placeholder (value: string): this
-  min (value: number): this
-  max (value: number): this
-  indicator (value?: boolean): this
-}
 
 /**
  * Field builder for the password field.
  */
-export default class PasswordFieldBuilder extends BaseInputBuilder<PasswordField, string> implements IPasswordFieldBuilder {
-  __default__: string = ''
+export default class PasswordFieldBuilder<M extends object = FormModel> extends BaseInputBuilder<PasswordField, string, M> {
+  protected defaultValue: string = ''
 
-  constructor(name: string) {
-    super(name)
-    this.data.inputType = 'password'
+  constructor (name?: string) {
+    super('password', name)
   }
 
   /**
@@ -25,8 +17,7 @@ export default class PasswordFieldBuilder extends BaseInputBuilder<PasswordField
    * @param value
    */
   placeholder (value: string): this {
-    this.data.placeholder = value
-    return this
+    return this.set('placeholder', value)
   }
 
   /**
@@ -34,8 +25,7 @@ export default class PasswordFieldBuilder extends BaseInputBuilder<PasswordField
    * @param value - Minimum length.
    */
   min (value: number): this {
-    this.data.min = value
-    return this
+    return this.set('min', value)
   }
 
   /**
@@ -43,18 +33,15 @@ export default class PasswordFieldBuilder extends BaseInputBuilder<PasswordField
    * @param value - Maximum length.
    */
   max (value: number): this {
-    this.data.max = value
-    return this
+    return this.set('max', value)
   }
 
   /**
    * Sets the `indicator` property, which shows a password strength indicator.
-   * @param value
+   * @param value - Defaults to `true`.
    */
-  indicator (value?: boolean): this {
-    if (value === undefined) value = true
-    this.data.indicator = value
-    return this
+  indicator (value: boolean = true): this {
+    return this.set('indicator', value)
   }
 
 }

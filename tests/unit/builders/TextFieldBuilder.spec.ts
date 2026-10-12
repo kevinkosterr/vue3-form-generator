@@ -1,61 +1,27 @@
-import { it, expect, describe } from 'vitest'
+import { it, describe, expect } from 'vitest'
+import { getFieldComponentName } from '@/helpers'
 import TextFieldBuilder from '@/builders/fields/TextFieldBuilder'
-
-const getBuilder = () => new TextFieldBuilder('fieldName').model('fieldModel')
 
 describe('TextFieldBuilder', () => {
 
-  describe('constructor', () => {
-
-    it('Should instantiate with name and model', () => {
-      const builder = new TextFieldBuilder('testField').model('testModel')
-      expect(builder.__data__().name).toBe('testField')
-      expect(builder.__data__().model).toBe('testModel')
-    })
-
-    it('Should instantiate with the right types', () => {
-      const builder = new TextFieldBuilder('testField').model('testModel')
-      expect(builder.__data__().type).toBe('input')
-      expect(builder.__data__().inputType).toBe('text')
-    })
-
+  it('Should build a field that resolves to FieldText', () => {
+    const field = new TextFieldBuilder('n').model('m').build()
+    expect(field).toMatchObject({ type: 'input', inputType: 'text', name: 'n' })
+    expect(getFieldComponentName(field)).toBe('FieldText')
   })
 
-  describe('placeholder()', () => {
-
-    it('Should set placeholder property', () => {
-      const builder = getBuilder().placeholder('testPlaceholder')
-      expect(builder.__data__().placeholder).toBe('testPlaceholder')
-      expect(builder.build().placeholder).toBe('testPlaceholder')
-    })
-
-    it('Should return the builder instance', () => {
-      const builder = getBuilder().placeholder('testPlaceholder')
-      expect(builder).toBeInstanceOf(TextFieldBuilder)
-    })
-
+  it('Should default to an empty string', () => {
+    expect(new TextFieldBuilder().getDefaultValue()).toBe('')
   })
 
-  describe('autoComplete()', () => {
+  it('Should set placeholder, min and max', () => {
+    expect(new TextFieldBuilder('n').model('m').placeholder('p').min(2).max(10).build())
+      .toMatchObject({ placeholder: 'p', min: 2, max: 10 })
+  })
 
-    it('Should set autocomplete property', () => {
-      const builder = getBuilder().autoComplete(true)
-      expect(builder.__data__().autocomplete).toBe(true)
-      builder.autoComplete(false)
-      expect(builder.__data__().autocomplete).toBe(false)
-      expect(builder.build().autocomplete).toBe(false)
-    })
-
-    it('Should set the autocomplete property to true, by default', () => {
-      const builder = getBuilder().autoComplete()
-      expect(builder.__data__().autocomplete).toBe(true)
-    })
-
-    it('Should return the builder instance', () => {
-      const builder = getBuilder().autoComplete(true)
-      expect(builder).toBeInstanceOf(TextFieldBuilder)
-    })
-
+  it('Should set autocomplete, defaulting to true', () => {
+    expect(new TextFieldBuilder('n').model('m').autoComplete().build().autocomplete).toBe(true)
+    expect(new TextFieldBuilder('n').model('m').autoComplete(false).build().autocomplete).toBe(false)
   })
 
 })

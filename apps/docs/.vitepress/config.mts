@@ -26,7 +26,8 @@ export default defineConfig({
         text: 'Introduction',
         items: [
           { text: 'Getting started', link: 'guide/introduction/getting-started' },
-          { text: 'Field schema overview', link: 'guide/introduction/field-overview' }
+          { text: 'Field schema overview', link: 'guide/introduction/field-overview' },
+          { text: 'Schema builder', link: 'guide/introduction/schema-builder' }
         ]
       },
       {

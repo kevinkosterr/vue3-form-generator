@@ -8,6 +8,11 @@ export default mergeConfig(
     test: {
       environment: 'jsdom',
       exclude: [ ...configDefaults.exclude ],
+      typecheck: {
+        enabled: true,
+        include: [ 'tests/**/*.test-d.ts' ],
+        tsconfig: './tsconfig.vitest.json'
+      },
       root: fileURLToPath(new URL('./', import.meta.url))
     }
   })

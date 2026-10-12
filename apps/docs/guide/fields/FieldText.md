@@ -22,6 +22,14 @@ import FieldTextExample from '/components/examples/fields/FieldTextExample.vue'
 :::
 <FieldTextExample />
 
+## Using the schema builder
+See [Schema builder](/guide/introduction/schema-builder) for more information.
+```typescript
+f.schema({
+  username: f.text().label('Username').placeholder('Enter your username').autoComplete()
+})
+```
+
 ## Properties
 ::: details Shared properties
 <!--@include: @/parts/shared-field-properties.md-->

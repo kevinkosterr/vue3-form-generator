@@ -1,30 +1,23 @@
-import type { IBaseFieldBuilder } from '@/builders/base'
 import type { ColorField } from '@/resources/types/field/fields'
+import type { FormModel } from '@/resources/types/fieldAttributes'
 import BaseInputBuilder from '@/builders/base/BaseInput'
-
-export interface IColorFieldBuilder extends IBaseFieldBuilder<ColorField, string> {
-  withInput (value?: boolean): this
-}
 
 /**
  * Field builder for the color field.
  */
-export default class ColorFieldBuilder extends BaseInputBuilder<ColorField, string> implements IColorFieldBuilder {
-  __default__: string = '#000000'
+export default class ColorFieldBuilder<M extends object = FormModel> extends BaseInputBuilder<ColorField, string, M> {
+  protected defaultValue: string = '#000000'
 
-  constructor(name: string) {
-    super(name)
-    this.data.inputType = 'color'
+  constructor (name?: string) {
+    super('color', name)
   }
 
   /**
    * Sets the `withInput` property, which renders an additional text input.
-   * @param value
+   * @param value - Defaults to `true`.
    */
-  withInput (value?: boolean): this {
-    if (value === undefined) value = true
-    this.data.withInput = value
-    return this
+  withInput (value: boolean = true): this {
+    return this.set('withInput', value)
   }
 
 }

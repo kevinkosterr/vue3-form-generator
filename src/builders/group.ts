@@ -1,32 +1,39 @@
 import type { AbstractBaseBuilder } from '@/builders/base'
 import type { FormGeneratorGroup } from '@/resources/types/generic'
-
-export interface IGroupBuilder {
-  build (): FormGeneratorGroup
-}
+import { BuilderError } from '@/exceptions'
 
 /**
  * Builder for a group of fields. Usually created through `SchemaBuilder.group()`.
  */
-export default class GroupBuilder implements IGroupBuilder {
-  protected legend?: string = undefined
-  protected fields: AbstractBaseBuilder<any, any>[] = []
+export default class GroupBuilder {
+  protected readonly fields: Map<string, AbstractBaseBuilder<any, any, any>>
+  protected readonly legend?: string
 
-  constructor(fields: AbstractBaseBuilder<any, any>[], legend?: string) {
+  /**
+   * @param fields - Field builders, keyed by their key inside the schema.
+   * @param legend - Legend of the group.
+   */
+  constructor (fields: Map<string, AbstractBaseBuilder<any, any, any>>, legend?: string) {
     this.fields = fields
-    if (legend) this.legend = legend
+    this.legend = legend
   }
 
   /**
    * Get an array of all fields in this group.
    */
-  getFields (): AbstractBaseBuilder<any, any>[] {
-    return this.fields
+  getFields (): AbstractBaseBuilder<any, any, any>[] {
+    return [ ...this.fields.values() ]
   }
 
   build (): FormGeneratorGroup {
     const group: FormGeneratorGroup = {
-      fields: this.fields.map(field => field.build())
+      fields: [ ...this.fields ].map(([ key, field ]) => {
+        try {
+          return field.build()
+        } catch (e) {
+          throw BuilderError.wrap(e, key)
+        }
+      })
     }
     if (this.legend) group.legend = this.legend
     return group

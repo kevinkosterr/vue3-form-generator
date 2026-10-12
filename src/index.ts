@@ -71,23 +71,47 @@ export {
   validators
 }
 
-export { NoValueError } from '@/exceptions'
-export { f } from '@/builders/index'
+export { BuilderError } from '@/exceptions'
+export {
+  f,
+  type BuilderFactory,
+  schema,
+  text,
+  password,
+  number,
+  color,
+  textarea,
+  mask,
+  checkbox,
+  switch,
+  checklist,
+  radio,
+  select,
+  selectNative,
+  object,
+  button,
+  submit,
+  reset,
+  typed
+} from '@/builders/index'
 export {
   SchemaBuilder,
   type SchemaEntries,
   type SchemaModel,
-  type BuiltSchemaField
+  type BuiltSchemaField,
+  type InferModel,
+  type InferField,
+  type ValidateEntries
 } from '@/builders/schema'
 export { default as GroupBuilder } from '@/builders/group'
-export {
-  AbstractBaseBuilder,
-  BaseFieldBuilder,
-  type IAbstractBaseBuilder,
-  type IBaseFieldBuilder
-} from '@/builders/base'
+export { AbstractBaseBuilder, BaseFieldBuilder, type DynamicBoolean } from '@/builders/base'
 export { default as BaseInputBuilder } from '@/builders/base/BaseInput'
-export { default as BaseOptionFieldBuilder } from '@/builders/base/BaseOption'
+export {
+  default as BaseOptionFieldBuilder,
+  type OptionsInput,
+  type OptionValue,
+  type OptionValues
+} from '@/builders/base/BaseOption'
 export { default as BaseSelectBuilder, type SelectValue } from '@/builders/base/BaseSelect'
 export { default as BaseButtonBuilder } from '@/builders/base/BaseButton'
 export { default as TextFieldBuilder } from '@/builders/fields/TextFieldBuilder'

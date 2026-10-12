@@ -67,8 +67,8 @@ describe('Input field builders', () => {
     })
 
     it('Should set indicator to true by default, if called', () => {
-      expect(new PasswordFieldBuilder('n').indicator().__data__().indicator).toBe(true)
-      expect(new PasswordFieldBuilder('n').indicator(false).__data__().indicator).toBe(false)
+      expect(new PasswordFieldBuilder('n').model('m').indicator().build().indicator).toBe(true)
+      expect(new PasswordFieldBuilder('n').model('m').indicator(false).build().indicator).toBe(false)
     })
 
   })
@@ -76,8 +76,8 @@ describe('Input field builders', () => {
   describe('ColorFieldBuilder', () => {
 
     it('Should set withInput to true by default, if called', () => {
-      expect(new ColorFieldBuilder('n').withInput().__data__().withInput).toBe(true)
-      expect(new ColorFieldBuilder('n').withInput(false).__data__().withInput).toBe(false)
+      expect(new ColorFieldBuilder('n').model('m').withInput().build().withInput).toBe(true)
+      expect(new ColorFieldBuilder('n').model('m').withInput(false).build().withInput).toBe(false)
     })
 
   })
@@ -87,7 +87,7 @@ describe('Input field builders', () => {
     it('Should set placeholder, maxLength and resizable', () => {
       const field = new TextareaFieldBuilder('n').model('m').placeholder('Text').maxLength(200).resizable().build()
       expect(field.placeholder).toBe('Text')
-      expect(field.maxLength).toBe('200')
+      expect(field.maxLength).toBe(200)
       expect(field.resizable).toBe(true)
     })
 
@@ -104,6 +104,49 @@ describe('Input field builders', () => {
 
     it('Should fail to build without a mask', () => {
       expect(() => new MaskFieldBuilder('n').model('m').build()).toThrowError(/mask/)
+    })
+
+  })
+
+
+  describe.each([
+    [ 'CheckboxFieldBuilder', () => new CheckboxFieldBuilder('n').model('m'), 'input', 'checkbox' ],
+    [ 'SwitchFieldBuilder', () => new SwitchFieldBuilder('n').model('m'), 'switch', undefined ],
+    [ 'ColorFieldBuilder', () => new ColorFieldBuilder('n').model('m'), 'input', 'color' ],
+    [ 'NumberFieldBuilder', () => new NumberFieldBuilder('n').model('m'), 'input', 'number' ],
+    [ 'PasswordFieldBuilder', () => new PasswordFieldBuilder('n').model('m'), 'input', 'password' ],
+    [ 'TextareaFieldBuilder', () => new TextareaFieldBuilder('n').model('m'), 'textarea', undefined ]
+  ])('%s', (_, getBuilder, type, inputType) => {
+
+    it(`Should build with type "${type}"${inputType ? ` and inputType "${inputType}"` : ''}`, () => {
+      const field = getBuilder().build()
+      expect(field.type).toBe(type)
+      expect(field.inputType).toBe(inputType)
+    })
+
+  })
+
+  describe('Setters', () => {
+
+    it.each([
+      [ 'NumberFieldBuilder', () => new NumberFieldBuilder('n'), (b: NumberFieldBuilder) => [ b.placeholder('p'), b.min(1), b.max(2), b.step(1) ] ],
+      [ 'PasswordFieldBuilder', () => new PasswordFieldBuilder('n'), (b: PasswordFieldBuilder) => [ b.placeholder('p'), b.min(1), b.max(2), b.indicator() ] ],
+      [ 'ColorFieldBuilder', () => new ColorFieldBuilder('n'), (b: ColorFieldBuilder) => [ b.withInput() ] ],
+      [ 'TextareaFieldBuilder', () => new TextareaFieldBuilder('n'), (b: TextareaFieldBuilder) => [ b.placeholder('p'), b.maxLength(1), b.resizable() ] ],
+      [ 'MaskFieldBuilder', () => new MaskFieldBuilder('n'), (b: MaskFieldBuilder) => [ b.mask('#'), b.mask('#', {}), b.placeholder('p') ] ]
+    ] as const)('%s setters should return the builder instance', (_, getBuilder, callSetters) => {
+      const builder = getBuilder()
+      for (const result of (callSetters as (b: typeof builder) => unknown[])(builder)) {
+        expect(result).toBe(builder)
+      }
+    })
+
+    it('Should set resizable to false explicitly', () => {
+      expect(new TextareaFieldBuilder('n').model('m').resizable(false).build().resizable).toBe(false)
+    })
+
+    it('Should not set maskOptions when none are given', () => {
+      expect(new MaskFieldBuilder('n').model('m').mask('##').build()).not.toHaveProperty('maskOptions')
     })
 
   })

@@ -1,18 +1,14 @@
-import { BaseFieldBuilder, type IBaseFieldBuilder } from '@/builders/base'
+import { BaseFieldBuilder } from '@/builders/base'
 import type { MaskField } from '@/resources/types/field/fields'
-
-export interface IMaskFieldBuilder extends IBaseFieldBuilder<MaskField, string> {
-  mask (mask: MaskField['mask'], options?: MaskField['maskOptions']): this
-  placeholder (value: string): this
-}
+import type { FormModel } from '@/resources/types/fieldAttributes'
 
 /**
  * Field builder for the mask field.
  */
-export default class MaskFieldBuilder extends BaseFieldBuilder<MaskField, string> implements IMaskFieldBuilder {
-  __default__: string = ''
+export default class MaskFieldBuilder<M extends object = FormModel> extends BaseFieldBuilder<MaskField, string, M> {
+  protected defaultValue: string = ''
 
-  constructor(name: string) {
+  constructor (name?: string) {
     super('mask', name)
   }
 
@@ -26,9 +22,8 @@ export default class MaskFieldBuilder extends BaseFieldBuilder<MaskField, string
    * @param options - Additional mask options.
    */
   mask (mask: MaskField['mask'], options?: MaskField['maskOptions']): this {
-    this.data.mask = mask
-    if (options !== undefined) this.data.maskOptions = options
-    return this
+    this.set('mask', mask)
+    return options === undefined ? this : this.set('maskOptions', options)
   }
 
   /**
@@ -36,8 +31,7 @@ export default class MaskFieldBuilder extends BaseFieldBuilder<MaskField, string
    * @param value
    */
   placeholder (value: string): this {
-    this.data.placeholder = value
-    return this
+    return this.set('placeholder', value)
   }
 
 }

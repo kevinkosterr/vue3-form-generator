@@ -25,6 +25,14 @@ import FieldRadioExample from '/components/examples/fields/FieldRadioExample.vue
 :::
 <FieldRadioExample />
 
+## Using the schema builder
+See [Schema builder](/guide/introduction/schema-builder) for more information.
+```typescript
+f.schema({
+  gender: f.radio().label('Gender').options({ m: 'Male', f: 'Female' })
+})
+```
+
 ## Properties
 ::: details Shared properties
 <!--@include: @/parts/shared-field-properties.md-->

@@ -1,12 +1,15 @@
 import type { CheckboxField } from '@/resources/types/field/fields'
+import type { FormModel } from '@/resources/types/fieldAttributes'
 import BaseInputBuilder from '@/builders/base/BaseInput'
 
-export default class CheckboxFieldBuilder extends BaseInputBuilder<CheckboxField, boolean> {
-  __default__: boolean = false
+/**
+ * Field builder for the checkbox field.
+ */
+export default class CheckboxFieldBuilder<M extends object = FormModel> extends BaseInputBuilder<CheckboxField, boolean, M> {
+  protected defaultValue: boolean = false
 
-  constructor(name: string) {
-    super(name)
-    this.data.inputType = 'checkbox'
+  constructor (name?: string) {
+    super('checkbox', name)
   }
 
 }

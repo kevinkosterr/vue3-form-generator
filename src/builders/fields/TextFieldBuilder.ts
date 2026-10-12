@@ -1,21 +1,15 @@
-import { IBaseFieldBuilder } from '@/builders/base'
 import type { TextField } from '@/resources/types/field/fields'
+import type { FormModel } from '@/resources/types/fieldAttributes'
 import BaseInputBuilder from '@/builders/base/BaseInput'
-
-export interface ITextFieldBuilder extends IBaseFieldBuilder<TextField, string> {
-  placeholder (value: string): this
-  autoComplete (value?: boolean): this
-}
 
 /**
  * Field builder for the text field.
  */
-export default class TextFieldBuilder extends BaseInputBuilder<TextField, string> implements ITextFieldBuilder {
-  __default__: string = ''
+export default class TextFieldBuilder<M extends object = FormModel> extends BaseInputBuilder<TextField, string, M> {
+  protected defaultValue: string = ''
 
-  constructor(name: string) {
-    super(name)
-    this.data.inputType = 'text'
+  constructor (name?: string) {
+    super('text', name)
   }
 
   /**
@@ -23,18 +17,31 @@ export default class TextFieldBuilder extends BaseInputBuilder<TextField, string
    * @param value
    */
   placeholder (value: string): this {
-    this.data.placeholder = value
-    return this
+    return this.set('placeholder', value)
+  }
+
+  /**
+   * Sets the `min` property.
+   * @param value - Minimum length.
+   */
+  min (value: number): this {
+    return this.set('min', value)
+  }
+
+  /**
+   * Sets the `max` property.
+   * @param value - Maximum length.
+   */
+  max (value: number): this {
+    return this.set('max', value)
   }
 
   /**
    * Sets the `autocomplete` property.
-   * @param value
+   * @param value - Defaults to `true`.
    */
-  autoComplete (value?: boolean): this {
-    if (value === undefined) value = true
-    this.data.autocomplete = value
-    return this
+  autoComplete (value: boolean = true): this {
+    return this.set('autocomplete', value)
   }
 
 }

@@ -1,193 +1,115 @@
-import { describe, it, expect } from 'vitest'
-import { BaseFieldBuilder } from '@/builders/base'
-import type { FieldBase } from '@/resources/types/field/base'
-import FieldButton from '@/fields/FieldButton.vue'
+import { it, describe, expect } from 'vitest'
+import { markRaw } from 'vue'
+import validators from '@/validators'
+import TextFieldBuilder from '@/builders/fields/TextFieldBuilder'
 
-type TestField = FieldBase & {
-  type: 'test',
-  testKey: string
-}
-
-class TestBaseFieldBuilder extends BaseFieldBuilder<TestField, string> {
-  __default__: string = ''
-
-  constructor(name: string) {
-    super('test', name)
-  }
-
-  testKey (value: string): this {
-    this.data.testKey = value
-    return this
-  }
-
-  getRequiredKeys(): (keyof TestField)[] {
-    const keys = super.getRequiredKeys()
-    return [ ...keys, 'testKey' ]
-  }
-
-}
-
-function testField (name: string, model: string): TestBaseFieldBuilder {
-  return new TestBaseFieldBuilder(name).model(model)
-}
-
-function getBuilder (): TestBaseFieldBuilder {
-  return new TestBaseFieldBuilder('testField').model('testModel').testKey('test')
-}
+const builder = () => new TextFieldBuilder('n').model('m')
 
 describe('BaseFieldBuilder', () => {
 
-  describe('constructor', () => {
-
-    it('Should initialize with type, name and model', () => {
-      const field = testField('testField', 'testModel').testKey('test').build()
-
-      expect(field.type).toBe('test')
-      expect(field.name).toBe('testField')
-      expect(field.testKey).toBe('test')
-      expect(field.model).toBe('testModel')
-    })
-
-    it('Should initialize data as partial object', () => {
-      const builder = testField('testField', 'testModel').testKey('test')
-
-      expect(builder.__data__()).toEqual({
-        type: 'test',
-        testKey: 'test',
-        name: 'testField',
-        model: 'testModel'
-      })
-    })
-
+  it('Should return the builder instance from every setter', () => {
+    const b = builder()
+    for (const result of [
+      b.label('l'), b.labelIcon('icon'), b.noLabel(), b.hint('h'), b.required(), b.readonly(),
+      b.validator(validators.string), b.validateOn('onChanged'), b.onValidated(() => {})
+    ]) {
+      expect(result).toBe(b)
+    }
   })
 
-  describe('id()', () => {
-
-    it('Should properly set the id property', () => {
-      const builder = getBuilder()
-        .id('testId')
-
-      expect(builder.__data__().id).toBe('testId')
-      expect(builder.build().id).toBe('testId')
-    })
-
-    it('Should return builder instance', () => {
-      const builder = getBuilder().id('testId')
-      expect(builder).toBeInstanceOf(TestBaseFieldBuilder)
-    })
-
+  it('Should set label, hint and validateOn', () => {
+    const field = builder().label('Label').hint('Hint').validateOn('onChanged').build()
+    expect(field).toMatchObject({ label: 'Label', hint: 'Hint', validate: 'onChanged' })
   })
 
-  describe('label()', () => {
-
-    it('Should properly set the label property', () => {
-      const builder = getBuilder().label('testLabel')
-
-      expect(builder.__data__().label).toBe('testLabel')
-      expect(builder.build().label).toBe('testLabel')
-    })
-
-    it('Should return builder instance', () => {
-      const builder = getBuilder().label('testLabel')
-      expect(builder).toBeInstanceOf(TestBaseFieldBuilder)
-    })
-
+  it('Should accept a function as hint', () => {
+    const hint = () => 'Dynamic'
+    expect(builder().hint(hint).build().hint).toBe(hint)
   })
 
   describe('labelIcon()', () => {
 
-    it('Should properly set the labelIcon property', () => {
-      const builder = getBuilder().labelIcon('testIcon')
-
-      expect(builder.__data__().labelIcon).toBe('testIcon')
-      expect(builder.build().labelIcon).toBe('testIcon')
+    it('Should set a string or component', () => {
+      const component = markRaw({ template: '<i></i>' })
+      expect(builder().labelIcon('fa fa-user').build().labelIcon).toBe('fa fa-user')
+      expect(builder().labelIcon(component).build().labelIcon).toBe(component)
     })
 
-    it('Should be able to set component instance as labelIcon', () => {
-      const builder = getBuilder().labelIcon(FieldButton)
-
-      expect(builder.__data__().labelIcon).toBeDefined()
-      const field = builder.build()
-      // Verify that it is actually a component.
-      expect(field.labelIcon).toHaveProperty('__name', 'FieldButton')
-      expect(field.labelIcon).toBe(FieldButton)
+    it('Should accept a LabelIconDefinition', () => {
+      const icon = { icon: 'fa fa-user', position: 'right' } as const
+      expect(builder().labelIcon(icon).build().labelIcon).toStrictEqual(icon)
     })
 
-    it('Should be able to supply LabelDefinition as labelIcon', () => {
-      const builder = getBuilder().labelIcon({
-        icon: FieldButton,
-        position: 'right'
-      })
-
-      expect(builder.__data__().labelIcon).toBeDefined()
-      expect(builder.__data__().labelIcon['icon']).toBe(FieldButton)
-      expect(builder.__data__().labelIcon['position']).toBe('right')
-      const field = builder.build()
-      // Verify that it is actually a component.
-      expect(field.labelIcon).toHaveProperty('icon')
-      expect(field.labelIcon).toHaveProperty('position')
-      expect(field.labelIcon['icon']).toBe(FieldButton)
-    })
-
-    it('Should return builder instance', () => {
-      const builder = getBuilder().labelIcon('testLabel')
-      expect(builder).toBeInstanceOf(TestBaseFieldBuilder)
+    it('Should build a LabelIconDefinition when a position is given', () => {
+      expect(builder().labelIcon('fa fa-user', 'right').build().labelIcon)
+        .toStrictEqual({ icon: 'fa fa-user', position: 'right' })
     })
 
   })
 
-  describe('noLabel()', () => {
+  describe('boolean setters', () => {
 
-    it('Should properly set noLabel property', () => {
-      const builder = getBuilder().noLabel(true)
-      expect(builder.__data__().noLabel).toBe(true)
-      expect(builder.build().noLabel).toBe(true)
-      builder.noLabel(false)
-      expect(builder.__data__().noLabel).toBe(false)
-
-      expect(builder.build().noLabel).toBe(false)
+    it('Should default to true when called without argument', () => {
+      expect(builder().noLabel().required().readonly().build())
+        .toMatchObject({ noLabel: true, required: true, readonly: true })
     })
 
-    it('Should set noLabel property to true by default, if called', () => {
-      const builder = getBuilder()
-      expect(builder.__data__().noLabel).toBeUndefined()
-
-      builder.noLabel()
-      expect(builder.__data__().noLabel).toBe(true)
-      expect(builder.build().noLabel).toBe(true)
-    })
-
-    it('Should return builder instance', () => {
-      const builder = getBuilder().noLabel()
-      expect(builder).toBeInstanceOf(TestBaseFieldBuilder)
+    it('Should accept explicit values', () => {
+      expect(builder().noLabel(false).required(false).readonly(false).build())
+        .toMatchObject({ noLabel: false, required: false, readonly: false })
     })
 
   })
 
-  describe('hint()', () => {
+  describe('validator()', () => {
 
-    it('Should properly set the hint property', () => {
-      const builder = getBuilder()
-      expect(builder.__data__().hint).toBeUndefined()
-
-      builder.hint('testHint')
-      expect(builder.__data__().hint).toBe('testHint')
-      expect(builder.build().hint).toBe('testHint')
+    it('Should store a single validator as a function', () => {
+      expect(builder().validator(validators.email).build().validator).toBe(validators.email)
     })
 
-    it('Should be able to set function as hint property', () => {
-      const hintFn = () => 'testHint'
-      const builder = getBuilder().hint(hintFn)
-
-      expect(builder.__data__().hint).toBe(hintFn)
-      expect(builder.build().hint).toBe(hintFn)
+    it('Should store multiple validators as an array', () => {
+      expect(builder().validator(validators.required, validators.email).build().validator)
+        .toStrictEqual([ validators.required, validators.email ])
     })
 
-    it('Should return builder instance', () => {
-      const builder = getBuilder().hint('testHint')
-      expect(builder).toBeInstanceOf(TestBaseFieldBuilder)
+    it('Should append validators when called multiple times', () => {
+      expect(builder().validator(validators.required).validator(validators.email).build().validator)
+        .toStrictEqual([ validators.required, validators.email ])
     })
 
+  })
+
+
+  it('Should accept functions for required and readonly', () => {
+    const isRequired = () => true
+    const isReadonly = () => false
+    expect(builder().required(isRequired).readonly(isReadonly).build())
+      .toMatchObject({ required: isRequired, readonly: isReadonly })
+  })
+
+  it('Should set onValidated', () => {
+    const onValidated = () => {}
+    expect(builder().onValidated(onValidated).build().onValidated).toBe(onValidated)
+  })
+
+  it('Should ignore the position for a LabelIconDefinition', () => {
+    const icon = { icon: 'fa fa-user', position: 'left' } as const
+    expect(builder().labelIcon(icon, 'right').build().labelIcon).toStrictEqual(icon)
+  })
+
+  it('Should build a LabelIconDefinition for a component with a position', () => {
+    const component = markRaw({ template: '<i></i>' })
+    expect(builder().labelIcon(component, 'left').build().labelIcon).toStrictEqual({ icon: component, position: 'left' })
+  })
+
+  it('Should keep appending validators to an existing array', () => {
+    expect(builder().validator(validators.required, validators.email).validator(validators.string).build().validator)
+      .toStrictEqual([ validators.required, validators.email, validators.string ])
+  })
+
+  it('Should append to a validator set through extend()', () => {
+    expect(builder().extend({ validator: validators.required }).validator(validators.email).build().validator)
+      .toStrictEqual([ validators.required, validators.email ])
   })
 
 })
