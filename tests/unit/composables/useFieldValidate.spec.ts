@@ -2,6 +2,7 @@ import { it, describe, expect } from 'vitest'
 import { useFieldValidate, useFormModel } from '@/composables'
 import { generateSchemaSingleField } from '@test/_resources/utils.js'
 import validators from '@/validators'
+import { reactive } from 'vue'
 
 const schema = generateSchemaSingleField(
   'testField',
@@ -14,6 +15,7 @@ const schema = generateSchemaSingleField(
     validator: [ validators.required, validators.string ]
   }
 )
+schema.model = reactive(schema.model)
 
 describe('useFieldValidate', () => {
 

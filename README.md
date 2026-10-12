@@ -1,5 +1,6 @@
-# <img width="50" src="https://github.com/user-attachments/assets/1b793612-8ee9-46bf-bcd3-b233fec4b338">  Vue 3 Form Generator
-A schema-based form generator component for Vue 3, based on the original 
+# <img width="50" src="https://github.com/user-attachments/assets/1b793612-8ee9-46bf-bcd3-b233fec4b338"> Vue 3 Form Generator
+
+A schema-based form generator component for Vue 3, based on the original
 [`vue-form-generator`](https://github.com/vue-generators/vue-form-generator) library.
 
 [![GitHub last commit](https://img.shields.io/github/last-commit/kevinkosterr/vue3-form-generator?logo=github)](https://github.com/kevinkosterr/vue3-form-generator/commits/main/)
@@ -11,17 +12,21 @@ A schema-based form generator component for Vue 3, based on the original
 You can find documentation on the [documentation page](https://kevinkosterr.github.io/vue3-form-generator).
 
 ## Building for development
+
 1. Install the dependencies
+
 ```bash
-pnpm install
+bun install
 ```
+
 2. Create a schema inside the playground folder, for this you can copy `schema.example.js`.
+
 ```bash
 cp playground/schema.example.js playground/schema.js
 ```
+
 3. Run the development playground
+
 ```bash
-pnpm run dev 
+bun run dev
 ```
-
-

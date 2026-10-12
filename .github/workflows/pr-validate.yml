@@ -8,21 +8,21 @@ jobs:
   lint:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
-      - uses: ./.github/actions/setup-pnpm
+      - uses: actions/checkout@v7
+      - uses: ./.github/actions/setup-bun
       - name: Run linter
-        run: pnpm run lint
+        run: bun run lint
   test:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
-      - uses: ./.github/actions/setup-pnpm
+      - uses: actions/checkout@v7
+      - uses: ./.github/actions/setup-bun
       - name: Run tests
-        run: pnpm run test
+        run: bun run test
   build:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
-      - uses: ./.github/actions/setup-pnpm
+      - uses: actions/checkout@v7
+      - uses: ./.github/actions/setup-bun
       - name: Build
-        run: pnpm run build
+        run: bun run build
