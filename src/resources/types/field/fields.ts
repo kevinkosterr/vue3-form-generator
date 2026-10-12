@@ -95,6 +95,8 @@ export type ResetField = ButtonFieldBase & {
 }
 
 export type TextAreaField = FieldBase & PlaceholderField & {
+  type: 'textarea';
+  inputType: undefined;
   maxLength?: string;
   resizable?: boolean;
 }

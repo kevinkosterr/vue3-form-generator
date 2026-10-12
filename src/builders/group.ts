@@ -1,24 +1,35 @@
-import { BaseFieldBuilder } from '@/builders/base'
-import { FormGeneratorGroup } from '@/resources/types/generic'
+import type { AbstractBaseBuilder } from '@/builders/base'
+import type { FormGeneratorGroup } from '@/resources/types/generic'
 
 export interface IGroupBuilder {
   build (): FormGeneratorGroup
 }
 
+/**
+ * Builder for a group of fields. Usually created through `SchemaBuilder.group()`.
+ */
 export default class GroupBuilder implements IGroupBuilder {
   protected legend?: string = undefined
-  protected fields: BaseFieldBuilder<any>[] = []
+  protected fields: AbstractBaseBuilder<any, any>[] = []
 
-  constructor(fields: BaseFieldBuilder<any>[], legend?: string) {
+  constructor(fields: AbstractBaseBuilder<any, any>[], legend?: string) {
     this.fields = fields
-    if (this.legend) this.legend = legend
+    if (legend) this.legend = legend
+  }
+
+  /**
+   * Get an array of all fields in this group.
+   */
+  getFields (): AbstractBaseBuilder<any, any>[] {
+    return this.fields
   }
 
   build (): FormGeneratorGroup {
-    return {
-      legend: this.legend,
+    const group: FormGeneratorGroup = {
       fields: this.fields.map(field => field.build())
     }
+    if (this.legend) group.legend = this.legend
+    return group
   }
 
 }

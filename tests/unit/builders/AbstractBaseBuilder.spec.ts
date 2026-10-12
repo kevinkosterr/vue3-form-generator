@@ -47,6 +47,25 @@ describe('AbstractBaseBuilder', () => {
       expect(field).not.toBeInstanceOf(TestBaseBuilder)
     })
 
+    it('Should throw when required keys are missing', () => {
+      expect(() => new TestBaseBuilder('testName').build()).toThrowError(/model/)
+    })
+
+    it('Should throw when required keys are empty', () => {
+      expect(() => new TestBaseBuilder('testName').model('').build()).toThrowError(/model/)
+    })
+
+  })
+
+  describe('id(), visible(), disabled()', () => {
+
+    it('Should set the properties, defaulting booleans to true', () => {
+      const field = getBuilder().id('test-id').visible().disabled().build()
+      expect(field.id).toBe('test-id')
+      expect(field.visible).toBe(true)
+      expect(field.disabled).toBe(true)
+    })
+
   })
 
 })

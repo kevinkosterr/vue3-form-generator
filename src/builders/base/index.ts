@@ -7,8 +7,11 @@ export interface IAbstractBaseBuilder<F extends Field = Field, V = unknown> {
   extend (properties: Record<string, any>): this
   build (): F
   model (key: string): this
-  default (value: any): this
+  default (value: V): this
   getDefaultValue (): this['__default__']
+  id (value: NonNullable<FieldBase['id']>): this
+  visible (value?: FieldBase['visible']): this
+  disabled (value?: FieldBase['disabled']): this
 }
 
 /**
@@ -56,8 +59,37 @@ export abstract class AbstractBaseBuilder<F extends Field = Field, V = unknown> 
   /**
    * Set the initial value of the field.
    */
-  default (value: any): this {
+  default (value: V): this {
     this.__default__ = value
+    return this
+  }
+
+  /**
+   * Set the id property of the field.
+   * @param value
+   */
+  id (value: NonNullable<FieldBase['id']>): this {
+    this.data.id = value
+    return this
+  }
+
+  /**
+   * Set the visible property of the field.
+   * @param value
+   */
+  visible (value?: FieldBase['visible']): this {
+    if (value === undefined) value = true
+    this.data.visible = value
+    return this
+  }
+
+  /**
+   * Set the disabled property of the field.
+   * @param value
+   */
+  disabled (value?: FieldBase['disabled']): this {
+    if (value === undefined) value = true
+    this.data.disabled = value
     return this
   }
 
@@ -77,7 +109,8 @@ export abstract class AbstractBaseBuilder<F extends Field = Field, V = unknown> 
   build (): F {
     const requiredKeys: (keyof F)[] = this.getRequiredKeys()
     const missingKeys: (keyof F)[] = requiredKeys.filter((key: keyof F) => {
-      return !(key in this.data) && (this.data[key] === undefined || this.data[key] === null || this.data[key] === '')
+      const value = this.data[key] as unknown
+      return value === undefined || value === null || value === ''
     })
 
     if (missingKeys.length) {
@@ -90,15 +123,12 @@ export abstract class AbstractBaseBuilder<F extends Field = Field, V = unknown> 
 }
 
 export interface IBaseFieldBuilder<F extends Field = Field, V = unknown> extends IAbstractBaseBuilder<F, V> {
-  id (value: NonNullable<FieldBase['id']>): this
   label(value: NonNullable<FieldBase['label']>): this
   labelIcon (value: NonNullable<FieldBase['labelIcon']>): this
   noLabel (value?: FieldBase['noLabel']): this
   hint (value: NonNullable<FieldBase['hint']>): this
   required (value?: NonNullable<FieldBase['required']>): this
-  visible (value?: FieldBase['visible']): this
   readonly (value?: FieldBase['readonly']): this
-  disabled (value?: FieldBase['disabled']): this
   validator (value?: NonNullable<FieldBase['validator']>): this
   onValidated (value: NonNullable<FieldBase['onValidated']>): this
   validateOn (value: NonNullable<FieldBase['validate']>): this
@@ -108,15 +138,6 @@ export interface IBaseFieldBuilder<F extends Field = Field, V = unknown> extends
  * Base class for most FieldBuilder classes.
  */
 export abstract class BaseFieldBuilder<F extends Field = Field, V = unknown> extends AbstractBaseBuilder<F, V> implements IBaseFieldBuilder<F, V> {
-
-  /**
-   * Set the id property of the field.
-   * @param value
-   */
-  id (value: NonNullable<FieldBase['id']>): this {
-    this.data.id = value
-    return this
-  }
 
   /**
    * Set the label property of the field.
@@ -166,32 +187,12 @@ export abstract class BaseFieldBuilder<F extends Field = Field, V = unknown> ext
   }
 
   /**
-   * Set the visible property of the field.
-   * @param value
-   */
-  visible (value?: FieldBase['visible']): this {
-    if (value === undefined) value = true
-    this.data.visible = value
-    return this
-  }
-
-  /**
    * Set the readonly property of the field.
    * @param value
    */
   readonly (value?: FieldBase['readonly']): this {
     if (value === undefined) value = true
     this.data.readonly = value
-    return this
-  }
-
-  /**
-   * Set the disabled property of the field.
-   * @param value
-   */
-  disabled (value?: FieldBase['disabled']): this {
-    if (value === undefined) value = true
-    this.data.disabled = value
     return this
   }
 
