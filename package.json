@@ -68,6 +68,6 @@
   },
   "dependencies": {
     "@vueuse/core": "^14.4.0",
-    "maska": "^3.2.0"
+    "maska": "^3.2.2"
   }
 }
