@@ -44,7 +44,7 @@
     "@types/bun": "latest",
     "@typescript-eslint/parser": "^8.64.0",
     "@vitejs/plugin-vue": "^6.0.10",
-    "@vitest/ui": "^3.2.4",
+    "@vitest/ui": "^3.2.7",
     "@vue/language-core": "^3.3.13",
     "@vue/test-utils": "^2.5.1",
     "clipboard": "^2.0.11",
