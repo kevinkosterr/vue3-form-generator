@@ -67,7 +67,7 @@
     "vue3-json-viewer": "^2.4.1"
   },
   "dependencies": {
-    "@vueuse/core": "^14.3.0",
+    "@vueuse/core": "^14.4.0",
     "maska": "^3.2.0"
   }
 }
