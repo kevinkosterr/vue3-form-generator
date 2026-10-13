@@ -13,6 +13,7 @@
     "dev:sass": "sass --watch src/scss/themes:apps/playground/css/",
     "test": "vitest",
     "test:ui": "vitest --ui",
+    "test:coverage": "npx vitest --coverage",
     "lint": "eslint",
     "build": "tsc --noEmit && vite build && sass src/scss/themes/:dist/themes/",
     "preview": "vite preview",
