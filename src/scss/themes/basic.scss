@@ -1,9 +1,9 @@
 @use 'sass:color';
 
-@import '../modules/base';
-@import '../modules/colors';
-@import '../shared/fieldSelect';
-@import '../shared/fieldColor';
+@use '../modules/base';
+@use '../modules/colors' as *;
+@use '../shared/fieldSelect';
+@use '../shared/fieldColor';
 
 $input-padding: .3rem .4rem;
 
