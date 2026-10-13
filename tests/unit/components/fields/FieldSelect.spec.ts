@@ -2,7 +2,7 @@ import { generateSchemaSingleField, generatePropsSingleField, mountFormGenerator
 import { mount, config } from '@vue/test-utils'
 import { describe, it, expect, beforeAll } from 'vitest'
 
-import FieldSelect from '@/fields/core/FieldSelect.vue'
+import FieldSelect from '@/fields/FieldSelect.vue'
 
 const form = generateSchemaSingleField(
   'testSelect',

@@ -5,7 +5,7 @@ import { FormGeneratorSchema, FormOptions } from '@/resources/types/generic'
 
 export type NumberField = FieldBase & InputField & FieldMinMax & {
   inputType: 'number';
-  placeholder: string;
+  placeholder?: string;
   step?: number;
 }
 
@@ -95,7 +95,9 @@ export type ResetField = ButtonFieldBase & {
 }
 
 export type TextAreaField = FieldBase & PlaceholderField & {
-  maxLength?: string;
+  type: 'textarea';
+  inputType: undefined;
+  maxLength?: number | string;
   resizable?: boolean;
 }
 

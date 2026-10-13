@@ -3,7 +3,7 @@ import { describe, it, expect, beforeAll } from 'vitest'
 import { mount, config } from '@vue/test-utils'
 import validators from '@/validators'
 
-import FieldPassword from '@/fields/core/FieldPassword.vue'
+import FieldPassword from '@/fields/FieldPassword.vue'
 
 const form = generateSchemaSingleField(
   'passwordTest',

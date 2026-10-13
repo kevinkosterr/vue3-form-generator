@@ -51,6 +51,14 @@ of the masked value.
 :::
 <FieldMaskExample unmasked/>
 
+## Using the schema builder
+See [Schema builder](/guide/introduction/schema-builder) for more information.
+```typescript
+f.schema({
+  date: f.mask().label('Date').mask('##-##-####').placeholder('dd-mm-yyyy')
+})
+```
+
 ## Masks, other options and validators
 ::: warning
 Please keep in mind that the model value will be used inside validators. This means if you use the `unmasked` option, the

@@ -18,6 +18,14 @@ import FieldSubmitExample from '/components/examples/fields/FieldSubmitExample.v
 :::
 <FieldSubmitExample />
 
+## Using the schema builder
+See [Schema builder](/guide/introduction/schema-builder) for more information.
+```typescript
+f.schema({
+  submit: f.submit().buttonText('Send')
+})
+```
+
 ## Properties
 | Property      | Default | Type     | Description                   |
 |---------------|---------|----------|-------------------------------|

@@ -6,7 +6,7 @@ import {
 import { mount, config } from '@vue/test-utils'
 import { describe, it, expect, beforeAll } from 'vitest'
 
-import FieldColor from '@/fields/core/FieldColor.vue'
+import FieldColor from '@/fields/FieldColor.vue'
 
 const form = generateSchemaSingleField(
   'testColor',

@@ -4,10 +4,10 @@ import { generateSchemaSingleField, clearEmittedEvents } from '@test/_resources/
 import { mountFormGenerator } from '@test/_resources/utils.js'
 
 import FormGenerator from '@/FormGenerator.vue'
-import FieldText from '@/fields/core/FieldText.vue'
-import FieldTextarea from '@/fields/core/FieldTextarea.vue'
-import FieldSubmit from '@/fields/core/FieldSubmit.vue'
-import FieldReset from '@/fields/core/FieldReset.vue'
+import FieldText from '@/fields/FieldText.vue'
+import FieldTextarea from '@/fields/FieldTextarea.vue'
+import FieldSubmit from '@/fields/FieldSubmit.vue'
+import FieldReset from '@/fields/FieldReset.vue'
 
 beforeAll(() => {
   config.global.components = { FieldText, FieldTextarea, FieldSubmit, FieldReset }

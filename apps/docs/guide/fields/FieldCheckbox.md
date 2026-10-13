@@ -11,5 +11,13 @@ import FieldCheckboxExample from '/components/examples/fields/FieldCheckboxExamp
 
 <FieldCheckboxExample />
 
+## Using the schema builder
+See [Schema builder](/guide/introduction/schema-builder) for more information.
+```typescript
+f.schema({
+  accept: f.checkbox().label('I accept the terms')
+})
+```
+
 ## Properties
 <!--@include: @/parts/shared-field-properties.md-->

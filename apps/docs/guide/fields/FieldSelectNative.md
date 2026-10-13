@@ -25,6 +25,14 @@ import FieldSelectNativeExample from '/components/examples/fields/FieldSelectNat
 
 <FieldSelectNativeExample />
 
+## Using the schema builder
+See [Schema builder](/guide/introduction/schema-builder) for more information.
+```typescript
+f.schema({
+  city: f.selectNative().label('Which city is cool?').options({ SF: 'San Francisco', AMS: 'Amsterdam' })
+})
+```
+
 ## Properties
 ::: details Shared properties
 <!--@include: @/parts/shared-field-properties.md-->

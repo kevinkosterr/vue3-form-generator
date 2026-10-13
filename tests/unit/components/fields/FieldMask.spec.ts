@@ -6,7 +6,7 @@ import {
 import { mount, config } from '@vue/test-utils'
 import { describe, it, expect, beforeAll } from 'vitest'
 
-import FieldMask from '@/fields/core/FieldMask.vue'
+import FieldMask from '@/fields/FieldMask.vue'
 
 const form = generateSchemaSingleField(
   'testMask',

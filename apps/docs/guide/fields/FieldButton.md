@@ -53,6 +53,14 @@ import FieldButtonExample from '/components/examples/fields/FieldButtonExample.v
 
 <FieldButtonExampleWithSideEffect />
 
+## Using the schema builder
+See [Schema builder](/guide/introduction/schema-builder) for more information.
+```typescript
+f.schema({
+  save: f.button().buttonText('Save').buttonClasses('btn').onClick((model) => console.log(model))
+})
+```
+
 ## Properties
 | Property      | Default | Type       | Description                                                                    |
 |---------------|---------|------------|--------------------------------------------------------------------------------|

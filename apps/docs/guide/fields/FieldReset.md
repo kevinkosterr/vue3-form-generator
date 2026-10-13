@@ -23,6 +23,14 @@ import FieldResetExample from '/components/examples/fields/FieldResetExample.vue
 
 
 
+## Using the schema builder
+See [Schema builder](/guide/introduction/schema-builder) for more information.
+```typescript
+f.schema({
+  reset: f.reset().buttonText('Clear form')
+})
+```
+
 ## Properties
 | Property      | Default | Type     | Description                   |
 |---------------|---------|----------|-------------------------------|

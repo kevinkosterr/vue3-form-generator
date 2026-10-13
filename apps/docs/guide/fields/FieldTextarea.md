@@ -34,6 +34,14 @@ To make your textarea fields resizable, simply add `resizable: true` to the fiel
 :::
 <FieldTextAreaExample resizable/>
 
+## Using the schema builder
+See [Schema builder](/guide/introduction/schema-builder) for more information.
+```typescript
+f.schema({
+  bio: f.textarea().label('Bio').maxLength(200).resizable()
+})
+```
+
 ## Properties
 ::: details Shared properties
 <!--@include: @/parts/shared-field-properties.md-->

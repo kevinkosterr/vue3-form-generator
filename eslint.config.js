@@ -10,7 +10,7 @@ export default [
   ...pluginVue.configs['flat/recommended'],
   ...typescriptEslint.configs['recommended'],
   {
-    ignores: [ 'dist' ]
+    ignores: [ 'dist', 'apps' ]
   },
   {
     languageOptions: {

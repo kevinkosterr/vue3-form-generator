@@ -106,6 +106,17 @@ In this example, `name` and `surname` must have a length of three letters or mor
 <FieldObjectExample add-validators/>
 
 
+## Using the schema builder
+See [Schema builder](/guide/introduction/schema-builder) for more information.
+```typescript
+f.schema({
+  address: f.object({
+    street: f.text().label('Street'),
+    city: f.text().label('City')
+  }).label('Address')
+})
+```
+
 ## Properties
 | Property | Default | Type     | Description                                 |
 |----------|---------|----------|---------------------------------------------|

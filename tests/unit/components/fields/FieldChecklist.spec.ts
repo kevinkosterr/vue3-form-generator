@@ -2,7 +2,7 @@ import { mountFormGenerator, generatePropsSingleField, generateSchemaSingleField
 import { it, describe, expect, beforeAll } from 'vitest'
 import { config, mount } from '@vue/test-utils'
 
-import FieldChecklist from '@/fields/core/FieldChecklist.vue'
+import FieldChecklist from '@/fields/FieldChecklist.vue'
 
 const form = generateSchemaSingleField(
   'checklistTest',

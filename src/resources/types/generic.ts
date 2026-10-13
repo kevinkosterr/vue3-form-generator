@@ -24,14 +24,20 @@ export type FieldPluginOptions = {
   excludedComponents?: PluginOptions['excludedComponents'];
 }
 
-export type FormGeneratorSchema = {
-  model: FormModel;
+export type FormGeneratorGroup = {
+  legend?: string;
+  fields: Field[];
+}
+
+export type FormGeneratorSchema<
+  M extends FormModel = FormModel,
+  F extends Field = Field,
+  G extends FormGeneratorGroup = FormGeneratorGroup
+> = {
+  model: M;
   schema: {
-    fields?: Field[];
-    groups?: {
-      legend: string;
-      fields: Field[];
-    }[]
+    fields?: F[];
+    groups?: G[];
   },
 }
 

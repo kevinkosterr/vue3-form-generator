@@ -49,6 +49,15 @@ To allow for multiple values to be selected, simply add `multiple: true` to your
 You can hold CTRL key (or COMMAND key on Mac) when selecting a value to prevent the options dropdown from closing
 :::
 
+## Using the schema builder
+See [Schema builder](/guide/introduction/schema-builder) for more information.
+```typescript
+f.schema({
+  city: f.select().label('Which city is cool?').options({ SF: 'San Francisco', AMS: 'Amsterdam', NYC: 'New York' })
+  // Add .multiple() to allow multiple values
+})
+```
+
 ## Properties
 ::: details Shared properties
 <!--@include: @/parts/shared-field-properties.md-->

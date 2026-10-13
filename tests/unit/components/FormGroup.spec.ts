@@ -1,6 +1,6 @@
 import { expect, it, describe, beforeAll } from 'vitest'
 import { mount, config } from '@vue/test-utils'
-import FieldText from '@/fields/core/FieldText.vue'
+import FieldText from '@/fields/FieldText.vue'
 import FormGroup from '@/FormGroup.vue'
 import { generateSchemaSingleField } from '@test/_resources/utils.js'
 

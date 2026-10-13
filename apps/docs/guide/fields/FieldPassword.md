@@ -37,6 +37,14 @@ You can show a strength indicator by setting `indicator: true`. The strength ind
 :::
 <FieldPasswordExample has-indicator />
 
+## Using the schema builder
+See [Schema builder](/guide/introduction/schema-builder) for more information.
+```typescript
+f.schema({
+  password: f.password().label('Password').min(8).indicator()
+})
+```
+
 ## Properties
 ::: details Shared properties
 <!--@include: @/parts/shared-field-properties.md-->

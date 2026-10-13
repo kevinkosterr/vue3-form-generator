@@ -25,6 +25,14 @@ import FieldChecklistExample from '/components/examples/fields//FieldChecklistEx
 :::
 <FieldChecklistExample />
 
+## Using the schema builder
+See [Schema builder](/guide/introduction/schema-builder) for more information.
+```typescript
+f.schema({
+  roles: f.checklist().label('Roles').options({ admin: 'Administrator', user: 'User' })
+})
+```
+
 ## Properties
 ::: details Shared properties
 <!--@include: @/parts/shared-field-properties.md-->
