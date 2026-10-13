@@ -48,7 +48,7 @@
     "@vue/language-core": "^3.3.13",
     "@vue/test-utils": "^2.5.1",
     "clipboard": "^2.0.11",
-    "eslint": "^10.7.0",
+    "eslint": "^10.12.0",
     "eslint-plugin-import-alias": "^1.2.0",
     "eslint-plugin-vue": "^10.9.2",
     "jsdom": "^25.0.1",
