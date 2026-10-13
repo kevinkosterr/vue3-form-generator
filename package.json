@@ -43,7 +43,7 @@
     "@stylistic/eslint-plugin": "^5.10.0",
     "@types/bun": "latest",
     "@typescript-eslint/parser": "^8.64.0",
-    "@vitejs/plugin-vue": "^6.0.8",
+    "@vitejs/plugin-vue": "^6.0.10",
     "@vitest/ui": "^3.2.4",
     "@vue/language-core": "^3.3.13",
     "@vue/test-utils": "^2.5.1",
