@@ -46,7 +46,7 @@
     "@vitejs/plugin-vue": "^6.0.8",
     "@vitest/ui": "^3.2.4",
     "@vue/language-core": "^3.3.13",
-    "@vue/test-utils": "^2.4.11",
+    "@vue/test-utils": "^2.5.1",
     "clipboard": "^2.0.11",
     "eslint": "^10.7.0",
     "eslint-plugin-import-alias": "^1.2.0",
